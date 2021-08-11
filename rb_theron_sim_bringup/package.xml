@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>rb_theron_sim_bringup</name>
+  <version>0.0.0</version>
+  <description>The rb_theron_sim_bringup package</description>
+
+  <maintainer email="info@robotnik.es">Robotnik</maintainer>
+
+  <license>BSD</license>
+
+  <!-- <url type="website">http://wiki.ros.org/robotnik_move_base</url> -->
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>rb_theron_gazebo</depend>
+  <depend>roscpp</depend>
+  <build_depend>rcomponent</build_depend>
+  <build_depend>robotnik_msgs</build_depend>
+  <exec_depend>rcomponent</exec_depend>
+  <exec_depend>robotnik_msgs</exec_depend>
+
+</package>

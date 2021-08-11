@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<launch>
+
+	<!-- arg to config the launch file-->
+	<arg name="launch_rviz" default="true"/>
+	<arg name="gazebo_world" default="$(find rb_theron_gazebo)/worlds/rb_theron_office.world"/>
+	<!-- <arg name="launch_base_hw_sim" default="true"/> -->
+	<arg name="use_ros_planar_move_plugin" default="false"/>
+
+	<!-- arguments robot-->
+	<arg name="id_robot" default="robot"/>
+	<arg name="launch_robot" default="true"/>
+	<arg name="xacro_robot" value="rb_theron.urdf.xacro"/>
+
+	<arg name="x_init_pose" default="0.0" />
+	<arg name="y_init_pose" default="0.0" />
+	<arg name="z_init_pose" default="0.15" />
+	<arg name="init_yaw" default="0.0" />
+	<arg name="gmapping" default="false"/>
+	<arg name="amcl" default="false"/>
+	<arg name="mapserver" default="false"/>
+	<arg name="map_frame" default="$(arg id_robot)_map"/>
+	<arg name="map_file" default=""/>
+	<arg name="move_base" default="false"/>
+	<arg name="navigation" default="true"/>
+	<arg name="pad" default="true"/>
+	<arg name="perception" default="true"/>
+	<arg name="reflector_locator" default="false"/>
+	<arg name="rlc" default="true"/>
+	<arg name="rostful" default="false"/>
+	<arg name="rostful_host" default="192.168.0.200"/>
+	<arg name="rostful_port" default="8080"/>
+
+	<include file="$(find rb_theron_gazebo)/launch/rb_theron_gazebo.launch">
+		<!-- general args -->
+		<arg name="launch_rviz" value="$(arg launch_rviz)"/>
+		<arg name="gazebo_world" value="$(arg gazebo_world)"/>
+		<!-- <arg name="launch_base_hw_sim" value="$(arg launch_base_hw_sim)"/> -->
+		<arg name="use_ros_planar_move_plugin" value="$(arg use_ros_planar_move_plugin)"/>
+
+		<!-- robot args -->
+		<arg name="id_robot" default="$(arg id_robot)"/>
+		<arg name="xacro_robot" value="$(arg xacro_robot)"/>
+
+		<arg name="x_init_pose" value="$(arg x_init_pose)" />
+		<arg name="y_init_pose" value="$(arg y_init_pose)" />
+		<arg name="z_init_pose" value="$(arg z_init_pose)" />
+		<arg name="init_yaw" value="$(arg init_yaw)" />
+		<arg name="gmapping" value="$(arg gmapping)"/>
+		<arg name="amcl" value="$(arg amcl)"/>
+		<arg name="mapserver" value="$(arg mapserver)"/>
+		<arg name="map_frame" value="$(arg map_frame)"/>
+		<arg name="map_file" value="$(arg map_file)"/>
+		<arg name="move_base" value="$(arg move_base)"/>
+		<arg name="navigation" value="$(arg navigation)"/>
+		<arg name="pad" value="$(arg pad)"/>
+		<arg name="perception" value="$(arg perception)"/>
+		<arg name="reflector_locator" value="$(arg reflector_locator)"/>
+		<arg name="rlc" value="$(arg rlc)"/>
+		<arg name="rostful" value="$(arg rostful)"/>
+		<arg name="rostful_host" value="$(arg rostful_host)"/>
+		<arg name="rostful_port" value="$(arg rostful_port)"/>
+	</include>
+
+</launch>

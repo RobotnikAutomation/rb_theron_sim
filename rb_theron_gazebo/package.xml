@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>rb_theron_gazebo</name>
+  <version>0.0.0</version>
+  <description>The rb_theron_gazebo package</description>
+
+  <maintainer email="info@robotnik.com">Robotnik</maintainer>
+
+  <license>BSD</license>
+
+  <!-- <url type="website">http://wiki.ros.org/robotnik_move_base</url> -->
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>battery_estimation</depend>
+  <depend>charge_manager</depend>
+  <depend>gazebo_ros</depend>
+  <depend>rb_theron_control</depend>
+  <depend>rb_theron_description</depend>
+  <depend>rb_theron_localization</depend>
+  <depend>rb_theron_navigation</depend>
+  <depend>rb_theron_pad</depend>
+  <depend>rb_theron_perception</depend>
+  <depend>rb_theron_robot_local_control</depend>
+  <depend>robot_state_publisher</depend>
+  <depend>robotnik_base_hw_sim</depend>
+  <depend>roscpp</depend>
+  <depend>rviz</depend>
+  <depend>xacro</depend>
+  <build_depend>rcomponent</build_depend>
+  <build_depend>robotnik_msgs</build_depend>
+  <exec_depend>rcomponent</exec_depend>
+  <exec_depend>robotnik_msgs</exec_depend>
+
+</package>
