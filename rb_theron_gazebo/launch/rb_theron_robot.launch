@@ -3,7 +3,7 @@
 
 	<arg name="id_robot" default="robot"/>
 	<arg name="prefix" value="$(arg id_robot)_"/>
-	<arg name="xacro_robot" default="differential.urdf.xacro"/>
+	<arg name="xacro_robot" default="rb_theron.urdf.xacro"/>
 
 
 	<arg name="x_init_pose" default="0"/>
@@ -15,7 +15,7 @@
 	<arg name="launch_amcl" default="false"/>
 	<arg name="launch_mapserver" default="false"/>
 	<arg name="global_frame" default="$(arg prefix)map"/>
-	<arg name="map_file" default="$(find rb_theron_localization)/maps/empty/empty.yaml"/>
+	<arg name="map_file" default="$(find rb_theron_localization)/maps/willow_garage/willow_garage.yaml"/>
 	<arg name="launch_move_base" default="false"/>
 	<arg name="launch_navigation" default="true"/>
 	<arg name="launch_pad" default="false"/>
@@ -34,7 +34,7 @@
 	<group ns="$(arg id_robot)">
 
 		<!-- Load the URDF into the ROS Parameter Server -->
-		<param name="robot_description" command="$(find xacro)/xacro '$(find rb_theron_description)/robots/versions/$(arg xacro_robot)' prefix:=$(arg prefix) ros_planar_move_plugin:=$(arg use_ros_planar_move_plugin) --inorder"/>
+		<param name="robot_description" command="$(find xacro)/xacro '$(find rb_theron_description)/robots/$(arg xacro_robot)' prefix:=$(arg prefix) ros_planar_move_plugin:=$(arg use_ros_planar_move_plugin) --inorder"/>
 
 		<!-- Spawner model into gazebo -->
 		<node name="urdf_spawner_rb_theron_model" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-x $(arg x_init_pose) -y $(arg y_init_pose) -z $(arg z_init_pose) -Y $(arg init_yaw) -urdf -param robot_description -model $(arg id_robot)" />
@@ -53,7 +53,7 @@
 		</include>
 
 		<!-- robot_localization nodes, publishes transformation world->odom->base_footprint -->
-		<include file="$(find rb_theron_localization)/launch/rb_theron_localization_basic.launch"/>
+		<!-- <include file="$(find rb_theron_localization)/launch/rb_theron_localization_basic.launch"/> -->
 
 		<!-- pad -->
 		<include file="$(find rb_theron_pad)/launch/rb_theron_pad.launch"/>
@@ -70,7 +70,7 @@
 		</include>
 
 		<include if="$(arg launch_amcl)" file="$(find rb_theron_localization)/launch/amcl.launch">
-			<arg name="scan_topic" value="front_rgbd_camera/point_cloud_scan"/>
+			<arg name="scan_topic" value="front_laser/scan"/>
 			<arg name="global_frame" value="$(arg global_frame)"/>
 			<arg name="prefix" value="$(arg prefix)"/>
 			<arg name="x_init_pose" value="$(arg x_init_pose)"/>
@@ -80,7 +80,7 @@
 		</include>
 
 		<!-- move base -->
-		<include if="$(arg launch_move_base)" file="$(find rb_theron_navigation)/launch/dual_move_base.launch">
+		<include if="$(arg launch_move_base)" file="$(find rb_theron_navigation)/launch/move_base.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
 			<arg name="global_frame" value="$(arg global_frame)"/>
 		</include>

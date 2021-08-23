@@ -15,7 +15,7 @@
 	<!--params of the robot-->
 	<!--rb_theron-->
 	<arg name="id_robot" default="robot"/>
-	<arg name="xacro_robot" default="differential.urdf.xacro"/>
+	<arg name="xacro_robot" default="rb_theron.urdf.xacro"/>
 
 	<!-- orientation start 10 deg deviated -->
 	<!-- arg name="x_init_pose_robot" default="-0.75" />
@@ -31,7 +31,7 @@
 	<arg name="gmapping" default="false"/>
 	<arg name="amcl" default="false"/>
 	<arg name="mapserver" default="false"/>
-	<arg name="map_file" default="$(find rb_theron_localization)/maps/empty/map_empty.yaml"/>
+	<arg name="map_file" default="$(find rb_theron_localization)/maps/willow_garage/willow_garage.yaml"/>
 	<arg name="map_frame" default="$(arg id_robot)_map"/>
 	<arg name="move_base" default="false"/>
 	<arg name="navigation" default="false"/>
