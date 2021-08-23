@@ -48,10 +48,7 @@ Launch files that launch the complete simulation of the robot
   <arg name="map_frame" default="$(arg id_robot)_map"/>
   <arg name="map_file" default="$(find rb_theron_localization)/maps/willow_garage/willow_garage.yaml"/>
   <arg name="move_base" default="true"/>
-  <arg name="navigation" default="true"/>
   <arg name="pad" default="true"/>
-  <arg name="perception" default="true"/>
-  <arg name="rlc" default="true"/>
   ```
 
 3. Enjoy! You can use the topic "${id_robot}/robotnik_base_control/cmd_vel" to control the Rb-Theron robot or send simple goals using "/${id_robot}/move_base_simple/goal"
