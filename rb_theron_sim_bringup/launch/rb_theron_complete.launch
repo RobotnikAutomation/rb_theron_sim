@@ -17,13 +17,12 @@
 	<arg name="z_init_pose" default="0.15" />
 	<arg name="init_yaw" default="0.0" />
 	<arg name="gmapping" default="false"/>
-	<arg name="amcl" default="false"/>
-	<arg name="mapserver" default="false"/>
+	<arg name="amcl" default="true"/>
+	<arg name="mapserver" default="true"/>
 	<arg name="map_frame" default="$(arg id_robot)_map"/>
-	<arg name="map_file" default=""/>
-	<arg name="move_base" default="false"/>
+	<arg name="map_file" default="$(find rb_theron_localization)/maps/willow_garage/willow_garage.yaml"/>
+	<arg name="move_base" default="true"/>
 	<arg name="pad" default="true"/>
-
 
 	<include file="$(find rb_theron_gazebo)/launch/rb_theron_gazebo.launch">
 		<!-- general args -->

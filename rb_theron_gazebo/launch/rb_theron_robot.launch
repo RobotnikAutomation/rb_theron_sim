@@ -14,7 +14,7 @@
 	<arg name="launch_amcl" default="false"/>
 	<arg name="launch_mapserver" default="false"/>
 	<arg name="global_frame" default="$(arg prefix)map"/>
-	<arg name="map_file" default="$(find rb_theron_localization)/maps/empty/empty.yaml"/>
+	<arg name="map_file" default="$(find rb_theron_localization)/maps/willow_garage/willow_garage.yaml"/>
 	<arg name="launch_move_base" default="false"/>
 	<arg name="launch_pad" default="false"/>
 	<arg name="scan_topic" default="front_laser/scan"/>
@@ -47,7 +47,7 @@
 		</include>
 
 		<!-- robot_localization nodes, publishes transformation world->odom->base_footprint -->
-		<include file="$(find rb_theron_localization)/launch/rb_theron_localization_basic.launch"/>
+		<!-- <include file="$(find rb_theron_localization)/launch/rb_theron_localization_basic.launch"/> -->
 
 		<!-- pad -->
 		<include file="$(find rb_theron_pad)/launch/rb_theron_pad.launch"/>
@@ -58,7 +58,6 @@
 
 		<!-- amcl and map server base-->
 		<include if="$(arg launch_mapserver)" file="$(find rb_theron_localization)/launch/map_server.launch">
-			<arg name="prefix" value="$(arg prefix)"/>
 			<arg name="map_file" value="$(arg map_file)"/>
 			<arg name="frame_id" value="$(arg global_frame)"/>
 		</include>
@@ -85,7 +84,5 @@
 		</include>
 
 	</group>
-
-
 
 </launch>
