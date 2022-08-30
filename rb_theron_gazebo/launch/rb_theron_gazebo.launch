@@ -15,13 +15,7 @@
 	<!--params of the robot-->
 	<!--rb_theron-->
 	<arg name="id_robot" default="robot"/>
-	<arg name="xacro_robot" default="differential.urdf.xacro"/>
-
-	<!-- orientation start 10 deg deviated -->
-	<!-- arg name="x_init_pose_robot" default="-0.75" />
-	<arg name="y_init_pose_robot" default="-0.5" />
-	<arg name="z_init_pose_robot" default="0" />
-	<arg name="yaw_init_pose_robot" default="0.174532925"/ -->
+	<arg name="xacro_robot" default="rb_theron.urdf.xacro"/>
 
 	<arg name="x_init_pose" default="0.0" />
 	<arg name="y_init_pose" default="0.0" />
