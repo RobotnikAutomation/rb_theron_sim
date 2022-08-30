@@ -22,14 +22,8 @@
 	<arg name="map_frame" default="$(arg id_robot)_map"/>
 	<arg name="map_file" default=""/>
 	<arg name="move_base" default="false"/>
-	<arg name="navigation" default="true"/>
 	<arg name="pad" default="true"/>
-	<arg name="perception" default="true"/>
-	<arg name="reflector_locator" default="false"/>
-	<arg name="rlc" default="true"/>
-	<arg name="rostful" default="false"/>
-	<arg name="rostful_host" default="192.168.0.200"/>
-	<arg name="rostful_port" default="8080"/>
+
 
 	<include file="$(find rb_theron_gazebo)/launch/rb_theron_gazebo.launch">
 		<!-- general args -->
@@ -52,14 +46,7 @@
 		<arg name="map_frame" value="$(arg map_frame)"/>
 		<arg name="map_file" value="$(arg map_file)"/>
 		<arg name="move_base" value="$(arg move_base)"/>
-		<arg name="navigation" value="$(arg navigation)"/>
 		<arg name="pad" value="$(arg pad)"/>
-		<arg name="perception" value="$(arg perception)"/>
-		<arg name="reflector_locator" value="$(arg reflector_locator)"/>
-		<arg name="rlc" value="$(arg rlc)"/>
-		<arg name="rostful" value="$(arg rostful)"/>
-		<arg name="rostful_host" value="$(arg rostful_host)"/>
-		<arg name="rostful_port" value="$(arg rostful_port)"/>
 	</include>
 
 </launch>

@@ -28,14 +28,7 @@
 	<arg name="map_file" default="$(find rb_theron_localization)/maps/empty/map_empty.yaml"/>
 	<arg name="map_frame" default="$(arg id_robot)_map"/>
 	<arg name="move_base" default="false"/>
-	<arg name="navigation" default="false"/>
 	<arg name="pad" default="false"/>
-	<arg name="perception" default="false"/>
-	<arg name="reflector_locator" default="false"/>
-	<arg name="rlc" default="false"/>
-	<arg name="rostful" default="false"/>
-	<arg name="rostful_host" default="192.168.0.200"/>
-	<arg name="rostful_port" default="8080"/>
 
 	<!--BEGIN rb_theron-->
 	<include file="$(find rb_theron_gazebo)/launch/rb_theron_robot.launch">
@@ -45,21 +38,13 @@
 		<arg name="y_init_pose" value="$(arg y_init_pose)"/>
 		<arg name="z_init_pose" value="$(arg z_init_pose)"/>
 		<arg name="init_yaw" value="$(arg init_yaw)"/>
-
 		<arg name="launch_gmapping" value="$(arg gmapping)"/>
 		<arg name="launch_amcl" value="$(arg amcl)"/>
 		<arg name="launch_mapserver" value="$(arg mapserver)"/>
 		<arg name="map_file" value="$(arg map_file)"/>
 		<arg name="global_frame" value="$(arg map_frame)"/>
 		<arg name="launch_move_base" value="$(arg move_base)"/>
-		<arg name="launch_navigation" value="$(arg navigation)"/>
 		<arg name="launch_pad" value="$(arg pad)"/>
-		<arg name="launch_perception" value="$(arg perception)"/>
-		<arg name="launch_reflector_locator" value="$(arg reflector_locator)"/>
-		<arg name="launch_rlc" value="$(arg rlc)"/>
-		<arg name="launch_rostful" value="$(arg rostful)"/>
-		<arg name="rostful_host" value="$(arg rostful_host)"/>
-		<arg name="rostful_port" value="$(arg rostful_port)"/>
 		<!-- <arg name="launch_base_hw_sim" value="$(arg launch_base_hw_sim)"/> -->
 		<arg name="use_ros_planar_move_plugin" value="$(arg use_ros_planar_move_plugin)"/>
 	</include>

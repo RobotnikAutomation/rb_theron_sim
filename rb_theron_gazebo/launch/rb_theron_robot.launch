@@ -16,15 +16,10 @@
 	<arg name="global_frame" default="$(arg prefix)map"/>
 	<arg name="map_file" default="$(find rb_theron_localization)/maps/empty/empty.yaml"/>
 	<arg name="launch_move_base" default="false"/>
-	<arg name="launch_navigation" default="true"/>
 	<arg name="launch_pad" default="false"/>
-	<arg name="launch_perception" default="true"/>
-	<arg name="launch_reflector_locator" default="true"/>
-	<arg name="launch_rlc" default="true"/>
-	<arg name="launch_rostful" default="true"/>
-	<arg name="rostful_host" default="192.168.0.200"/>
-	<arg name="rostful_init_delay" default="10"/>
-	<arg name="rostful_port" default="8080"/>
+	<arg name="scan_topic" default="front_laser/scan"/>
+
+
 	<!-- <arg name="launch_base_hw_sim" default="false"/> -->
 	<arg name="use_ros_planar_move_plugin" default="true"/>
 
@@ -69,7 +64,7 @@
 		</include>
 
 		<include if="$(arg launch_amcl)" file="$(find rb_theron_localization)/launch/amcl.launch">
-			<arg name="scan_topic" value="front_rgbd_camera/point_cloud_scan"/>
+			<arg name="scan_topic" value="$(arg scan_topic)"/>
 			<arg name="global_frame" value="$(arg global_frame)"/>
 			<arg name="prefix" value="$(arg prefix)"/>
 			<arg name="x_init_pose" value="$(arg x_init_pose)"/>
@@ -79,7 +74,7 @@
 		</include>
 
 		<!-- move base -->
-		<include if="$(arg launch_move_base)" file="$(find rb_theron_navigation)/launch/dual_move_base.launch">
+		<include if="$(arg launch_move_base)" file="$(find rb_theron_navigation)/launch/move_base.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
 			<arg name="global_frame" value="$(arg global_frame)"/>
 		</include>
@@ -89,52 +84,8 @@
 			<arg name="prefix" value="$(arg prefix)"/>
 		</include>
 
-		<!-- base_hw_sim -->
-		<!-- TODO -->
-		<!-- <group if="$(arg launch_base_hw_sim)">
-
-			<include file="$(find robotnik_base_hw_sim)/launch/rb_theron_hw_sim.launch">
-				<arg name="prefix" value="$(arg prefix)"/>
-			</include>
-
-			<include file="$(find battery_estimation)/launch/table_battery.launch"/>
-
-			<include file="$(find charge_manager)/launch/charge_manager.launch">
-				<arg name="inverted_contact_relay_input" value="false" />
-			</include>
-
-		</group> -->
-
-		<!-- Pointcloud to laserscan -->
-		<include file="$(find rb_theron_navigation)/launch/rgbd_to_laserscan.launch"/>
-
 	</group>
 
 
-	<include if="$(arg launch_perception)" file="$(find rb_theron_perception)/launch/perception_complete.launch">
-		<arg name="id_robot" value="$(arg id_robot)"/>
-		<arg name="run_reflector_locator" value="$(arg launch_reflector_locator)"/>
-		<arg name="run_ar_locator" value="true"/>
-	</include>
-
-	<include if="$(arg launch_navigation)" file="$(find rb_theron_navigation)/launch/navigation_complete.launch">
-		<arg name="id_robot" value="$(arg id_robot)"/>
-		<arg name="has_docker" value="true"/>
-		<arg name="run_laser_docker" value="true"/>
-	</include>
-
-	<group if="$(arg launch_rlc)">
-		<include file="$(find rb_theron_robot_local_control)/launch/robot_local_control.launch">
-			<arg name="id_robot" value="$(arg id_robot)"/>
-		</include>
-
-		<include if="$(arg launch_rostful)" file="$(find rb_theron_robot_local_control)/launch/rostful_server.launch">
-			<arg name="id_robot" value="$(arg id_robot)"/>
-			<arg name="host" value="$(arg rostful_host)"/>
-			<arg name="port" value="$(arg rostful_port)"/>
-			<arg name="init_delay" value="$(arg rostful_init_delay)"/>
-		</include>
-
-	</group>
 
 </launch>
