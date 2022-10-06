@@ -9,7 +9,7 @@
 
 	<!-- arguments robot-->
 	<arg name="id_robot" default="robot"/>
-	<arg name="xacro_robot" value="rb_theron.urdf.xacro"/>
+	<arg name="xacro_robot" default="rb_theron.urdf.xacro"/>
 
 	<arg name="x_init_pose" default="0.0" />
 	<arg name="y_init_pose" default="0.0" />
