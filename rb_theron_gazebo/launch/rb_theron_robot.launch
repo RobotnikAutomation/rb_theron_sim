@@ -50,7 +50,7 @@
 		<!-- <include file="$(find rb_theron_localization)/launch/rb_theron_localization_basic.launch"/> -->
 
 		<!-- pad -->
-		<include file="$(find rb_theron_pad)/launch/rb_theron_pad.launch"/>
+		<include if="$(arg launch_pad)" file="$(find rb_theron_pad)/launch/rb_theron_pad.launch"/>
 
 		<!-- use static_transform_publisher to define map->odom transform    -->
 		<!-- only use if you aren´t using a localization algorithm like amcl -->
