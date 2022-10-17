@@ -22,6 +22,7 @@
 	<arg name="map_file" default="$(find rb_theron_localization)/maps/willow_garage/willow_garage.yaml"/>
 	<arg name="move_base" default="true"/>
 	<arg name="pad" default="true"/>
+	<arg name="use_gpu" default="true"/>
 
 	<include file="$(find rb_theron_gazebo)/launch/rb_theron_gazebo.launch">
 		<!-- general args -->
@@ -45,6 +46,7 @@
 		<arg name="map_file" value="$(arg map_file)"/>
 		<arg name="move_base" value="$(arg move_base)"/>
 		<arg name="pad" value="$(arg pad)"/>
+		<arg name="use_gpu" value="$(arg use_gpu)"/>
 	</include>
 
 </launch>
