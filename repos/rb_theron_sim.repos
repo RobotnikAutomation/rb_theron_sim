@@ -1,0 +1,14 @@
+---
+repositories:
+  src/rb_theron_common:
+    type: git
+    url: https://github.com/RobotnikAutomation/rb_theron_common
+    version: melodic-devel
+  src/robotnik_msgs:
+    type: git
+    url: https://github.com/RobotnikAutomation/robotnik_msgs
+    version: master
+  src/robotnik_sensors:
+    type: git
+    url: https://github.com/RobotnikAutomation/robotnik_sensors
+    version: melodic-devel
