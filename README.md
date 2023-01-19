@@ -32,7 +32,7 @@ sudo apt-get install -y python3-vcstool
 mkdir catkin_ws
 cd catkin_ws
 vcs import --input \
-  https://raw.githubusercontent.com/RobotnikAutomation/rb_theron_sim/melodic-devel/repos/rb_theron_sim.repos
+  https://raw.githubusercontent.com/RobotnikAutomation/rb_theron_sim/noetic-devel/repos/rb_theron_sim.repos
 rosdep install --from-paths src --ignore-src -y -r
 ```
 
