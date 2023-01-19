@@ -1,5 +1,10 @@
 ---
 repositories:
+
+  src/rb_theron_sim:
+    type: git
+    url: https://github.com/RobotnikAutomation/rb_theron_sim
+    version: melodic-devel
   src/rb_theron_common:
     type: git
     url: https://github.com/RobotnikAutomation/rb_theron_common
