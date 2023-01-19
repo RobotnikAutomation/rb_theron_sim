@@ -1,9 +1,13 @@
 ---
 repositories:
-  src/rb_theron_common:
+  src/rb_theron_sim:
     type: git
     url: https://github.com/RobotnikAutomation/rb_theron_common
     version: noetic-devel
+  src/rb_theron_common:
+    type: git
+    url: https://github.com/RobotnikAutomation/rb_theron_common
+    version: melodic-devel
   src/robotnik_msgs:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_msgs
@@ -11,4 +15,10 @@ repositories:
   src/robotnik_sensors:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_sensors
+    version: melodic-devel
+  src/spatio_temporal_voxel_layer:
+    type: git
+    url: https://github.com/SteveMacenski/spatio_temporal_voxel_layer.git
     version: noetic-devel
+
+  
