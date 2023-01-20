@@ -20,7 +20,7 @@ repositories:
     type: git
     url: https://github.com/SteveMacenski/spatio_temporal_voxel_layer.git
     version: noetic-devel
- src/rcomponent:
+  src/rcomponent:
     type: git
     url: https://github.com/RobotnikAutomation/rcomponent.git
     version: master
