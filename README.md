@@ -50,3 +50,26 @@ source devel/setup.bash
 ```bash
 roslaunch rb_theron_sim_bringup rb_theron_complete.launch
 ```
+
+
+## Docker Usage
+
+In order to run this simulation you will need nvidia graphical accelation
+
+### Installation of required files
+
+- [docker](https://docs.docker.com/engine/install/ubuntu/)
+- [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
+- nvidia-drivers
+
+### Usage
+
+```bash
+git clone https://github.com/RobotnikAutomation/rb_theron_sim.git
+cd rb_theron_sim
+git checkout noetic-devel
+export ROS_BU_PKG="rb_theron_sim_bringup"
+export ROS_BU_LAUNCH="rb_theron_complete.launch"
+cd docker
+docker compose up
+```
