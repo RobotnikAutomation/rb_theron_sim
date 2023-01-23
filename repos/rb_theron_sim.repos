@@ -17,3 +17,7 @@ repositories:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_sensors
     version: melodic-devel
+  src/rcomponent:
+    type: git
+    url: https://github.com/RobotnikAutomation/rcomponent.git
+    version: master
