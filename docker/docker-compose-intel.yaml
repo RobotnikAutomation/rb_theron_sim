@@ -1,12 +1,12 @@
 ---
 version: "3.7"
 services:
-  base:
+  rb-theron-sim:
     image: robotnik/rb-theron-sim:melodic-devel
     build:
       context: ..
       dockerfile: docker/Dockerfile
-    #command: "bash"
+    # command: "sleep infinity"
     network_mode: "host"
     stdin_open: true
     tty: true
