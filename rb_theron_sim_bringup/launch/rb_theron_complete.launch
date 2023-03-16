@@ -22,7 +22,7 @@
 	<arg name="mapserver" default="$(optenv LAUNCH_MAPSERVER true)"/>
 	<arg name="move_base" default="$(optenv LAUNCH_MOVE_BASE true)"/>
 	<arg name="pad" default="$(optenv LAUNCH_PAD true)"/>
-	<arg name="launch_rosbridge" default="$(optenv LAUNCH_ROSBRIDGE false)" />
+	<arg name="rosbridge" default="$(optenv LAUNCH_ROSBRIDGE false)" />
 	<arg name="rviz" default="$(optenv LAUNCH_RVIZ true)"/>
 
 	<!-- gazebo argurments-->
@@ -61,7 +61,7 @@
 		<arg name="pad" value="$(arg pad)"/>
 		<arg name="use_gpu" value="$(arg use_gpu)"/>
 	</include>
-	<include if="$(arg launch_rosbridge)" file="$(find rb_theron_sim_bringup)/launch/rosbridge.launch">
+	<include if="$(arg rosbridge)" file="$(find rb_theron_sim_bringup)/launch/rosbridge.launch">
 		<arg name="port" value="$(arg rosbridge_port)"/>
 		<arg name="id_robot" value="$(arg id_robot)"/>
 	</include>
