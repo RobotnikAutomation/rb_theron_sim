@@ -17,8 +17,8 @@ services:
       DISPLAY: $DISPLAY
       QT_X11_NO_MITSHM: 1
       LIBGL_ALWAYS_INDIRECT: 0
-      ROS_BU_PKG: $ROS_BU_PKG
-      ROS_BU_LAUNCH: $ROS_BU_LAUNCH
+      ROS_BU_PKG: "rb_theron_sim_bringup"
+      ROS_BU_LAUNCH: "rb_theron_complete.launch"
       LAUNCH_ROSBRIDGE: "true"
       USE_GPU_FOR_SIMULATION: "false"
     volumes:

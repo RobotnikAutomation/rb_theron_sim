@@ -52,8 +52,6 @@ roslaunch rb_theron_sim_bringup rb_theron_complete.launch
 ```
 
 
-
-
 ## Docker Usage
 
 In order to run this simulation you will need nvidia graphical accelation
@@ -81,8 +79,6 @@ In order to run this simulation you will need nvidia graphical accelation
 git clone https://github.com/RobotnikAutomation/rb_theron_sim.git
 cd rb_theron_sim
 git checkout melodic-devel
-export ROS_BU_PKG="rb_theron_sim_bringup"
-export ROS_BU_LAUNCH="rb_theron_complete.launch"
 nvidia-smi &>/dev/null \
 && ln -sf docker-compose-nvidia.yml docker-compose.yml \
 || ln -sf docker-compose-intel.yml docker-compose.yml
