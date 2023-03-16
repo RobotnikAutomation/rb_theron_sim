@@ -37,7 +37,7 @@ services:
       LAUNCH_ROSBRIDGE: "false"
       LAUNCH_RVIZ: "true"
       USE_GPU: "false"
-      VERBOSE: "true"
+      VERBOSE: "false"
       GUI: "true"
       DEBUG: "false"
       ROSBRIDGE_PORT: "9090"
