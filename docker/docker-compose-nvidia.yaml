@@ -21,8 +21,22 @@ services:
       LIBGL_ALWAYS_INDIRECT: 0
       ROS_BU_PKG: "rb_theron_sim_bringup"
       ROS_BU_LAUNCH: "rb_theron_complete.launch"
-      LAUNCH_ROSBRIDGE: "true"
-      USE_GPU_FOR_SIMULATION: "false"
+      X_INIT_POSE: "0.0"
+      Y_INIT_POSE: "0.0"
+      Z_INIT_POSE: "0.15"
+      INIT_YAW: "0.0"
+      LAUNCH_GMAPPING: "false"
+      LAUNCH_AMCL: "true"
+      LAUNCH_MAPSERVER: "true"
+      LAUNCH_MOVE_BASE: "true"
+      LAUNCH_PAD: "true"
+      LAUNCH_ROSBRIDGE: "false"
+      LAUNCH_RVIZ: "true"
+      USE_GPU: "true"
+      VERBOSE: "false"
+      HEADLESS: "false"
+      DEBUG: "false"
+      ROSBRIDGE_PORT: "9090"
     volumes:
       - type: bind
         source: /tmp/.X11-unix
