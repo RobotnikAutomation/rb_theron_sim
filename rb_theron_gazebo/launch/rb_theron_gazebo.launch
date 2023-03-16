@@ -53,10 +53,8 @@
 
 	<!-- gazebo simulation -->
 	<include file="$(find rb_theron_gazebo)/launch/gazebo.launch">
-		<arg name="launch_rviz" value="$(arg launch_rviz)"/>
 		<arg name="world_name" value="$(arg gazebo_world)"/>
 		<arg name="debug" value="$(arg debug)"/>
-		<arg name="rviz_config" value="$(arg rviz_config)"/>
 	</include>
 
 	<!-- rviz visualization -->
