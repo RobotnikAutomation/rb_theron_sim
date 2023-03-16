@@ -27,7 +27,7 @@
 	<arg name="rviz" default="$(optenv LAUNCH_RVIZ true)"/>
 
 	<!-- gazebo argurments-->
-	<arg name="use_gpu" default="$(optenv USE_GPU_FOR_SIMULATION true)"/>
+	<arg name="use_gpu" default="$(optenv USE_GPU true)"/>
 	<arg name="verbose" default="$(optenv VERBOSE false)"/>
 	<arg name="headless" default="$(optenv HEADLESS false)"/>
 	<arg name="debug" default="$(optenv DEBUG false)"/>

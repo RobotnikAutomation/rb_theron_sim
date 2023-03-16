@@ -32,7 +32,7 @@ services:
       LAUNCH_PAD: "true"
       LAUNCH_ROSBRIDGE: "false"
       LAUNCH_RVIZ: "true"
-      USE_GPU: "true"
+      USE_GPU: "false"
       VERBOSE: "false"
       HEADLESS: "false"
       DEBUG: "false"
