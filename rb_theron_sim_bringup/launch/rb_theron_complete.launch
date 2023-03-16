@@ -27,6 +27,9 @@
 
 	<!-- gazebo argurments-->
 	<arg name="use_gpu" default="$(optenv USE_GPU_FOR_SIMULATION true)"/>
+	<arg name="verbose" default="$(optenv VERBOSE false)"/>
+	<arg name="headless" default="$(optenv HEADLESS false)"/>
+
 	<!-- mapping arguments-->
 	<arg name="map_frame" default="$(arg id_robot)_map"/>
 	<arg name="map_file" default="$(find rb_theron_localization)/maps/willow_garage/willow_garage.yaml"/>
