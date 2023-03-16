@@ -2,7 +2,7 @@
 <launch>
 
 	<!-- arg to config the launch file-->
-	<arg name="launch_rviz" default="true"/>
+
 	<arg name="gazebo_world" default="$(find rb_theron_gazebo)/worlds/rb_theron_office.world"/>
 	<!-- <arg name="launch_base_hw_sim" default="true"/> -->
 	<arg name="use_ros_planar_move_plugin" default="false"/>
@@ -15,6 +15,7 @@
 	<arg name="y_init_pose" default="0.0" />
 	<arg name="z_init_pose" default="0.15" />
 	<arg name="init_yaw" default="0.0" />
+
 	<!-- launch components flag argurments-->
 	<arg name="gmapping" default="$(optenv LAUNCH_GMAPPING false)"/>
 	<arg name="amcl" default="$(optenv LAUNCH_AMCL true)"/>
@@ -22,6 +23,7 @@
 	<arg name="move_base" default="$(optenv LAUNCH_MOVE_BASE true)"/>
 	<arg name="pad" default="$(optenv LAUNCH_PAD true)"/>
 	<arg name="launch_rosbridge" default="$(optenv LAUNCH_ROSBRIDGE false)" />
+	<arg name="launch_rviz" default="true"/>
 
 	<!-- gazebo argurments-->
 	<arg name="use_gpu" default="$(optenv USE_GPU_FOR_SIMULATION true)"/>
