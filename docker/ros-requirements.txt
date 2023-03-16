@@ -1,5 +1,5 @@
 ros-${ROS_DISTRO}-amcl
-ros-${ROS_DISTRO}-cartographer-ro
+ros-${ROS_DISTRO}-cartographer-ros
 ros-${ROS_DISTRO}-costmap-2d
 ros-${ROS_DISTRO}-eband-local-planner
 ros-${ROS_DISTRO}-effort-controllers
