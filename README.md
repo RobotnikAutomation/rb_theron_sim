@@ -14,8 +14,6 @@ Launch files and world files to start the models in gazebo
 
 Launch files that launch the complete simulation of the robot
 
-
-
 <h1>Simulating RB-Theron</h1>
 
 ### 1) Install the following dependencies:
@@ -43,14 +41,34 @@ catkin build
 source devel/setup.bash
 ```
 
-
 ### 4) Launch RB-Theron simulation (1 robot by default, up to 3 robots):
+
 - RB-Theron:
 
 ```bash
 roslaunch rb_theron_sim_bringup rb_theron_complete.launch
 ```
 
+### Environment Variables
+
+| Enviroment         | Default Value | Meaning              |
+| ------------------ | ------------- | -------------------- |
+| `X_INIT_POSE`      | `0.0`         | robot x init pose    |
+| `Y_INIT_POSE`      | `0.0`         | robot y init pose    |
+| `Z_INIT_POSE`      | `0.15`        | robot z init pose    |
+| `INIT_YAW`         | `0.0`         | robot yaw init pose  |
+| `LAUNCH_GMAPPING`  | `false`       | launching gmapping   |
+| `LAUNCH_AMCL`      | `true`        | launching amcl       |
+| `LAUNCH_MAPSERVER` | `true`        | launching map server |
+| `LAUNCH_MOVE_BASE` | `true`        | launching move base  |
+| `LAUNCH_PAD`       | `true`        | launching joystick   |
+| `LAUNCH_ROSBRIDGE` | `true`        | launching rosbridge  |
+| `LAUNCH_RVIZ`      | `true`        | launching rviz       |
+| `USE_GPU`          | `true`        | gazebo use gpu       |
+| `VERBOSE`          | `false`       | gazebo verbose       |
+| `GUI`              | `true`        | gazebo gui launch    |
+| `DEBUG`            | `false`       | gazebo debug         |
+| `ROSBRIDGE_PORT`   | `9090`        | default              |
 
 ## Docker Usage
 
@@ -136,3 +154,5 @@ This is docker requires a graphical interface
    ```bash
    docker compose down
    ```
+
+
