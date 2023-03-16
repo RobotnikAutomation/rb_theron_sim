@@ -22,7 +22,7 @@ services:
       ROS_BU_PKG: $ROS_BU_PKG
       ROS_BU_LAUNCH: $ROS_BU_LAUNCH
       LAUNCH_ROSBRIDGE: "true"
-      USE_GPU_FOR_SIMULATION: "true"
+      USE_GPU_FOR_SIMULATION: "false"
     volumes:
       - type: bind
         source: /tmp/.X11-unix
