@@ -29,6 +29,7 @@
 	<arg name="use_gpu" default="$(optenv USE_GPU_FOR_SIMULATION true)"/>
 	<arg name="verbose" default="$(optenv VERBOSE false)"/>
 	<arg name="headless" default="$(optenv HEADLESS false)"/>
+	<arg name="debug" default="$(optenv DEBUG false)"/>
 
 	<!-- mapping arguments-->
 	<arg name="map_frame" default="$(arg id_robot)_map"/>
@@ -59,7 +60,11 @@
 		<arg name="map_file" value="$(arg map_file)"/>
 		<arg name="move_base" value="$(arg move_base)"/>
 		<arg name="pad" value="$(arg pad)"/>
+		<!-- gazebo parameters -->
 		<arg name="use_gpu" value="$(arg use_gpu)"/>
+		<arg name="verbose" value="$(arg verbose)"/>
+		<arg name="headless" value="$(arg headless)"/>
+		<arg name="debug" value="$(arg debug)"/>
 	</include>
 	<include if="$(arg rosbridge)" file="$(find rb_theron_sim_bringup)/launch/rosbridge.launch">
 		<arg name="port" value="$(arg rosbridge_port)"/>
