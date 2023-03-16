@@ -33,3 +33,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Separated rviz launch from gazebo launch files
 - Resorted arguments in order to group in a more sensible way
 - Mounted dev folder on docker compose
+- updated gazebo to 9.19.0
