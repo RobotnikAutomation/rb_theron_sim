@@ -52,7 +52,8 @@
 		<arg name="y_init_pose" value="$(arg y_init_pose)" />
 		<arg name="z_init_pose" value="$(arg z_init_pose)" />
 		<arg name="init_yaw" value="$(arg init_yaw)" />
-		<arg name="rviz" value="$(arg launch_rviz)"/>
+		<!-- Launch components -->
+		<arg name="rviz" value="$(arg rviz)"/>
 		<arg name="gmapping" value="$(arg gmapping)"/>
 		<arg name="amcl" value="$(arg amcl)"/>
 		<arg name="mapserver" value="$(arg mapserver)"/>
