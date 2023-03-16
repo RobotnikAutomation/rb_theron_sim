@@ -60,9 +60,20 @@ In order to run this simulation you will need nvidia graphical accelation
 
 ### Installation of required files
 
-- [docker](https://docs.docker.com/engine/install/ubuntu/)
-- [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
+#### Intel GPU
+
+- [docker engine](https://docs.docker.com/engine/install/ubuntu/)
+- [docker compose plugin](https://docs.docker.com/compose/install/linux/)
+
+#### Nvidia GPU
+
+- [docker engine](https://docs.docker.com/engine/install/ubuntu/)
+
+- [docker compose plugin](https://docs.docker.com/compose/install/linux/)
+
 - nvidia-drivers
+
+- [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
 
 ### Usage
 
@@ -72,6 +83,9 @@ cd rb_theron_sim
 git checkout melodic-devel
 export ROS_BU_PKG="rb_theron_sim_bringup"
 export ROS_BU_LAUNCH="rb_theron_complete.launch"
+nvidia-smi &>/dev/null \
+&& ln -sf docker-compose-nvidia.yml docker-compose.yml \
+|| ln -sf docker-compose-intel.yml docker-compose.yml
 cd docker
 docker compose up
 ```
