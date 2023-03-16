@@ -16,23 +16,14 @@ services:
       GAZEBO_MASTER_URI: "http://localhost:11345"
       DISPLAY: $DISPLAY
       QT_X11_NO_MITSHM: 1
-      NVIDIA_VISIBLE_DEVICES: all
-      NVIDIA_DRIVER_CAPABILITIE: graphics
       LIBGL_ALWAYS_INDIRECT: 0
       ROS_BU_PKG: $ROS_BU_PKG
       ROS_BU_LAUNCH: $ROS_BU_LAUNCH
       LAUNCH_ROSBRIDGE: "true"
-      USE_GPU_FOR_SIMULATION: "true"
+      USE_GPU_FOR_SIMULATION: "false"
     volumes:
       - type: bind
         source: /tmp/.X11-unix
         target: /tmp/.X11-unix
     devices:
       - "/dev/dri"
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
