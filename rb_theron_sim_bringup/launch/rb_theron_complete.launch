@@ -15,15 +15,21 @@
 	<arg name="y_init_pose" default="0.0" />
 	<arg name="z_init_pose" default="0.15" />
 	<arg name="init_yaw" default="0.0" />
+	<!-- launch components flag argurments-->
 	<arg name="gmapping" default="$(optenv LAUNCH_GMAPPING false)"/>
 	<arg name="amcl" default="$(optenv LAUNCH_AMCL true)"/>
 	<arg name="mapserver" default="$(optenv LAUNCH_MAPSERVER true)"/>
-	<arg name="map_frame" default="$(arg id_robot)_map"/>
-	<arg name="map_file" default="$(find rb_theron_localization)/maps/willow_garage/willow_garage.yaml"/>
 	<arg name="move_base" default="$(optenv LAUNCH_MOVE_BASE true)"/>
 	<arg name="pad" default="$(optenv LAUNCH_PAD true)"/>
-	<arg name="use_gpu" default="$(optenv USE_GPU_FOR_SIMULATION true)"/>
 	<arg name="launch_rosbridge" default="$(optenv LAUNCH_ROSBRIDGE false)" />
+
+	<!-- gazebo argurments-->
+	<arg name="use_gpu" default="$(optenv USE_GPU_FOR_SIMULATION true)"/>
+	<!-- mapping arguments-->
+	<arg name="map_frame" default="$(arg id_robot)_map"/>
+	<arg name="map_file" default="$(find rb_theron_localization)/maps/willow_garage/willow_garage.yaml"/>
+
+	<!--  rosbridge arguments -->
 	<arg name="rosbridge_port" default="$(optenv ROSBRIDGE_PORT 9090)" />
 
 	<include file="$(find rb_theron_gazebo)/launch/rb_theron_gazebo.launch">
