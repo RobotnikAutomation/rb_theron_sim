@@ -7,9 +7,6 @@
 	and they are (or not) launched for all robots-->
 	<arg name="rviz_config" default="$(find rb_theron_gazebo)/rviz/rb_theron.rviz"/>
 	<arg name="gazebo_world" default="rb_theron_office"/>
-	<arg name="debug" default="false"/>
-	<arg name="headless" default="false"/>
-	<arg name="verbose" default="false"/>
 	<!-- <arg name="launch_base_hw_sim" default="false"/> -->
 	<arg name="use_ros_planar_move_plugin" default="false"/>
 
@@ -18,19 +15,28 @@
 	<arg name="id_robot" default="robot"/>
 	<arg name="xacro_robot" default="rb_theron.urdf.xacro"/>
 
+	<!-- robot init pose-->
 	<arg name="x_init_pose" default="0.0" />
 	<arg name="y_init_pose" default="0.0" />
 	<arg name="z_init_pose" default="0.1" />
 	<arg name="init_yaw" default="0.0"/>
 
+	<!-- launch components flag argurments-->
 	<arg name="rviz" default="true"/>
 	<arg name="gmapping" default="false"/>
 	<arg name="amcl" default="false"/>
 	<arg name="mapserver" default="false"/>
-	<arg name="map_file" default="$(find rb_theron_localization)/maps/willow_garage/willow_garage.yaml"/>
-	<arg name="map_frame" default="$(arg id_robot)_map"/>
 	<arg name="move_base" default="false"/>
 	<arg name="pad" default="false"/>
+
+	<!-- mapping arguments-->
+	<arg name="map_file" default="$(find rb_theron_localization)/maps/willow_garage/willow_garage.yaml"/>
+	<arg name="map_frame" default="$(arg id_robot)_map"/>
+
+	<!-- gazebo argurments-->
+	<arg name="debug" default="false"/>
+	<arg name="headless" default="false"/>
+	<arg name="verbose" default="false"/>
 	<arg name="use_gpu" default="true"/>
 
 	<!--BEGIN rb_theron-->
