@@ -85,3 +85,54 @@ nvidia-smi &>/dev/null \
 cd docker
 docker compose up
 ```
+
+#### Manual Build
+
+If you wish to build the image without launching the simulation use the following commands:
+
+```bash
+cd docker
+docker compose build
+```
+
+#### Notes
+
+This is docker requires a graphical interface
+
+- In order to exit you have to 2 options
+
+- The `ROS_MASTER_URI` is accessible outside the container, so in the host any ros command should work
+
+- You could also run a `roscore` previous to launch the simulation in order to have some processes on the host running
+
+- if you want to enter on the container use the following command in another terminal
+1. Close `gazebo` and `rviz` and wait a bit
+
+2. execute in another terminal:
+   
+   ```bash
+   docker container rm --force docker-rb-theron-sim-1
+   ```
+
+#### Notes
+
+- This is docker requires a graphical interface
+
+- The `ROS_MASTER_URI` is accessible outside the container, so in the host any ros command should work
+
+- You could also run a `roscore` previous to launch the simulation in order to have some processes on the host running
+
+- if you want to enter on the container use the following command in another terminal
+  
+  ```bash
+  docker container exec -it docker-rb-theron-sim-1 bash
+  ```
+
+- In order to exit you have to 2 options
+1. Close `gazebo` and `rviz` and wait a bit
+
+2. execute in another terminal in the same folder than the `docker-compose.yml`:
+   
+   ```bash
+   docker compose down
+   ```
