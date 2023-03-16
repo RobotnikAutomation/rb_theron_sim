@@ -35,6 +35,12 @@ RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_releas
 # setup keys
 RUN wget https://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
 
+# Add gazebo repositories
+RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list
+
+# setup keys
+RUN wget https://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
+
 RUN apt-get update \
 	&& apt upgrade -y \
 	&& apt-get clean -q -y \
