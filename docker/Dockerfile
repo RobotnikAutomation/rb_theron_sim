@@ -17,6 +17,12 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F42ED6FBAB17C654
 
+# Add gazebo repositories
+RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list
+
+# setup keys
+RUN wget https://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
+
 RUN apt-get update \
 	&& apt-get install -q -y \
 		wget \
