@@ -9,6 +9,8 @@
 	<arg name="rviz_config" default="$(find rb_theron_gazebo)/rviz/rb_theron.rviz"/>
 	<arg name="gazebo_world" default="rb_theron_office"/>
 	<arg name="debug" default="false"/>
+	<arg name="headless" default="false"/>
+	<arg name="verbose" default="false"/>
 	<!-- <arg name="launch_base_hw_sim" default="false"/> -->
 	<arg name="use_ros_planar_move_plugin" default="false"/>
 
@@ -55,6 +57,8 @@
 	<include file="$(find rb_theron_gazebo)/launch/gazebo.launch">
 		<arg name="world_name" value="$(arg gazebo_world)"/>
 		<arg name="debug" value="$(arg debug)"/>
+		<arg name="headless" value="$(arg headless)"/>
+		<arg name="verbose" value="$(arg verbose)"/>
 	</include>
 
 	<!-- rviz visualization -->
