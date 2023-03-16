@@ -8,9 +8,13 @@ services:
       dockerfile: docker/Dockerfile
     # command: "sleep infinity"
     network_mode: "host"
-    stdin_open: true
-    tty: true
+    # stdin_open: true
+    # tty: true
     privileged: true
+    # group_add:
+    #   - dialout
+    #   - plugdev
+    #   - video
     environment:
       ROS_MASTER_URI: "http://localhost:11311"
       GAZEBO_MASTER_URI: "http://localhost:11345"
@@ -33,14 +37,17 @@ services:
       LAUNCH_ROSBRIDGE: "false"
       LAUNCH_RVIZ: "true"
       USE_GPU: "false"
-      VERBOSE: "false"
-      HEADLESS: "false"
+      VERBOSE: "true"
+      GUI: "true"
       DEBUG: "false"
       ROSBRIDGE_PORT: "9090"
     volumes:
       - type: bind
         source: /tmp/.X11-unix
         target: /tmp/.X11-unix
+      - type: bind
+        source: /dev
+        target: /dev
     devices:
       - "/dev/dri"
     deploy:

@@ -29,7 +29,7 @@
 	<!-- gazebo argurments-->
 	<arg name="use_gpu" default="$(optenv USE_GPU true)"/>
 	<arg name="verbose" default="$(optenv VERBOSE false)"/>
-	<arg name="headless" default="$(optenv HEADLESS false)"/>
+	<arg name="gui" default="$(optenv GUI false)"/>
 	<arg name="debug" default="$(optenv DEBUG false)"/>
 
 	<!-- mapping arguments-->
@@ -65,7 +65,7 @@
 		<!-- gazebo parameters -->
 		<arg name="use_gpu" value="$(arg use_gpu)"/>
 		<arg name="verbose" value="$(arg verbose)"/>
-		<arg name="headless" value="$(arg headless)"/>
+		<arg name="gui" value="$(arg gui)"/>
 		<arg name="debug" value="$(arg debug)"/>
 	</include>
 	<include if="$(arg rosbridge)" file="$(find rb_theron_sim_bringup)/launch/rosbridge.launch">
