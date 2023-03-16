@@ -11,10 +11,11 @@
 	<arg name="id_robot" default="robot"/>
 	<arg name="xacro_robot" default="rb_theron.urdf.xacro"/>
 
-	<arg name="x_init_pose" default="0.0" />
-	<arg name="y_init_pose" default="0.0" />
-	<arg name="z_init_pose" default="0.15" />
-	<arg name="init_yaw" default="0.0" />
+	<!-- robot init pose-->
+	<arg name="x_init_pose" default="$(optenv X_INIT_POSE 0.0)" />
+	<arg name="y_init_pose" default="$(optenv Y_INIT_POSE 0.0)" />
+	<arg name="z_init_pose" default="$(optenv Z_INIT_POSE 0.15)" />
+	<arg name="init_yaw" default="$(optenv INIT_YAW 0.0)" />
 
 	<!-- launch components flag argurments-->
 	<arg name="gmapping" default="$(optenv LAUNCH_GMAPPING false)"/>
@@ -47,7 +48,7 @@
 		<!-- robot args -->
 		<arg name="id_robot" default="$(arg id_robot)"/>
 		<arg name="xacro_robot" value="$(arg xacro_robot)"/>
-
+		<!-- robot init pose-->
 		<arg name="x_init_pose" value="$(arg x_init_pose)" />
 		<arg name="y_init_pose" value="$(arg y_init_pose)" />
 		<arg name="z_init_pose" value="$(arg z_init_pose)" />
