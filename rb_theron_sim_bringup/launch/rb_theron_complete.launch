@@ -50,7 +50,7 @@
 		<arg name="pad" value="$(arg pad)"/>
 		<arg name="use_gpu" value="$(arg use_gpu)"/>
 	</include>
-	<include if="$(arg launch_rosbridge)" file="$(find summit_xl_sim_bringup)/launch/rosbridge.launch">
+	<include if="$(arg launch_rosbridge)" file="$(find rb_theron_bringup)/launch/rosbridge.launch">
 		<arg name="port" value="$(arg rosbridge_port)"/>
 		<arg name="id_robot" value="$(arg id_robot)"/>
 	</include>
