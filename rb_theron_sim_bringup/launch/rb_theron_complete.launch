@@ -23,7 +23,7 @@
 	<arg name="move_base" default="$(optenv LAUNCH_MOVE_BASE true)"/>
 	<arg name="pad" default="$(optenv LAUNCH_PAD true)"/>
 	<arg name="launch_rosbridge" default="$(optenv LAUNCH_ROSBRIDGE false)" />
-	<arg name="launch_rviz" default="true"/>
+	<arg name="rviz" default="$(optenv LAUNCH_RVIZ true)"/>
 
 	<!-- gazebo argurments-->
 	<arg name="use_gpu" default="$(optenv USE_GPU_FOR_SIMULATION true)"/>
@@ -39,7 +39,6 @@
 
 	<include file="$(find rb_theron_gazebo)/launch/rb_theron_gazebo.launch">
 		<!-- general args -->
-		<arg name="launch_rviz" value="$(arg launch_rviz)"/>
 		<arg name="gazebo_world" value="$(arg gazebo_world)"/>
 		<!-- <arg name="launch_base_hw_sim" value="$(arg launch_base_hw_sim)"/> -->
 		<arg name="use_ros_planar_move_plugin" value="$(arg use_ros_planar_move_plugin)"/>
@@ -52,6 +51,7 @@
 		<arg name="y_init_pose" value="$(arg y_init_pose)" />
 		<arg name="z_init_pose" value="$(arg z_init_pose)" />
 		<arg name="init_yaw" value="$(arg init_yaw)" />
+		<arg name="rviz" value="$(arg launch_rviz)"/>
 		<arg name="gmapping" value="$(arg gmapping)"/>
 		<arg name="amcl" value="$(arg amcl)"/>
 		<arg name="mapserver" value="$(arg mapserver)"/>

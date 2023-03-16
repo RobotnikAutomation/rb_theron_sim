@@ -5,7 +5,6 @@
 
 	<!--launch_navigation and launch_navigation_nomap args are exclusive
 	and they are (or not) launched for all robots-->
-	<arg name="launch_rviz" default="true"/>
 	<arg name="rviz_config" default="$(find rb_theron_gazebo)/rviz/rb_theron.rviz"/>
 	<arg name="gazebo_world" default="rb_theron_office"/>
 	<arg name="debug" default="false"/>
@@ -24,6 +23,7 @@
 	<arg name="z_init_pose" default="0.1" />
 	<arg name="init_yaw" default="0.0"/>
 
+	<arg name="rviz" default="true"/>
 	<arg name="gmapping" default="false"/>
 	<arg name="amcl" default="false"/>
 	<arg name="mapserver" default="false"/>
@@ -62,7 +62,7 @@
 	</include>
 
 	<!-- rviz visualization -->
-	<include if="$(arg launch_rviz)" file="$(find rb_theron_gazebo)/launch/rviz.launch">
+	<include if="$(arg rviz)" file="$(find rb_theron_gazebo)/launch/rviz.launch">
 		<arg name="rviz_config" value="$(arg rviz_config)"/>
 	</include>
 
