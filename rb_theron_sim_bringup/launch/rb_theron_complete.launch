@@ -2,7 +2,7 @@
 <launch>
 
 	<!-- arg to config the launch file-->
-	<arg name="launch_rviz" default="true"/>
+
 	<arg name="gazebo_world" default="$(find rb_theron_gazebo)/worlds/rb_theron_office.world"/>
 	<!-- <arg name="launch_base_hw_sim" default="true"/> -->
 	<arg name="use_ros_planar_move_plugin" default="false"/>
@@ -11,24 +11,36 @@
 	<arg name="id_robot" default="robot"/>
 	<arg name="xacro_robot" default="rb_theron.urdf.xacro"/>
 
-	<arg name="x_init_pose" default="0.0" />
-	<arg name="y_init_pose" default="0.0" />
-	<arg name="z_init_pose" default="0.15" />
-	<arg name="init_yaw" default="0.0" />
-	<arg name="gmapping" default="false"/>
-	<arg name="amcl" default="true"/>
-	<arg name="mapserver" default="true"/>
+	<!-- robot init pose-->
+	<arg name="x_init_pose" default="$(optenv X_INIT_POSE 0.0)" />
+	<arg name="y_init_pose" default="$(optenv Y_INIT_POSE 0.0)" />
+	<arg name="z_init_pose" default="$(optenv Z_INIT_POSE 0.15)" />
+	<arg name="init_yaw" default="$(optenv INIT_YAW 0.0)" />
+
+	<!-- launch components flag argurments-->
+	<arg name="gmapping" default="$(optenv LAUNCH_GMAPPING false)"/>
+	<arg name="amcl" default="$(optenv LAUNCH_AMCL true)"/>
+	<arg name="mapserver" default="$(optenv LAUNCH_MAPSERVER true)"/>
+	<arg name="move_base" default="$(optenv LAUNCH_MOVE_BASE true)"/>
+	<arg name="pad" default="$(optenv LAUNCH_PAD true)"/>
+	<arg name="rosbridge" default="$(optenv LAUNCH_ROSBRIDGE false)" />
+	<arg name="rviz" default="$(optenv LAUNCH_RVIZ true)"/>
+
+	<!-- gazebo argurments-->
+	<arg name="use_gpu" default="$(optenv USE_GPU true)"/>
+	<arg name="verbose" default="$(optenv VERBOSE false)"/>
+	<arg name="gui" default="$(optenv GUI false)"/>
+	<arg name="debug" default="$(optenv DEBUG false)"/>
+
+	<!-- mapping arguments-->
 	<arg name="map_frame" default="$(arg id_robot)_map"/>
 	<arg name="map_file" default="$(find rb_theron_localization)/maps/willow_garage/willow_garage.yaml"/>
-	<arg name="move_base" default="true"/>
-	<arg name="pad" default="true"/>
-	<arg name="use_gpu" default="$(optenv USE_GPU_FOR_SIMULATION true)"/>
-	<arg name="launch_rosbridge" default="$(optenv LAUNCH_ROSBRIDGE false)" />
+
+	<!--  rosbridge arguments -->
 	<arg name="rosbridge_port" default="$(optenv ROSBRIDGE_PORT 9090)" />
 
 	<include file="$(find rb_theron_gazebo)/launch/rb_theron_gazebo.launch">
 		<!-- general args -->
-		<arg name="launch_rviz" value="$(arg launch_rviz)"/>
 		<arg name="gazebo_world" value="$(arg gazebo_world)"/>
 		<!-- <arg name="launch_base_hw_sim" value="$(arg launch_base_hw_sim)"/> -->
 		<arg name="use_ros_planar_move_plugin" value="$(arg use_ros_planar_move_plugin)"/>
@@ -36,11 +48,13 @@
 		<!-- robot args -->
 		<arg name="id_robot" default="$(arg id_robot)"/>
 		<arg name="xacro_robot" value="$(arg xacro_robot)"/>
-
+		<!-- robot init pose-->
 		<arg name="x_init_pose" value="$(arg x_init_pose)" />
 		<arg name="y_init_pose" value="$(arg y_init_pose)" />
 		<arg name="z_init_pose" value="$(arg z_init_pose)" />
 		<arg name="init_yaw" value="$(arg init_yaw)" />
+		<!-- Launch components -->
+		<arg name="rviz" value="$(arg rviz)"/>
 		<arg name="gmapping" value="$(arg gmapping)"/>
 		<arg name="amcl" value="$(arg amcl)"/>
 		<arg name="mapserver" value="$(arg mapserver)"/>
@@ -48,9 +62,13 @@
 		<arg name="map_file" value="$(arg map_file)"/>
 		<arg name="move_base" value="$(arg move_base)"/>
 		<arg name="pad" value="$(arg pad)"/>
+		<!-- gazebo parameters -->
 		<arg name="use_gpu" value="$(arg use_gpu)"/>
+		<arg name="verbose" value="$(arg verbose)"/>
+		<arg name="gui" value="$(arg gui)"/>
+		<arg name="debug" value="$(arg debug)"/>
 	</include>
-	<include if="$(arg launch_rosbridge)" file="$(find rb_theron_sim_bringup)/launch/rosbridge.launch">
+	<include if="$(arg rosbridge)" file="$(find rb_theron_sim_bringup)/launch/rosbridge.launch">
 		<arg name="port" value="$(arg rosbridge_port)"/>
 		<arg name="id_robot" value="$(arg id_robot)"/>
 	</include>
