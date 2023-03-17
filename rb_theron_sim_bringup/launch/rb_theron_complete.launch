@@ -22,7 +22,9 @@
 	<arg name="map_file" default="$(find rb_theron_localization)/maps/willow_garage/willow_garage.yaml"/>
 	<arg name="move_base" default="true"/>
 	<arg name="pad" default="true"/>
-	<arg name="use_gpu" default="true"/>
+	<arg name="use_gpu" default="$(optenv USE_GPU_FOR_SIMULATION true)"/>
+	<arg name="launch_rosbridge" default="$(optenv LAUNCH_ROSBRIDGE false)" />
+	<arg name="rosbridge_port" default="$(optenv ROSBRIDGE_PORT 9090)" />
 
 	<include file="$(find rb_theron_gazebo)/launch/rb_theron_gazebo.launch">
 		<!-- general args -->
@@ -48,5 +50,8 @@
 		<arg name="pad" value="$(arg pad)"/>
 		<arg name="use_gpu" value="$(arg use_gpu)"/>
 	</include>
-
+	<include if="$(arg launch_rosbridge)" file="$(find rb_theron_sim_bringup)/launch/rosbridge.launch">
+		<arg name="port" value="$(arg rosbridge_port)"/>
+		<arg name="id_robot" value="$(arg id_robot)"/>
+	</include>
 </launch>

@@ -2,7 +2,7 @@ FROM osrf/ros:melodic-desktop-full
 LABEL Nuria Diaz <ndiaz@robotnik.es>
 
 # Non Root user
-ARG user_name=ros
+ARG user_name=robot
 ARG user_uid=1000
 ARG user_home=/home/$user_name
 ARG user_shell=/bin/bash
@@ -17,6 +17,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F42ED6FBAB17C654
 
+
 RUN apt-get update \
 	&& apt-get install -q -y \
 		wget \
@@ -26,7 +27,19 @@ RUN apt-get update \
 	&& apt-get clean -q -y \
 	&& apt-get autoremove -q -y \
 	&& rm -rf /var/lib/apt/lists/* \
-	&& echo '%ros ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+	&& echo '%robot ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+# Add gazebo repositories
+RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list
+
+# setup keys
+RUN wget https://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
+
+# Add gazebo repositories
+RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list
+
+# setup keys
+RUN wget https://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
 
 RUN apt-get update \
 	&& apt upgrade -y \
@@ -41,48 +54,16 @@ RUN apt-get update \
 	&& apt-get autoremove -q -y \
 	&& rm -rf /var/lib/apt/lists/*
 
+COPY docker/ros-requirements.txt /tmp
+
 RUN apt-get update \
 	&& apt-get install -q -y \
-		ros-melodic-global-planner \
-		ros-melodic-moveit-fake-controller-manager \
-		ros-melodic-hector-gazebo-plugins \
-		ros-melodic-moveit-planners-ompl \
-		ros-melodic-teb-local-planner \
-		ros-melodic-mavros-msgs \
-		ros-melodic-ros-control \
-		ros-melodic-imu-complementary-filter \
-		ros-melodic-pr2-moveit-config \
-		ros-melodic-moveit-ros-planning-interface \
-		ros-melodic-velocity-controllers \
-		ros-melodic-pr2-moveit-plugins \
-		ros-melodic-moveit-ros-visualization \
-		ros-melodic-move-base \
-		ros-melodic-geometric-shapes \
-		ros-melodic-eband-local-planner \
-		ros-melodic-map-server \
-		ros-melodic-moveit-kinematics \
-		ros-melodic-costmap-2d \
-		ros-melodic-twist-mux \
-		ros-melodic-moveit-ros-perception \
-		ros-melodic-moveit-ros-move-group \
-		ros-melodic-gmapping \
-		ros-melodic-moveit-setup-assistant \
-		ros-melodic-moveit-core \
-		ros-melodic-pr2-arm-kinematics \
-		ros-melodic-robot-localization \
-		ros-melodic-amcl \
-		ros-melodic-joy \
-		ros-melodic-geographic-msgs \
-		ros-melodic-ros-controllers \
-		ros-melodic-effort-controllers \
-		ros-melodic-topic-tools \
-		ros-melodic-tf2-web-republisher \
-		ros-melodic-rosbridge-server \
-		ros-melodic-moveit-simple-controller-manager \
-		ros-melodic-joint-state-publisher-gui \
+	--no-install-recommends \
+		$(eval "echo $(cat /tmp/ros-requirements.txt | xargs)") \
 	&& apt-get clean -q -y \
 	&& apt-get autoremove -q -y \
-	&& rm -rf /var/lib/apt/lists/*
+	&& rm -rf /var/lib/apt/lists/* \
+	&& rm /tmp/ros-requirements.txt
 
 
 COPY docker/ros_entrypoint.sh /

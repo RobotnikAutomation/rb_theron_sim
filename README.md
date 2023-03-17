@@ -52,17 +52,26 @@ roslaunch rb_theron_sim_bringup rb_theron_complete.launch
 ```
 
 
-
-
 ## Docker Usage
 
 In order to run this simulation you will need nvidia graphical accelation
 
 ### Installation of required files
 
-- [docker](https://docs.docker.com/engine/install/ubuntu/)
-- [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
+#### Intel GPU
+
+- [docker engine](https://docs.docker.com/engine/install/ubuntu/)
+- [docker compose plugin](https://docs.docker.com/compose/install/linux/)
+
+#### Nvidia GPU
+
+- [docker engine](https://docs.docker.com/engine/install/ubuntu/)
+
+- [docker compose plugin](https://docs.docker.com/compose/install/linux/)
+
 - nvidia-drivers
+
+- [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
 
 ### Usage
 
@@ -70,8 +79,60 @@ In order to run this simulation you will need nvidia graphical accelation
 git clone https://github.com/RobotnikAutomation/rb_theron_sim.git
 cd rb_theron_sim
 git checkout melodic-devel
-export ROS_BU_PKG="rb_theron_sim_bringup"
-export ROS_BU_LAUNCH="rb_theron_complete.launch"
+nvidia-smi &>/dev/null \
+&& ln -sf docker-compose-nvidia.yml docker-compose.yml \
+|| ln -sf docker-compose-intel.yml docker-compose.yml
 cd docker
 docker compose up
 ```
+
+#### Manual Build
+
+If you wish to build the image without launching the simulation use the following commands:
+
+```bash
+cd docker
+docker compose build
+```
+
+#### Notes
+
+This is docker requires a graphical interface
+
+- In order to exit you have to 2 options
+
+- The `ROS_MASTER_URI` is accessible outside the container, so in the host any ros command should work
+
+- You could also run a `roscore` previous to launch the simulation in order to have some processes on the host running
+
+- if you want to enter on the container use the following command in another terminal
+1. Close `gazebo` and `rviz` and wait a bit
+
+2. execute in another terminal:
+   
+   ```bash
+   docker container rm --force docker-rb-theron-sim-1
+   ```
+
+#### Notes
+
+- This is docker requires a graphical interface
+
+- The `ROS_MASTER_URI` is accessible outside the container, so in the host any ros command should work
+
+- You could also run a `roscore` previous to launch the simulation in order to have some processes on the host running
+
+- if you want to enter on the container use the following command in another terminal
+  
+  ```bash
+  docker container exec -it docker-rb-theron-sim-1 bash
+  ```
+
+- In order to exit you have to 2 options
+1. Close `gazebo` and `rviz` and wait a bit
+
+2. execute in another terminal in the same folder than the `docker-compose.yml`:
+   
+   ```bash
+   docker compose down
+   ```
