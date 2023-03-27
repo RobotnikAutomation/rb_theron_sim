@@ -24,6 +24,7 @@ RUN apt-get update \
 		apt-utils \
 		# dialog \
 		sudo \
+		unzip \
 	&& apt-get clean -q -y \
 	&& apt-get autoremove -q -y \
 	&& rm -rf /var/lib/apt/lists/* \
