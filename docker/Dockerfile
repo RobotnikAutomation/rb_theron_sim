@@ -42,6 +42,26 @@ RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_releas
 # setup keys
 RUN wget https://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
 
+# Gazebo models
+ARG gazebo_models_url=https://github.com/osrf/gazebo_models/archive/refs/heads/master.zip
+ARG gazebo_model_zip_path=/tmp/gazebo_models.zip
+ARG gazebo_model_zip_internal=gazebo_models-master
+ARG gazebo_model_zip_internal_path=/tmp/$gazebo_model_zip_internal
+ARG gazebo_model_path=$user_home/.gazebo
+
+RUN true \
+	&& wget -O $gazebo_model_zip_path $gazebo_models_url \
+	&& true
+RUN true \
+	&& mkdir -p $gazebo_model_path \
+	&& cd $gazebo_model_path \
+	&& unzip $gazebo_model_zip_path \
+	&& mv $gazebo_model_zip_internal models \
+	&& chown -R $user_name: $gazebo_model_path \
+	&& rm $gazebo_model_zip_path \
+	&& true
+
+
 RUN apt-get update \
 	&& apt upgrade -y \
 	&& apt-get clean -q -y \
@@ -77,15 +97,6 @@ RUN true \
 	&& echo "PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[00m\]@\[\033[01;31m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> ~/.bashrc \
 	&& echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc \
 	&& echo "source $ck_dir/devel/setup.bash" >> ~/.bashrc
-
-ARG gazebo_model_path=$user_home/.gazebo/
-ARG gazebo_models_url=https://github.com/osrf/gazebo_models.git
-RUN true \
-	&& mkdir -p $gazebo_model_path/models \
-	&& chown -R $user_name: $gazebo_model_path \
-	&& git clone --depth 1 $gazebo_models_url $gazebo_model_path/models \
-	&& rm -rf $gazebo_model_path/models/.git \
-	&& true
 
 WORKDIR $ck_dir
 
