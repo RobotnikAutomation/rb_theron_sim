@@ -1,3 +1,4 @@
+ros-${ROS_DISTRO}-ackermann-msgs
 ros-${ROS_DISTRO}-amcl
 ros-${ROS_DISTRO}-cartographer-ros
 ros-${ROS_DISTRO}-costmap-2d
@@ -38,3 +39,4 @@ ros-${ROS_DISTRO}-tf2-web-republisher
 ros-${ROS_DISTRO}-topic-tools
 ros-${ROS_DISTRO}-twist-mux
 ros-${ROS_DISTRO}-velocity-controllers
+ros-${ROS_DISTRO}-web-video-server
