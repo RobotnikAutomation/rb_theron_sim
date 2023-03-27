@@ -51,6 +51,7 @@ RUN apt-get update \
 RUN apt-get update \
 	&& apt-get install -q -y \
 		python3-vcstool \
+		python-catkin-tools \
 	&& apt-get clean -q -y \
 	&& apt-get autoremove -q -y \
 	&& rm -rf /var/lib/apt/lists/*
@@ -122,7 +123,7 @@ RUN true \
 RUN true \
 	&& . /opt/ros/melodic/setup.sh \
 	&& export ROS_PARALLEL_JOBS=-j$(nproc --all) \
-	&& catkin_make
+	&& catkin build
 
 ARG ign_version=4_4.0.0
 ARG ign_cfg_url=https://raw.githubusercontent.com/ignitionrobotics/ign-fuel-tools/ignition-fuel-tools$ign_version/conf/config.yaml
