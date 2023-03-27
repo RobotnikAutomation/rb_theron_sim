@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+  <arg
+    name="port"
+    default="9090"
+  />
+  <!-- inits rosbridge server -->
+  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
+    <arg
+      name="address"
+      value=""
+    />
+    <arg
+      name="port"
+      value="$(arg port)"
+    />
+  </include>
+
+</launch>
