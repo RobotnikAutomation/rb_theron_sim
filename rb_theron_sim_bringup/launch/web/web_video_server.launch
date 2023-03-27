@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="port"  default="$(optenv ROBOT_WEB_VIDEO_SERVER_PORT 8092)"/>
+  <arg name="address"  default="$(optenv ROBOT_WEB_VIDEO_SERVER_ADDRESS 0.0.0.0)"/>
+  <arg name="server_threads"  default="1"/>
+  <arg name="ros_threads"  default="2"/>
+  <!-- The jpeg image quality (1...100). This parameter can be used to reduce the size of the resulting stream. -->
+  <arg name="quality"  default="$(optenv ROBOT_WEB_VIDEO_QUALITY 50)"/>
+  <!-- invert (none, default: ) Rotates the image by 180 degrees before streaming. -->
+  <arg name="invert"  default=""/>
+  <!-- The image transport to use (raw, compressed, theora). -->
+  <arg name="default_transport"  default="$(optenv ROBOT_WEB_VIDEO_TRANSPORT compressed)"/>
+  <arg name="node_name"  default="web_video_server"/>
+
+  <node
+    name="$(arg node_name)"
+    pkg="web_video_server"
+    type="web_video_server"
+    respawn="false"
+  >
+      <param name="port" value="$(arg port)"/>
+      <param name="address" value="$(arg address)"/>
+      <param name="server_threads" value="$(arg server_threads)"/>
+      <param name="ros_threads" value="$(arg ros_threads)"/>
+      <param name="quality" value="$(arg quality)"/>
+      <param name="invert" value="$(arg invert)"/>
+      <param name="default_transport" value="$(arg default_transport)"/>
+
+  </node>
+</launch>
