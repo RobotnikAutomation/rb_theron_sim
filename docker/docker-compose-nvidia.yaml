@@ -15,6 +15,10 @@ services:
     #   - dialout
     #   - plugdev
     #   - video
+    group_add:
+      - dialout
+      - plugdev
+      - video
     environment:
       ROS_MASTER_URI: "http://localhost:11311"
       GAZEBO_MASTER_URI: "http://localhost:11345"
@@ -34,13 +38,19 @@ services:
       LAUNCH_MAPSERVER: "true"
       LAUNCH_MOVE_BASE: "true"
       LAUNCH_PAD: "true"
-      LAUNCH_ROSBRIDGE: "false"
       LAUNCH_RVIZ: "true"
+      LAUNCH_LASER_MERGER: "true"
+      LAUNCH_WEB_BACKEND: "true"
       USE_GPU: "false"
       VERBOSE: "false"
       GUI: "true"
       DEBUG: "false"
       ROSBRIDGE_PORT: "9090"
+      ROBOT_WEB_VIDEO_SERVER_PORT: "8092"
+      ROBOT_WEB_VIDEO_QUALITY: "50"
+      ROBOT_WEB_VIDEO_TRANSPORT: "compresed"
+      ROBOT_HMI_2D_SENSOR_1: "merged_laser/scan"
+
     volumes:
       - type: bind
         source: /tmp/.X11-unix
