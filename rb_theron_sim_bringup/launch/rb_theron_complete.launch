@@ -23,8 +23,9 @@
 	<arg name="mapserver" default="$(optenv LAUNCH_MAPSERVER true)"/>
 	<arg name="move_base" default="$(optenv LAUNCH_MOVE_BASE true)"/>
 	<arg name="pad" default="$(optenv LAUNCH_PAD true)"/>
-	<arg name="rosbridge" default="$(optenv LAUNCH_ROSBRIDGE false)" />
 	<arg name="rviz" default="$(optenv LAUNCH_RVIZ true)"/>
+	<arg name="laser_merger" default="$(optenv LAUNCH_LASER_MERGER false)" />
+	<arg name="web_backend" default="$(optenv LAUNCH_WEB_BACKEND false)" />
 
 	<!-- gazebo argurments-->
 	<arg name="use_gpu" default="$(optenv USE_GPU true)"/>
@@ -35,9 +36,6 @@
 	<!-- mapping arguments-->
 	<arg name="map_frame" default="$(arg id_robot)_map"/>
 	<arg name="map_file" default="$(find rb_theron_localization)/maps/willow_garage/willow_garage.yaml"/>
-
-	<!--  rosbridge arguments -->
-	<arg name="rosbridge_port" default="$(optenv ROSBRIDGE_PORT 9090)" />
 
 	<include file="$(find rb_theron_gazebo)/launch/rb_theron_gazebo.launch">
 		<!-- general args -->
@@ -68,8 +66,17 @@
 		<arg name="gui" value="$(arg gui)"/>
 		<arg name="debug" value="$(arg debug)"/>
 	</include>
-	<include if="$(arg rosbridge)" file="$(find rb_theron_sim_bringup)/launch/rosbridge.launch">
-		<arg name="port" value="$(arg rosbridge_port)"/>
-		<arg name="id_robot" value="$(arg id_robot)"/>
-	</include>
+	<group ns="$(arg id_robot)">
+		<include
+			if="$(arg web_backend)"
+			file="$(find rb_theron_sim_bringup)/launch/web/web_backend.launch"
+		>
+			<arg name="id_robot" value="$(arg id_robot)"/>
+		</include>
+		<include
+			if="$(arg laser_merger)"
+			file="$(find rb_theron_sim_bringup)/launch/sensors/merge_scan.launch"
+		>
+		</include>
+	</group>
 </launch>
