@@ -1,0 +1,22 @@
+plugins:
+  - Movement
+
+pad:
+  type: ps4
+  num_of_buttons: 13
+  num_of_axes: 8
+  joy_topic: $(arg joy_topic)
+
+Movement:
+  type: robotnik_pad_plugins/Movement
+  max_linear_speed: 0.5
+  max_angular_speed: 1
+  cmd_topic_vel: $(arg cmd_vel_topic)
+  config:
+    button_deadman: 5
+    axis_linear_x: 1
+    axis_linear_y: 0
+    axis_angular_z: 2
+    button_speed_up: 3
+    button_speed_down: 0
+    button_kinematic_mode: 7
