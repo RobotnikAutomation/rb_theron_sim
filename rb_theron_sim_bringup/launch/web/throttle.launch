@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+	<arg name="node_name" default="throttle_node"/>
+	<arg name="topic" default="$(arg node_name)/topic"/>
+	<arg name="topic_out" default="$(arg node_name)/topic/out"/>
+	<arg name="lazy" default="true"/>
+	<arg name="throttle_frequency" default="5.0"/>
+	<node
+	    name="$(arg node_name)"
+	    pkg="topic_tools"
+	    type="throttle"
+	    args="messages $(arg topic) $(arg throttle_frequency) $(arg topic_out)"
+	  >
+	      <param name="lazy" value="$(arg lazy)"/>
+	  </node>
+
+
+</launch>

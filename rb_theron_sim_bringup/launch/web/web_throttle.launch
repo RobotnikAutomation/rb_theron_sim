@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="id_robot" default="$(optenv ROBOT_ID robot)"/>
+  <arg name="odom_topic" default="$(arg id_robot)/robotnik_base_control/odom"/>
+  <arg name="default_map_topic" default="$(optenv ROBOT_HMI_MAP_TOPIC map)"/>
+  <arg name="map_topic" default="$(arg id_robot)/$(arg default_map_topic)"/>
+  <arg name="default_map_nav_topic" default="$(optenv ROBOT_HMI_MAP_NAV_TOPIC navigation_map)"/>
+  <arg name="map_nav_topic" default="$(arg id_robot)/$(arg default_map_nav_topic)"/>
+  <arg name="throttle_map" default="$(optenv THROTTLE_MAP false)"/>
+
+  <arg name="sensor_2d_1" default="$(optenv ROBOT_HMI_2D_SENSOR_1 none)"/>
+  <arg name="sensor_2d_2" default="$(optenv ROBOT_HMI_2D_SENSOR_2 none)"/>
+  <arg name="sensor_2d_3" default="$(optenv ROBOT_HMI_2D_SENSOR_3 none)"/>
+
+  <arg name="sensor_3d_1" default="$(optenv ROBOT_HMI_3D_SENSOR_1 none)"/>
+  <arg name="sensor_3d_2" default="$(optenv ROBOT_HMI_3D_SENSOR_2 none)"/>
+  <arg name="sensor_3d_3" default="$(optenv ROBOT_HMI_3D_SENSOR_3 none)"/>
+
+  <arg name="sensor_gps" default="$(optenv ROBOT_GPS_MODEL none)"/>
+
+  <arg name="gps_fix_topic" default="$(arg id_robot)/gps/fix"/>
+  <arg name="throttle_namespace" default="throttle"/>
+  <!-- If True, don't subscribe to input topic unless there is at least one subscriber on the output topic -->
+  <arg name="lazy_throttle" default="true"/>
+
+
+  <!-- republish the odometry messages with lower frequency -->
+  <include file="$(find rb_theron_sim_bringup)/launch/web/throttle.launch">
+    <arg name="node_name" value="throttle_odom"/>
+    <arg name="topic" value="$(arg odom_topic)"/>
+    <arg name="topic_out" value="$(arg throttle_namespace)/odom"/>
+    <arg name="lazy" value="$(arg lazy_throttle)"/>
+    <arg name="throttle_frequency" value="4.0"/>
+  </include>
+
+  <!-- map -->
+  <include
+    if="$(eval throttle_map == 'true')"
+    file="$(find rb_theron_sim_bringup)/launch/web/throttle.launch"
+  >
+    <arg name="node_name" value="throttle_map"/>
+    <arg name="topic" value="$(arg map_topic)"/>
+    <arg name="topic_out" value="$(arg throttle_namespace)/map"/>
+    <arg name="lazy" value="$(arg lazy_throttle)"/>
+    <arg name="throttle_frequency" value="0.2"/>
+  </include>
+  <include
+    if="$(eval throttle_map == 'true')"
+    file="$(find rb_theron_sim_bringup)/launch/web/throttle.launch"
+  >
+    <arg name="node_name" value="throttle_nav_map"/>
+    <arg name="topic" value="$(arg map_nav_topic)"/>
+    <arg name="topic_out" value="$(arg throttle_namespace)/navigation_map"/>
+    <arg name="lazy" value="$(arg lazy_throttle)"/>
+    <arg name="throttle_frequency" value="0.2"/>
+  </include>
+
+  <!-- 2d scan -->
+  <!-- ....... -->
+
+  <!-- 2d scan 1 -->
+  <node
+    if="$(eval sensor_2d_1 != 'none')"
+    name="throttle_2d_scan_1"
+    pkg="laser_filters"
+    type="scan_to_scan_filter_chain"
+  >
+      <rosparam
+        command="load"
+        file="$(find rb_theron_sim_bringup)/config/laser_filters/lower_res_2d.yaml"
+      />
+      <remap
+        from="scan"
+        to="$(arg sensor_2d_1)"
+      />
+      <remap
+        from="scan_filtered"
+        to="$(arg throttle_namespace)/$(arg sensor_2d_1)"
+      />
+  </node>
+
+  <!-- 2d scan 2 -->
+  <node
+    if="$(eval sensor_2d_2 != 'none')"
+    name="throttle_2d_scan_2"
+    pkg="laser_filters"
+    type="scan_to_scan_filter_chain"
+  >
+      <rosparam
+        command="load"
+        file="$(find robot_bringup)/config/laser_filters/lower_res_2d.yaml"
+      />
+      <remap
+        from="scan"
+        to="$(arg sensor_2d_2)"
+      />
+      <remap
+        from="scan_filtered"
+        to="$(arg throttle_namespace)/$(arg sensor_2d_2)"
+      />
+  </node>
+
+  <!-- 2d scan 3 -->
+  <node
+    if="$(eval sensor_2d_3 != 'none')"
+    name="throttle_2d_scan_3"
+    pkg="laser_filters"
+    type="scan_to_scan_filter_chain"
+  >
+      <rosparam
+        command="load"
+        file="$(find robot_bringup)/config/laser_filters/lower_res_2d.yaml"
+      />
+      <remap
+        from="scan"
+        to="$(arg sensor_2d_3)"
+      />
+      <remap
+        from="scan_filtered"
+        to="$(arg throttle_namespace)/$(arg sensor_2d_3)"
+      />
+  </node>
+
+  <!-- 3d scan -->
+  <!-- ....... -->
+
+  <!-- 3d scan 1 -->
+  <node
+    if="$(eval sensor_3d_1 != 'none')"
+    name="throttle_3d_scan_1"
+    pkg="pointcloud_filters"
+    type="lower_resolution_filter_node"
+  >
+    <rosparam
+      command="load"
+      file="$(find robot_bringup)/config/laser_filters/lower_res_3d.yaml"
+    />
+    <param
+      name="pointcloud_in"
+      value="$(arg id_robot)/$(arg sensor_3d_1)"
+    />
+    <param
+      name="pointcloud_filtered"
+      value="$(arg throttle_namespace)/$(arg sensor_3d_1)"
+    />
+  </node>
+
+  <!-- 3d scan 1 -->
+  <node
+    if="$(eval sensor_3d_2 != 'none')"
+    name="throttle_3d_scan_2"
+    pkg="pointcloud_filters"
+    type="lower_resolution_filter_node"
+  >
+    <rosparam
+      command="load"
+      file="$(find robot_bringup)/config/laser_filters/lower_res_3d.yaml"
+    />
+    <param
+      name="pointcloud_in" value="$(arg id_robot)/$(arg sensor_3d_2)"
+    />
+    <param
+      name="pointcloud_filtered" value="$(arg throttle_namespace)/$(arg sensor_3d_2)"
+    />
+  </node>
+
+  <!-- 3d scan 3 -->
+  <node
+    if="$(eval sensor_3d_3 != 'none')"
+    name="throttle_3d_scan_3"
+    pkg="pointcloud_filters"
+    type="lower_resolution_filter_node"
+  >
+    <rosparam
+      command="load"
+      file="$(find robot_bringup)/config/laser_filters/lower_res_3d.yaml"
+    />
+    <param
+      name="pointcloud_in"
+      value="$(arg id_robot)/$(arg sensor_3d_3)"
+    />
+    <param
+      name="pointcloud_filtered"
+      value="$(arg throttle_namespace)/$(arg sensor_3d_3)"
+    />
+  </node>
+
+  <!-- gps -->
+  <node
+    if="$(eval sensor_gps != 'none')"
+    name="throttle_gps_fix"
+    pkg="topic_tools"
+    type="throttle"
+    args="messages $(arg gps_fix_topic) 2.0 $(arg throttle_namespace)/gps/fix"
+  >
+      <arg name="lazy" value="$(arg lazy_throttle)"/>
+  </node>
+
+</launch>

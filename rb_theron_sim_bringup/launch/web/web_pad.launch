@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="debug" default="false"/>
+    <arg if="$(arg debug)" name="launch_prefix" default="gdb -ex run --args"/>
+    <arg unless="$(arg debug)" name="launch_prefix" default=""/>
+
+    <arg name="pad_plugin" default="$(optenv ROBOT_WEB_PAD_PLUGIN web_pad)"/>
+    <arg name="joy_topic" default="$(optenv ROBOT_WEB_PAD_TOPIC web_joy)" />
+    <arg name="cmd_vel_topic" default="$(optenv ROBOT_WEB_PAD_TWISTMUX web_teleop/cmd_vel)" />
+    <arg name="pad_config" default="$(find rb_theron_sim_bringup)/config/pad/$(arg pad_plugin).yaml" />
+    <arg name="node_name" default="web_pad" />
+
+    <!-- Parameters -->
+    <node
+      name="$(arg node_name)"
+      pkg="robotnik_pad"
+      type="robotnik_pad_node"
+      output="screen"
+      launch-prefix="$(arg launch_prefix)"
+    >
+        <rosparam
+          command="load"
+          file="$(arg pad_config)"
+          subst_value="true"
+        />
+        <param name="desired_freq" value="10.0" />
+    </node>
+
+</launch>

@@ -1,23 +1,34 @@
 ---
 repositories:
-
   src/rb_theron_sim:
     type: git
-    url: https://github.com/RobotnikAutomation/rb_theron_sim
+    url: https://github.com/RobotnikAutomation/rb_theron_sim.git
     version: melodic-devel
   src/rb_theron_common:
     type: git
-    url: https://github.com/RobotnikAutomation/rb_theron_common
+    url: https://github.com/RobotnikAutomation/rb_theron_common.git
     version: melodic-devel
   src/robotnik_msgs:
     type: git
-    url: https://github.com/RobotnikAutomation/robotnik_msgs
+    url: https://github.com/RobotnikAutomation/robotnik_msgs.git
     version: master
   src/robotnik_sensors:
     type: git
-    url: https://github.com/RobotnikAutomation/robotnik_sensors
+    url: https://github.com/RobotnikAutomation/robotnik_sensors.git
     version: melodic-devel
   src/rcomponent:
     type: git
     url: https://github.com/RobotnikAutomation/rcomponent.git
+    version: master
+  src/robotnik_pad:
+    type: git
+    url: https://github.com/RobotnikAutomation/robotnik_pad.git
+    version: master
+  src/laser_filters:
+    type: git
+    url: https://github.com/RobotnikAutomation/laser_filters.git
+    version: melodic-devel
+  src/ira_laser_tools:
+    type: git
+    url: https://github.com/RobotnikAutomation/ira_laser_tools.git
     version: master
