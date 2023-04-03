@@ -1,34 +1,36 @@
 <?xml version="1.0"?>
-<package format="2">
+<?xml-model
+    href="http://download.ros.org/schema/package_format3.xsd"
+    schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
   <name>rb_theron_gazebo</name>
-  <version>0.0.0</version>
-  <description>The rb_theron_gazebo package</description>
+  <version>0.1.0</version>
+  <description>
+    The rb_theron_gazebo package
+  </description>
 
   <maintainer email="info@robotnik.com">Robotnik</maintainer>
 
   <license>BSD</license>
 
-  <!-- <url type="website">http://wiki.ros.org/robotnik_move_base</url> -->
+  <url type="website">http://wiki.ros.org/rb_theron_sim</url>
+  <url type="repository">https://github.com/RobotnikAutomation/rb_theron_sim</url>
+  <url type="bugtracker">https://github.com/RobotnikAutomation/rb_theron_sim/issues</url>
 
-  <buildtool_depend>catkin</buildtool_depend>
-  <depend>battery_estimation</depend>
-  <depend>charge_manager</depend>
-  <depend>gazebo_ros</depend>
-  <depend>rb_theron_control</depend>
-  <depend>rb_theron_description</depend>
-  <depend>rb_theron_localization</depend>
-  <depend>rb_theron_navigation</depend>
-  <depend>rb_theron_pad</depend>
-  <depend>rb_theron_perception</depend>
-  <depend>rb_theron_robot_local_control</depend>
-  <depend>robot_state_publisher</depend>
-  <depend>robotnik_base_hw_sim</depend>
-  <depend>roscpp</depend>
-  <depend>rviz</depend>
-  <depend>xacro</depend>
-  <build_depend>rcomponent</build_depend>
-  <build_depend>robotnik_msgs</build_depend>
-  <exec_depend>rcomponent</exec_depend>
-  <exec_depend>robotnik_msgs</exec_depend>
+  <buildtool_depend>ament_cmake</buildtool_depend>
 
+  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>gazebo_ros_control</exec_depend>
+  <exec_depend>rb1_base_control</exec_depend>
+  <exec_depend>rb1_base_description</exec_depend>
+  <exec_depend>rb1_base_pad</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>std_srvs</exec_depend>
+  <exec_depend>tf</exec_depend>
+  <exec_depend>diff_drive_controller</exec_depend>
+  <exec_depend>rviz</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
 </package>
