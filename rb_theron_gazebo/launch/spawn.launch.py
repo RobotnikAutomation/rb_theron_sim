@@ -22,88 +22,67 @@
 # ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-import launch
-import launch_ros
-import os
 
+import os, launch, launch_ros
 from ament_index_python.packages import get_package_share_directory
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.event_handlers import OnProcessExit
 
-#from robotnik_common.launch import RewrittenYaml
+from robotnik_common.launch import RewrittenYaml
 
-# Environment variables
-#  USE_SIM_TIME: Use simulation (Gazebo) clock if true
-#  NAMESPACE: Namespace of the node stack.
-#  ROBOT_ID: Frame id of the robot. (e.g. vectornav_link).
-#  WORLD: World to load.
+def read_params(ld : launch.LaunchDescription, params : list[tuple[str, str, str]]): # name, description, default_value
 
-def read_params(ld : launch.LaunchDescription):
-  use_sim_time = launch.substitutions.LaunchConfiguration('use_sim_time')
-  robot_id = launch.substitutions.LaunchConfiguration('robot_id')
-  namespace = launch.substitutions.LaunchConfiguration('namespace')
-  pos_x = launch.substitutions.LaunchConfiguration('pos_x')
-  pos_y = launch.substitutions.LaunchConfiguration('pos_y')
-
+  # Declare the launch options
   ld.add_action(launch.actions.DeclareLaunchArgument(
-    name='use_sim_time',
-    description='Use simulation (Gazebo) clock if true',
+    name='environment',
+    description='Read parameters from environment variables',
     choices=['true', 'false'],
     default_value='true',
   ))
+  for param in params:
+    ld.add_action(launch.actions.DeclareLaunchArgument(
+      name=param[0], description=param[1], default_value=param[2],))
 
-  ld.add_action(launch.actions.DeclareLaunchArgument(
-    name='robot_id',
-    description='Id of the robot',
-    default_value='robot',
-  ))
-
-  ld.add_action(launch.actions.DeclareLaunchArgument(
-    name='namespace',
-    description='Namespace of the node stack',
-    default_value=robot_id,
-  ))
-
-  ld.add_action(launch.actions.DeclareLaunchArgument(
-    name='pos_x',
-    description='X position of the robot',
-    default_value='0.0',
-  ))
-
-  ld.add_action(launch.actions.DeclareLaunchArgument(
-    name='pos_y',
-    description='Y position of the robot',
-    default_value='0.0',
-  ))
-
-  ret = {
-    'use_sim_time': use_sim_time,
-    'namespace': namespace,
-    'robot_id': robot_id,
-    'pos_x': pos_x,
-    'pos_y': pos_y,
-  }
+  # Get the launch configuration variables
+  ret={}
+  if launch.substitutions.LaunchConfiguration('environment') == 'false':
+    for param in params:
+      ret[param[0]] = launch.substitutions.LaunchConfiguration(param[0])
+  else:
+    for param in params:
+      if str.upper(param[0]) in os.environ:
+        ret[param[0]] = launch.substitutions.EnvironmentVariable(str.upper(param[0]))
+      else: ret[param[0]] = launch.substitutions.LaunchConfiguration(param[0])
 
   return ret
 
 
-from launch.launch_description_sources import PythonLaunchDescriptionSource
-
 def generate_launch_description():
+
   ld = launch.LaunchDescription()
-  rb_theron_gazebo = get_package_share_directory('rb_theron_gazebo')
+  p = [
+    ('use_sim_time', 'Use simulation (Gazebo) clock if true', 'true'),
+    ('robot_id', 'Id of the robot', 'robot'),
+    ('namespace', 'Namespace of the node stack', launch.substitutions.LaunchConfiguration('robot_id')),
+    ('pos_x', 'X position of the robot', '0.0'),
+    ('pos_y', 'Y position of the robot', '0.0'),
+    ('pos_z', 'Z position of the robot', '0.1')
+  ]
+  params = read_params(ld, p)
 
-  params = read_params(ld)
-
-  namespace = launch_ros.actions.PushRosNamespace(namespace=params['namespace'])
+  # Node to spawn the robot in Gazebo
   robot_state_publisher = launch.actions.IncludeLaunchDescription(
     PythonLaunchDescriptionSource(
-      os.path.join(rb_theron_gazebo, 'launch', 'description.launch.py')
+      os.path.join(get_package_share_directory('rb_theron_gazebo'), 'launch', 'description.launch.py')
     ),
     launch_arguments={
       'use_sim_time': params['use_sim_time'],
       'robot_id': params['robot_id'],
     }.items(),
   )
-  spawner = launch_ros.actions.Node(
+
+  spawn_robot = launch_ros.actions.Node(
+    namespace=params['namespace'],
     package='gazebo_ros',
     executable='spawn_entity.py',
     arguments=[
@@ -111,27 +90,35 @@ def generate_launch_description():
       '-topic', 'robot_description',
       '-x', params['pos_x'],
       '-y', params['pos_y'],
-      '-z', '0.10',
+      '-z', params['pos_z'],
     ],
-    output='screen',
-  )
-  base_controller = launch_ros.actions.Node(
-    package="controller_manager",
-    executable="spawner",
-    arguments=["robotnik_base_control", "--controller-manager", ["/", params['namespace'], "/controller_manager"]],
-  )
-  joint_broadcaster = launch_ros.actions.Node(
-    package="controller_manager",
-    executable="spawner",
-    arguments=["joint_state_broadcaster", "--controller-manager", ["/", params['namespace'], "/controller_manager"]],
   )
 
+  # Run robot description and spawn robot in Gazebo
   ld.add_action(launch.actions.GroupAction(actions=[
-    namespace,
     robot_state_publisher,
-    spawner,
-    base_controller,
-    joint_broadcaster,
+    spawn_robot,
   ]))
+
+  # When spawn entity finishes, spawn controllers to avoid race condition.
+  ld.add_action(launch.actions.RegisterEventHandler(
+    event_handler=OnProcessExit(
+      target_action=spawn_robot,
+      on_exit=[
+        launch_ros.actions.Node(
+          namespace=params['namespace'],
+          package="controller_manager",
+          executable="spawner",
+          arguments=["robotnik_base_control"]
+        ),
+        launch_ros.actions.Node(
+          namespace=params['namespace'],
+          package="controller_manager",
+          executable="spawner",
+          arguments=["joint_state_broadcaster"]
+        ),
+      ]
+    )
+  ))
 
   return ld

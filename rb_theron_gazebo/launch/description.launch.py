@@ -23,94 +23,73 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import os
-import launch
-import launch_ros
+import os, launch, launch_ros
 from ament_index_python.packages import get_package_share_directory
+from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 from robotnik_common.launch import RewrittenYaml
 
-def read_params(ld : launch.LaunchDescription):
-    use_sim_time = launch.substitutions.LaunchConfiguration('use_sim_time')
-    controllers_file = launch.substitutions.LaunchConfiguration('controllers_file')
-    robot_id = launch.substitutions.LaunchConfiguration('robot_id')
+def read_params(ld : launch.LaunchDescription, params : list[tuple[str, str, str]]): # name, description, default_value
 
-    # Declare the launch options
+  # Declare the launch options
+  ld.add_action(launch.actions.DeclareLaunchArgument(
+    name='environment',
+    description='Read parameters from environment variables',
+    choices=['true', 'false'],
+    default_value='true',
+  ))
+  for param in params:
     ld.add_action(launch.actions.DeclareLaunchArgument(
-        name='use_sim_time',
-        description='Use simulation (Gazebo) clock if true',
-        choices=['true', 'false'],
-        default_value='true')
-    )
+      name=param[0], description=param[1], default_value=param[2],))
 
-    ld.add_action(launch.actions.DeclareLaunchArgument(
-        name='controllers_file',
-        description='ROS 2 controller file.',
-        default_value=[get_package_share_directory('rb_theron_gazebo'), '/config/controller.yml'])
-    )
+  # Get the launch configuration variables
+  ret={}
+  if launch.substitutions.LaunchConfiguration('environment') == 'false':
+    for param in params:
+      ret[param[0]] = launch.substitutions.LaunchConfiguration(param[0])
+  else:
+    for param in params:
+      if str.upper(param[0]) in os.environ:
+        ret[param[0]] = launch.substitutions.EnvironmentVariable(str.upper(param[0]))
+      else: ret[param[0]] = launch.substitutions.LaunchConfiguration(param[0])
 
-    ld.add_action(launch.actions.DeclareLaunchArgument(
-        name='robot_id',
-        description='Robot ID used to create the robot namespace',
-        default_value='robot')
-    )
+  return ret
 
-    # Parse the launch options
-    return {
-        'use_sim_time': use_sim_time,
-        'robot_description_path': os.path.join(get_package_share_directory('rb_theron_description'), 'robots', 'rb_theron.urdf.xacro'),
-        'robot_id': robot_id,
-        'controllers_file': controllers_file,
-    }
 
 def generate_launch_description():
 
-    ld = launch.LaunchDescription()
+  ld = launch.LaunchDescription()
+  p = [
+    ('use_sim_time', 'Use simulation (Gazebo) clock if true', 'true'),
+    ('robot_id', 'Robot ID', 'robot'),
+    ('controller_path', 'Path of controllers.', [launch_ros.substitutions.FindPackageShare('rb_theron_gazebo'), '/config/controller.yml',]),
+  ]
+  params = read_params(ld, p)
 
-    params = read_params(ld)
+  config_file_rewritten = RewrittenYaml(
+      source_file=params['controller_path'],
+      param_rewrites={
+          'left_wheel_names':
+              ['[\'left_wheel_joint', '\']'],
+          'right_wheel_names':
+              ['[\'right_wheel_joint','\']'],
+          'odom_frame_id': ['odom'],
+          'base_frame_id': ['base_footprint'],
+      },
+      root_key=[params['robot_id'],],
+      convert_types=True,
+  )
 
-    config_file_rewritten = RewrittenYaml(
-        source_file=params['controllers_file'],
-        param_rewrites={
-            'left_wheel_names':
-                ['[\'left_wheel_joint', '\']'],
-            'right_wheel_names':
-                ['[\'right_wheel_joint','\']'],
-            'odom_frame_id': ['odom'],
-            'base_frame_id': ['base_footprint'],
-        },
-        root_key=[params['robot_id'],],
-        convert_types=True,
-    )
+  ld.add_action(launch.actions.IncludeLaunchDescription(
+    PythonLaunchDescriptionSource(
+      os.path.join(get_package_share_directory('rb_theron_description'), 'launch', 'default.launch.py')
+    ),
+    launch_arguments={
+      'environment': 'false',
+      'use_sim_time': params['use_sim_time'],
+      'robot_id': params['robot_id'],
+      'controller_path': config_file_rewritten,
+    }.items()
+  ))
 
-    robot_description_content = launch.substitutions.Command(
-        [
-            launch.substitutions.PathJoinSubstitution(
-                [launch.substitutions.FindExecutable(name="xacro")]),
-            " ",
-            params['robot_description_path'],
-            " robot_id:=", params['robot_id'],
-            " robot_ns:=", params['robot_id'],
-            " config_controllers:=", config_file_rewritten,
-        ]
-    )
-
-    # Create parameter
-    robot_description_param = launch_ros.descriptions.ParameterValue(robot_description_content, value_type=str)
-
-    robot_state_publisher = launch_ros.actions.Node(
-        package='robot_state_publisher',
-        executable='robot_state_publisher',
-        name='robot_state_publisher',
-        output='screen',
-        parameters=[{
-            'use_sim_time': params['use_sim_time'],
-            'robot_description': robot_description_param,
-            'publish_frequency': 100.0,
-            'frame_prefix': [params['robot_id'], '/'],
-        }],
-    )
-
-    ld.add_action(robot_state_publisher)
-
-    return ld
+  return ld
