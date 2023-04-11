@@ -22,6 +22,7 @@
   <exec_depend>gazebo_ros</exec_depend>
   <exec_depend>gazebo_ros_pkgs</exec_depend>
   <exec_depend>gazebo_ros2_control</exec_depend>
+  <exec_depend>ros2_control</exec_depend>
   <exec_depend>rb_theron_description</exec_depend>
   <exec_depend>robotnik_common</exec_depend>
   <exec_depend>std_msgs</exec_depend>

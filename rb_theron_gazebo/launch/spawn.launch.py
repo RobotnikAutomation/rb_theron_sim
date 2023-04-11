@@ -33,26 +33,14 @@ from robotnik_common.launch import RewrittenYaml
 def read_params(ld : launch.LaunchDescription, params : list[tuple[str, str, str]]): # name, description, default_value
 
   # Declare the launch options
-  ld.add_action(launch.actions.DeclareLaunchArgument(
-    name='environment',
-    description='Read parameters from environment variables',
-    choices=['true', 'false'],
-    default_value='true',
-  ))
   for param in params:
     ld.add_action(launch.actions.DeclareLaunchArgument(
       name=param[0], description=param[1], default_value=param[2],))
 
   # Get the launch configuration variables
   ret={}
-  if launch.substitutions.LaunchConfiguration('environment') == 'false':
-    for param in params:
-      ret[param[0]] = launch.substitutions.LaunchConfiguration(param[0])
-  else:
-    for param in params:
-      if str.upper(param[0]) in os.environ:
-        ret[param[0]] = launch.substitutions.EnvironmentVariable(str.upper(param[0]))
-      else: ret[param[0]] = launch.substitutions.LaunchConfiguration(param[0])
+  for param in params:
+    ret[param[0]] = launch.substitutions.LaunchConfiguration(param[0])
 
   return ret
 
@@ -76,6 +64,7 @@ def generate_launch_description():
       os.path.join(get_package_share_directory('rb_theron_gazebo'), 'launch', 'description.launch.py')
     ),
     launch_arguments={
+      'environment': 'false',
       'use_sim_time': params['use_sim_time'],
       'robot_id': params['robot_id'],
     }.items(),
