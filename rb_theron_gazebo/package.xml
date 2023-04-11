@@ -20,13 +20,14 @@
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <exec_depend>gazebo_ros</exec_depend>
-  <exec_depend>gazebo_ros_control</exec_depend>
-  <exec_depend>rb1_base_control</exec_depend>
-  <exec_depend>rb1_base_description</exec_depend>
-  <exec_depend>rb1_base_pad</exec_depend>
+  <exec_depend>gazebo_ros2_control</exec_depend>
+  <exec_depend>gazebo_ros2_pkgs</exec_depend>
+  <exec_depend>rb_theron_description</exec_depend>
+  <exec_depend>robotnik_common</exec_depend>
   <exec_depend>std_msgs</exec_depend>
   <exec_depend>std_srvs</exec_depend>
   <exec_depend>tf</exec_depend>
+  <exec_depend>tf2</exec_depend>
   <exec_depend>diff_drive_controller</exec_depend>
   <exec_depend>rviz2</exec_depend>
 
