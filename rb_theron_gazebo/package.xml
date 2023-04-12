@@ -19,17 +19,21 @@
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
+  <!-- ROS2 -->
+  <exec_depend>robotnik_common</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+
+  <!-- THERON -->
+  <exec_depend>rb_theron_description</exec_depend>
+  <exec_depend>rb_theron_control</exec_depend>
+
+  <!-- GAZEBO -->
   <exec_depend>gazebo_ros</exec_depend>
   <exec_depend>gazebo_ros_pkgs</exec_depend>
+  <exec_depend>gazebo_plugins</exec_depend>
   <exec_depend>gazebo_ros2_control</exec_depend>
-  <exec_depend>ros2_control</exec_depend>
-  <exec_depend>rb_theron_description</exec_depend>
-  <exec_depend>robotnik_common</exec_depend>
-  <exec_depend>std_msgs</exec_depend>
-  <exec_depend>std_srvs</exec_depend>
-  <exec_depend>tf2</exec_depend>
-  <exec_depend>diff_drive_controller</exec_depend>
-  <exec_depend>rviz2</exec_depend>
+  <exec_depend>robotnik_sensors_gazebo</exec_depend>
 
   <export>
     <build_type>ament_cmake</build_type>
