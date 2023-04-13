@@ -34,7 +34,6 @@ def read_params(ld : launch.LaunchDescription, params : list[tuple[str, str, str
     ld.add_action(launch.actions.DeclareLaunchArgument(
       name=param[0], description=param[1], default_value=param[2],))
 
-  # Get the launch configuration variables
   ret={}
   for param in params:
     ret[param[0]] = launch.substitutions.LaunchConfiguration(param[0])
@@ -46,37 +45,33 @@ def generate_launch_description():
 
   ld = launch.LaunchDescription()
   p = [
-    ('verbose', 'Verbose output', 'false'),
-    ('package_gazebo', 'Package name of the gazebo world', 'rb_theron_gazebo'),
-    ('world', 'Name of the gazebo world', 'default'),
-    ('robots_n', 'Number of robots', '1'),
+    ('verbose', 'Enable verbose output', 'false'),
+    ('world_name', 'Name of the world to load', 'rb_theron_office')
   ]
   params = read_params(ld, p)
 
   ld.add_action(launch.actions.IncludeLaunchDescription(
     PythonLaunchDescriptionSource(
-      [launch_ros.substitutions.FindPackageShare(params['package_gazebo']), '/launch/gazebo.launch.py']
+      os.path.join(get_package_share_directory('gazebo_ros'), 'launch', 'gzserver.launch.py')
     ),
     launch_arguments={
-      'environment': 'false',
       'verbose': params['verbose'],
-      'world': params['world'],
-    }.items()
+      'world': [get_package_share_directory('rb_theron_gazebo'), '/worlds/', params['world_name'], '.world'],
+      'paused': 'false',
+      'init': 'true',
+      'factory': 'true',
+      'force_system': 'true',
+      'params_file': [get_package_share_directory('rb_theron_gazebo'), '/config/gazebo.yml'],
+    }.items(),
   ))
 
   ld.add_action(launch.actions.IncludeLaunchDescription(
     PythonLaunchDescriptionSource(
-      [launch_ros.substitutions.FindPackageShare('rb_theron_gazebo'), '/launch/spawn.launch.py']
+      os.path.join(get_package_share_directory('gazebo_ros'), 'launch', 'gzclient.launch.py')
     ),
     launch_arguments={
-      'environment': 'false',
-      'use_sim_time': 'true',
-      'robot_id': 'robot_a',
-      'namespace': 'robot_a',
-      'pos_x': '0.0',
-      'pos_y': '3.0',
-      'pos_z': '0.1',
-    }.items(),
+      'verbose': params['verbose'],
+      }.items(),
   ))
 
   return ld
