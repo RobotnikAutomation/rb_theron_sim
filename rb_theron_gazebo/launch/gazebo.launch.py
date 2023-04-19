@@ -71,7 +71,7 @@ def generate_launch_description():
     ),
     launch_arguments={
       'verbose': params['verbose'],
-      }.items(),
+    }.items(),
   ))
 
   return ld

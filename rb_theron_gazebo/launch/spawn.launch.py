@@ -28,35 +28,18 @@ from ament_index_python.packages import get_package_share_directory
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.event_handlers import OnProcessExit
 
-from robotnik_common.launch import RewrittenYaml
-
-def read_params(ld : launch.LaunchDescription, params : list[tuple[str, str, str]]): # name, description, default_value
-
-  # Declare the launch options
-  for param in params:
-    ld.add_action(launch.actions.DeclareLaunchArgument(
-      name=param[0], description=param[1], default_value=param[2],))
-
-  # Get the launch configuration variables
-  ret={}
-  for param in params:
-    ret[param[0]] = launch.substitutions.LaunchConfiguration(param[0])
-
-  return ret
-
+from robotnik_common.launch import add_launch_args
 
 def generate_launch_description():
 
   ld = launch.LaunchDescription()
   p = [
-    ('use_sim_time', 'Use simulation (Gazebo) clock if true', 'true'),
     ('robot_id', 'Id of the robot', 'robot'),
-    ('namespace', 'Namespace of the node stack', launch.substitutions.LaunchConfiguration('robot_id')),
     ('pos_x', 'X position of the robot', '0.0'),
     ('pos_y', 'Y position of the robot', '0.0'),
     ('pos_z', 'Z position of the robot', '0.1')
   ]
-  params = read_params(ld, p)
+  params = add_launch_args(ld, p)
 
   # Node to spawn the robot in Gazebo
   robot_state_publisher = launch.actions.IncludeLaunchDescription(
@@ -65,13 +48,13 @@ def generate_launch_description():
     ),
     launch_arguments={
       'environment': 'false',
-      'use_sim_time': params['use_sim_time'],
+      'use_sim_time': 'true',
       'robot_id': params['robot_id'],
     }.items(),
   )
 
   spawn_robot = launch_ros.actions.Node(
-    namespace=params['namespace'],
+    namespace=params['robot_id'],
     package='gazebo_ros',
     executable='spawn_entity.py',
     arguments=[
@@ -95,13 +78,13 @@ def generate_launch_description():
       target_action=spawn_robot,
       on_exit=[
         launch_ros.actions.Node(
-          namespace=params['namespace'],
+          namespace=params['robot_id'],
           package="controller_manager",
           executable="spawner",
           arguments=["robotnik_base_control"]
         ),
         launch_ros.actions.Node(
-          namespace=params['namespace'],
+          namespace=params['robot_id'],
           package="controller_manager",
           executable="spawner",
           arguments=["joint_state_broadcaster"]

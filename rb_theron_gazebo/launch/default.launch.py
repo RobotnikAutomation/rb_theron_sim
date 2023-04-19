@@ -23,24 +23,11 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import launch, launch_ros, os
+import launch, launch_ros
 from ament_index_python.packages import get_package_share_directory
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 
-def read_params(ld : launch.LaunchDescription, params : list[tuple[str, str, str]]): # name, description, default_value
-
-  # Declare the launch options
-  for param in params:
-    ld.add_action(launch.actions.DeclareLaunchArgument(
-      name=param[0], description=param[1], default_value=param[2],))
-
-  # Get the launch configuration variables
-  ret={}
-  for param in params:
-    ret[param[0]] = launch.substitutions.LaunchConfiguration(param[0])
-
-  return ret
-
+from robotnik_common.launch import add_launch_args
 
 def generate_launch_description():
 
@@ -48,34 +35,36 @@ def generate_launch_description():
   p = [
     ('verbose', 'Verbose output', 'false'),
     ('package_gazebo', 'Package name of the gazebo world', 'rb_theron_gazebo'),
-    ('world', 'Name of the gazebo world', 'default'),
-    ('robots_n', 'Number of robots', '1'),
+    ('gazebo_world', 'Name of the gazebo world', 'default'),
+    # First robot to spawn
+    ('robot_id', 'Id of the robot', 'robot'),
+    ('pos_x', 'X position of the robot', '0.0'),
+    ('pos_y', 'Y position of the robot', '0.0'),
+    ('pos_z', 'Z position of the robot', '0.1')
   ]
-  params = read_params(ld, p)
+  params = add_launch_args(ld, p)
 
+  # Launch gazebo with the world
   ld.add_action(launch.actions.IncludeLaunchDescription(
     PythonLaunchDescriptionSource(
       [launch_ros.substitutions.FindPackageShare(params['package_gazebo']), '/launch/gazebo.launch.py']
     ),
     launch_arguments={
-      'environment': 'false',
       'verbose': params['verbose'],
-      'world': params['world'],
+      'world_name': params['gazebo_world'],
     }.items()
   ))
 
+  # Spawn the robot
   ld.add_action(launch.actions.IncludeLaunchDescription(
     PythonLaunchDescriptionSource(
       [launch_ros.substitutions.FindPackageShare('rb_theron_gazebo'), '/launch/spawn.launch.py']
     ),
     launch_arguments={
-      'environment': 'false',
-      'use_sim_time': 'true',
-      'robot_id': 'robot_a',
-      'namespace': 'robot_a',
-      'pos_x': '0.0',
-      'pos_y': '3.0',
-      'pos_z': '0.1',
+      'robot_id': params['robot_id'],
+      'pos_x': params['pos_x'],
+      'pos_y': params['pos_y'],
+      'pos_z': params['pos_z'],
     }.items(),
   ))
 
