@@ -35,6 +35,7 @@ def generate_launch_description():
   ld = launch.LaunchDescription()
   p = [
     ('robot_id', 'Id of the robot', 'robot'),
+    ('robot_description_file', 'URDF file to load', 'default.urdf.xacro'),
     ('pos_x', 'X position of the robot', '0.0'),
     ('pos_y', 'Y position of the robot', '0.0'),
     ('pos_z', 'Z position of the robot', '0.1')
@@ -47,9 +48,9 @@ def generate_launch_description():
       os.path.join(get_package_share_directory('rb_theron_gazebo'), 'launch', 'description.launch.py')
     ),
     launch_arguments={
-      'environment': 'false',
       'use_sim_time': 'true',
       'robot_id': params['robot_id'],
+      'robot_description_file': params['robot_description_file'],
     }.items(),
   )
 
