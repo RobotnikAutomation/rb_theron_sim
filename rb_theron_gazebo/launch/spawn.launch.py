@@ -43,7 +43,7 @@ def generate_launch_description():
   params = add_launch_args(ld, p)
 
   # Node to spawn the robot in Gazebo
-  robot_state_publisher = launch.actions.IncludeLaunchDescription(
+  ld.add_action(launch.actions.IncludeLaunchDescription(
     PythonLaunchDescriptionSource(
       os.path.join(get_package_share_directory('rb_theron_gazebo'), 'launch', 'description.launch.py')
     ),
@@ -52,9 +52,9 @@ def generate_launch_description():
       'robot_id': params['robot_id'],
       'robot_description_file': params['robot_description_file'],
     }.items(),
-  )
+  ))
 
-  spawn_robot = launch_ros.actions.Node(
+  ld.add_action(launch_ros.actions.Node(
     namespace=params['robot_id'],
     package='gazebo_ros',
     executable='spawn_entity.py',
@@ -65,33 +65,20 @@ def generate_launch_description():
       '-y', params['pos_y'],
       '-z', params['pos_z'],
     ],
-  )
+  ))
 
-  # Run robot description and spawn robot in Gazebo
-  ld.add_action(launch.actions.GroupAction(actions=[
-    robot_state_publisher,
-    spawn_robot,
-  ]))
+  ld.add_action(launch_ros.actions.Node(
+    namespace=params['robot_id'],
+    package="controller_manager",
+    executable="spawner",
+    arguments=["robotnik_base_control"]
+  ))
 
-  # When spawn entity finishes, spawn controllers to avoid race condition.
-  ld.add_action(launch.actions.RegisterEventHandler(
-    event_handler=OnProcessExit(
-      target_action=spawn_robot,
-      on_exit=[
-        launch_ros.actions.Node(
-          namespace=params['robot_id'],
-          package="controller_manager",
-          executable="spawner",
-          arguments=["robotnik_base_control"]
-        ),
-        launch_ros.actions.Node(
-          namespace=params['robot_id'],
-          package="controller_manager",
-          executable="spawner",
-          arguments=["joint_state_broadcaster"]
-        ),
-      ]
-    )
+  ld.add_action(launch_ros.actions.Node(
+    namespace=params['robot_id'],
+    package="controller_manager",
+    executable="spawner",
+    arguments=["joint_state_broadcaster"]
   ))
 
   return ld
