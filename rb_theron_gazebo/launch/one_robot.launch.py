@@ -38,7 +38,7 @@ def generate_launch_description():
     ('gazebo_world', 'Name of the gazebo world', 'default'),
     # First robot to spawn
     ('robot_id', 'Id of the robot', 'robot'),
-    ('robot_description_file', 'URDF file to load', 'default.urdf.xacro'),
+    ('robot_description_file', 'URDF file to load', 'dual_laser.urdf.xacro'),
     ('pos_x', 'X position of the robot', '0.0'),
     ('pos_y', 'Y position of the robot', '0.0'),
     ('pos_z', 'Z position of the robot', '0.1')
@@ -63,11 +63,11 @@ def generate_launch_description():
         [launch_ros.substitutions.FindPackageShare('rb_theron_gazebo'), '/launch/spawn.launch.py']
       ),
       launch_arguments={
-        'robot_id': 'robot_a',
-        'robot_description_file': 'dual_laser.urdf.xacro',
-        'pos_x': '-1.0',
-        'pos_y': '0.0',
-        'pos_z': '0.1',
+        'robot_id': params['robot_id'],
+        'robot_description_file': params['robot_description_file'],
+        'pos_x': params['pos_x'],
+        'pos_y': params['pos_y'],
+        'pos_z': params['pos_z'],
       }.items(),
     )
   ]))
