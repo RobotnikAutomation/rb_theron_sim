@@ -61,7 +61,7 @@ def generate_launch_description():
       'init': 'true',
       'factory': 'true',
       'force_system': 'true',
-      'params_file': [get_package_share_directory('rb_theron_gazebo'), '/config/gazebo.yml'],
+      'params_file': [get_package_share_directory('rb_theron_gazebo'), '/config/gazebo.yaml'],
     }.items(),
   ))
 

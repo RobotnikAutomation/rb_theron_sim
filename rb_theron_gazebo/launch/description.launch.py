@@ -50,7 +50,7 @@ def generate_launch_description():
   p = [
     ('use_sim_time', 'Use simulation (Gazebo) clock if true', 'true'),
     ('robot_id', 'Robot ID', 'robot'),
-    ('controller_path', 'Path of controllers.', [launch_ros.substitutions.FindPackageShare('rb_theron_gazebo'), '/config/controller.yml',]),
+    ('controller_path', 'Path of controllers.', [launch_ros.substitutions.FindPackageShare('rb_theron_gazebo'), '/config/controller.yaml',]),
   ]
   params = read_params(ld, p)
 
