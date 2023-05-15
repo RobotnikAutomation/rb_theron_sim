@@ -4,7 +4,7 @@ project(rb_theron_gazebo)
 find_package(ament_cmake REQUIRED)
 
 install(
-  DIRECTORY launch worlds config
+  DIRECTORY launch models worlds config
   DESTINATION share/${PROJECT_NAME}
 )
 

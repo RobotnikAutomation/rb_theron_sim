@@ -23,62 +23,55 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import os, launch, launch_ros
+import launch, launch_ros, os
 from ament_index_python.packages import get_package_share_directory
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.event_handlers import OnProcessExit
 
-from robotnik_common.launch import add_launch_args
+def read_params(ld : launch.LaunchDescription, params : list[tuple[str, str, str]]): # name, description, default_value
+
+  # Declare the launch options
+  for param in params:
+    ld.add_action(launch.actions.DeclareLaunchArgument(
+      name=param[0], description=param[1], default_value=param[2],))
+
+  ret={}
+  for param in params:
+    ret[param[0]] = launch.substitutions.LaunchConfiguration(param[0])
+
+  return ret
+
 
 def generate_launch_description():
 
   ld = launch.LaunchDescription()
   p = [
-    ('robot_id', 'Id of the robot', 'robot'),
-    ('robot_description_file', 'URDF file to load', 'default.urdf.xacro'),
-    ('pos_x', 'X position of the robot', '0.0'),
-    ('pos_y', 'Y position of the robot', '0.0'),
-    ('pos_z', 'Z position of the robot', '0.1')
+    ('verbose', 'Enable verbose output', 'false'),
+    ('world_name', 'Name of the world to load', 'rb_theron_office')
   ]
-  params = add_launch_args(ld, p)
+  params = read_params(ld, p)
 
-  # Node to spawn the robot in Gazebo
   ld.add_action(launch.actions.IncludeLaunchDescription(
     PythonLaunchDescriptionSource(
-      os.path.join(get_package_share_directory('rb_theron_gazebo'), 'launch', 'description.launch.py')
+      os.path.join(get_package_share_directory('gazebo_ros'), 'launch', 'gzserver.launch.py')
     ),
     launch_arguments={
-      'use_sim_time': 'true',
-      'robot_id': params['robot_id'],
-      'robot_description_file': params['robot_description_file'],
+      'verbose': params['verbose'],
+      'world': [get_package_share_directory('rb_theron_gazebo'), '/worlds/', params['world_name'], '.world'],
+      'paused': 'false',
+      'init': 'true',
+      'factory': 'true',
+      'force_system': 'true',
+      'params_file': [get_package_share_directory('rb_theron_gazebo'), '/config/gazebo.yaml'],
     }.items(),
   ))
 
-  ld.add_action(launch_ros.actions.Node(
-    namespace=params['robot_id'],
-    package='gazebo_ros',
-    executable='spawn_entity.py',
-    arguments=[
-      '-entity', params['robot_id'],
-      '-topic', 'robot_description',
-      '-x', params['pos_x'],
-      '-y', params['pos_y'],
-      '-z', params['pos_z'],
-    ],
-  ))
-
-  ld.add_action(launch_ros.actions.Node(
-    namespace=params['robot_id'],
-    package="controller_manager",
-    executable="spawner",
-    arguments=["robotnik_base_control"]
-  ))
-
-  ld.add_action(launch_ros.actions.Node(
-    namespace=params['robot_id'],
-    package="controller_manager",
-    executable="spawner",
-    arguments=["joint_state_broadcaster"]
+  ld.add_action(launch.actions.IncludeLaunchDescription(
+    PythonLaunchDescriptionSource(
+      os.path.join(get_package_share_directory('gazebo_ros'), 'launch', 'gzclient.launch.py')
+    ),
+    launch_arguments={
+      'verbose': params['verbose'],
+    }.items(),
   ))
 
   return ld
