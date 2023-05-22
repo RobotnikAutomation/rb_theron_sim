@@ -19,6 +19,11 @@
 	<arg name="launch_pad" default="false"/>
 	<arg name="scan_topic" default="front_laser/scan"/>
 	<arg name="use_gpu" default="true"/>
+	<arg name="launch_pose_publisher" default="false"/>
+	<arg name="pose_frequency" default="10"/>
+	<arg name="pose_map_frame" default="$(arg prefix)map"/>
+	<arg name="pose_base_frame" default="$(arg prefix)base_footprint"/>
+	<arg name="pose_topic_republish" default="pose"/>
 
 
 	<!-- <arg name="launch_base_hw_sim" default="false"/> -->
@@ -82,6 +87,15 @@
 		<!-- gmapping -->
 		<include if="$(arg launch_gmapping)" file="$(find rb_theron_localization)/launch/gmapping.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
+		</include>
+
+		<!-- pose publisher -->
+		<include if="$(arg launch_pose_publisher)" file="$(find pose_publisher)/launch/pose_publisher_launch.launch">
+			<arg name="robot_id" default="$(arg prefix)"/>
+			<arg name="frequency" default="$(arg pose_frequency)"/>
+			<arg name="map_frame" default="$(arg pose_map_frame)"/>
+			<arg name="base_frame" default="$(arg pose_base_frame)"/>
+			<arg name="topic_republish" default="$(arg pose_topic_republish)"/>
 		</include>
 
 	</group>
