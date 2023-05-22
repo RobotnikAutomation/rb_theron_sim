@@ -9,28 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Changelog file
-- Added rosbridge bringup
-- Updated dockerfile with mainly format improvement
-- Updated docker instructions
-- Added environment variable to `X_INIT_POSE` to change default value of robot x init pose
-- Added environment variable to `Y_INIT_POSE` to change default value of robot y init pose
-- Added environment variable to `Z_INIT_POSE` to change default value of robot z init pose
-- Added environment variable to `INIT_YAW` to change default value of robot yaw init pose
-- Added environment variable to `LAUNCH_GMAPPING` to change default value of launching gmapping
-- Added environment variable to `LAUNCH_AMCL` to change default value of launching amcl
-- Added environment variable to `LAUNCH_MAPSERVER` to change default value of launching map_server
-- Added environment variable to `LAUNCH_MOVE_BASE` to change default value of launching move_base
-- Added environment variable to `LAUNCH_PAD` to change default value of launching joystick_pad
-- Added environment variable to `LAUNCH_ROSBRIDGE` to change default value of launching rosbridge
-- Added environment variable to `LAUNCH_RVIZ` to change default value of launching rviz
-- Added environment variable to `USE_GPU` to change default value of gazebo use gpu
-- Added environment variable to `VERBOSE` to change default value of gazebo verbose
-- Added environment variable to `GUI` to change default value of gazebo gui launch
-- Added environment variable to `DEBUG` to change default value of gazebo debug
-- Added environment variable to `ROSBRIDGE_PORT` to change default value of default rosbridge port
+- Added [pose_publisher](https://github.com/RobotnikAutomation/pose_publisher) repository to `repos`file.
+- Added environment variable to `LAUNCH_POSE_PUBLISHER` to launch the node_pose_publisher. 
+- Added environment variable to `POSE_PUBLISHER_FREQUENCY` to change default value of the publishing frequency for the node_pose_publisher.
+- Added environment variable to `POSE_PUBLISHER_MAP_FRAME` to change default value of robot map frame.
+- Added environment variable to `POSE_PUBLISHER_BASE_FRAME` to change default value of robot base frame.
+- Added environment variable to `POSE_PUBLISHER_TOPIC_REPUB` to change default value of the topic name where the node_pose_publisher publishes.
 ### Changed
-- Separated rviz launch from gazebo launch files
-- Resorted arguments in order to group in a more sensible way
-- Mounted dev folder on docker compose
-- updated gazebo to 9.19.0
+- Modified the `rb_theron_complete.launch` to add the pose_publisher `.launch` and read the environment variables to configure it.
+- Modified the `rb_theron_gazebo.launch` to launch and configure the pose_publisher node.
+- Modified the `rb_theron_robot.launch` to launch and configure the pose_publisher node.
+- Updated the docker-compose `.yaml` (`nvidia` and `intel`) to add and configure the default values of the new environment variables.
+- Updated `README.md` file.
+  - Update environment variables.
+  - Updated docker usage.
+- Updated `CHANGELOG.md` file.
