@@ -50,7 +50,7 @@ services:
       ROBOT_WEB_VIDEO_QUALITY: "50"
       ROBOT_WEB_VIDEO_TRANSPORT: "compresed"
       ROBOT_HMI_2D_SENSOR_1: "merged_laser/scan"
-      LAUNCH_POSE_PUBLISHER: "true"
+      LAUNCH_POSE_PUBLISHER: "false"
       POSE_PUBLISHER_FREQUENCY: 10
       POSE_PUBLISHER_MAP_FRAME: "robot_map"
       POSE_PUBLISHER_BASE_FRAME: "robot_base_footprint"
