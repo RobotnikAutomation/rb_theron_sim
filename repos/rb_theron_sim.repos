@@ -32,3 +32,7 @@ repositories:
     type: git
     url: https://github.com/RobotnikAutomation/ira_laser_tools.git
     version: master
+  src/pose_publisher:
+    type: git
+    url: https://github.com/RobotnikAutomation/pose_publisher.git
+    version: 0.1.0
