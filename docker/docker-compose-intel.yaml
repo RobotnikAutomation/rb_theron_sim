@@ -37,8 +37,14 @@ services:
       USE_GPU: "true"
       VERBOSE: "false"
       HEADLESS: "false"
+      GUI: "true"
       DEBUG: "false"
       ROSBRIDGE_PORT: "9090"
+      LAUNCH_POSE_PUBLISHER: "false"
+      POSE_PUBLISHER_FREQUENCY: 10
+      POSE_PUBLISHER_MAP_FRAME: "robot_map"
+      POSE_PUBLISHER_BASE_FRAME: "robot_base_footprint"
+      POSE_PUBLISHER_TOPIC_REPUB: "robot_pose"
     volumes:
       - type: bind
         source: /tmp/.X11-unix
