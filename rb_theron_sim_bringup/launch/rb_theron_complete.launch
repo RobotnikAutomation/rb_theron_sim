@@ -243,7 +243,7 @@
 	<!-- Recursive launch -->
 	<include
 		if="$(eval arg('max_instances') - arg('instance') > 0)"
-		file="$(find rb_theron_sim_bringup)/launch/rb_theron_complete_multi.launch"
+		file="$(find rb_theron_sim_bringup)/launch/rb_theron_complete.launch"
 	>
 		<arg
 			name="instance"
