@@ -71,7 +71,7 @@
 		name="z_init_pose" value="$(optenv R4_Z_INIT_POSE 0.00)" />
 	<arg if="$(eval instance == 4)"
 		name="init_yaw" value="$(optenv R4_INIT_YAW 0.0)" />
-<!-- robot 5 init pose-->
+	<!-- robot 5 init pose-->
 	<arg if="$(eval instance == 5)"
 		name="x_init_pose" value="$(optenv R5_X_INIT_POSE 2.0)" />
 	<arg if="$(eval instance == 5)"
@@ -95,7 +95,16 @@
 
 	<!-- node pose_publisher arguments -->
 	<arg name="pose_frequency" default="$(optenv POSE_PUBLISHER_FREQUENCY 10)"/>
-	<arg name="pose_map_frame" default="$(optenv POSE_PUBLISHER_MAP_FRAME robots_map)"/>
+	<arg
+		unless="$(arg multirobot)"
+		name="pose_map_frame"
+		default="$(optenv POSE_PUBLISHER_MAP_FRAME robot_map)"
+	/>
+	<arg
+		if="$(arg multirobot)"
+		name="pose_map_frame"
+		default="$(optenv POSE_PUBLISHER_MAP_FRAME robots_map)"
+	/>
 	<!--
 	<arg name="pose_base_frame" default="$(optenv POSE_PUBLISHER_BASE_FRAME robot_base_footprint)"/>
 	-->
@@ -111,8 +120,30 @@
 	<arg name="debug" default="$(optenv DEBUG false)"/>
 
 	<!-- mapping arguments-->
-	<arg name="map_frame" default="robots_map"/>
+	<arg
+		unless="$(arg multirobot)"
+		name="map_frame"
+		default="robot_map"
+	/>
+	<arg
+		if="$(arg multirobot)"
+		name="map_frame"
+		default="robots_map"
+	/>
 	<arg name="map_file" default="$(find rb_theron_localization)/maps/willow_garage/willow_garage.yaml"/>
+
+
+	<!-- Rviz files -->
+	<arg
+		unless="$(arg multirobot)"
+		name="rviz_config"
+		default="$(find rb_theron_gazebo)/rviz/rb_theron.rviz"
+	/>
+	<arg
+		if="$(arg multirobot)"
+		name="rviz_config"
+		default="$(find rb_theron_gazebo)/rviz/rb_theron_multirobot.rviz"
+	/>
 
 	<!-- gazebo simulation -->
 	<group if="$(eval arg('instance') == 0)">
