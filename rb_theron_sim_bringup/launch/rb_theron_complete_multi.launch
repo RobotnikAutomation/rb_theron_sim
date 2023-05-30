@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
-
-	<arg name="robot_qty" default="$(optenv ROBOT_QTY 3)" />
+	<!-- arg to config the launch file-->
+	<arg name="robot_qty" default="$(optenv ROBOT_QTY 1)" />
 	<arg name="max_instances" value="$(arg robot_qty)" />
 	<arg name="instance" default="0" />
 	<arg
@@ -86,14 +86,12 @@
 	<arg name="amcl" default="$(optenv LAUNCH_AMCL true)"/>
 	<arg name="mapserver" default="$(optenv LAUNCH_MAPSERVER true)"/>
 	<arg name="move_base" default="$(optenv LAUNCH_MOVE_BASE true)"/>
-	<!--
 	<arg name="pad" default="$(optenv LAUNCH_PAD true)"/>
-	-->
 	<arg name="rviz" default="$(optenv LAUNCH_RVIZ true)"/>
 	<arg name="laser_merger" default="$(optenv LAUNCH_LASER_MERGER false)" />
 	<arg name="web_backend" default="$(optenv LAUNCH_WEB_BACKEND false)" />
 	<arg name="pose_publisher" default="$(optenv LAUNCH_POSE_PUBLISHER false)"/>
-	<arg name="gazebo" default="true"/>
+	<arg name="throttle" default="$(optenv LAUNCH_WEB_THROTTLE false)"/>
 
 	<!-- node pose_publisher arguments -->
 	<arg name="pose_frequency" default="$(optenv POSE_PUBLISHER_FREQUENCY 10)"/>
@@ -118,20 +116,28 @@
 
 	<!-- gazebo simulation -->
 	<group if="$(eval arg('instance') == 0)">
-	<include
-		if="$(arg gazebo)"
-		file="$(find rb_theron_gazebo)/launch/gazebo.launch"
-	>
-		<arg name="world_name" value="$(arg gazebo_world)"/>
-		<arg name="debug" value="$(arg debug)"/>
-		<arg name="gui" value="$(arg gui)"/>
-		<arg name="verbose" value="$(arg verbose)"/>
-	</include>
+		<include
+			file="$(find rb_theron_gazebo)/launch/gazebo.launch"
+		>
+			<arg name="world_name" value="$(arg gazebo_world)"/>
+			<arg name="debug" value="$(arg debug)"/>
+			<arg name="gui" value="$(arg gui)"/>
+			<arg name="verbose" value="$(arg verbose)"/>
+		</include>
 
-	<!-- rviz visualization -->
-	<include if="$(arg rviz)" file="$(find rb_theron_gazebo)/launch/rviz.launch">
-		<arg name="rviz_config" value="$(arg rviz_config)"/>
-	</include>
+		<!-- rviz visualization -->
+		<include
+			if="$(arg rviz)"
+			file="$(find rb_theron_gazebo)/launch/rviz.launch"
+		>
+			<arg name="rviz_config" value="$(arg rviz_config)"/>
+		</include>
+		<!-- webback-end common services -->
+		<include
+				if="$(arg web_backend)"
+				file="$(find rb_theron_sim_bringup)/launch/web/web_common_services.launch"
+		>
+		</include>
 	</group>
 
 	<include
@@ -157,7 +163,15 @@
 		<arg name="global_frame" value="$(arg map_frame)"/>
 		<arg name="map_file" value="$(arg map_file)"/>
 		<arg name="launch_move_base" value="$(arg move_base)"/>
-		<arg name="launch_pad" value="false"/>
+		<arg
+			if="$(multirobot)"
+			name="launch_pad"
+			value="false"
+		/>
+		<arg unless="$(multirobot)"
+			name="launch_pad"
+			value="$(arg pad)"
+		/>
 		<arg name="launch_pose_publisher" value="$(arg pose_publisher)"/>
 		<!-- config node pose_publisher -->
 		<arg name="pose_frequency" default="$(arg pose_frequency)"/>
@@ -176,6 +190,22 @@
 			file="$(find rb_theron_sim_bringup)/launch/sensors/merge_scan.launch"
 		>
 			<arg name="id_robot" default="$(arg id_robot)"/>
+		</include>
+		<include
+				if="$(arg web_backend)"
+				file="$(find rb_theron_sim_bringup)/launch/web/web_robot.launch"
+		>
+			<arg name="id_robot" value="$(arg id_robot)"/>
+			<arg
+				if="$(multirobot)"
+				name="launch_pad"
+				value="false"
+			/>
+			<arg unless="$(multirobot)"
+				name="launch_pad"
+				value="$(arg pad)"
+			/>
+			<arg name="throttle" value="$(arg throttle)"/>
 		</include>
 	</group>
 
