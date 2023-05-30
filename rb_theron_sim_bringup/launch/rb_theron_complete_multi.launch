@@ -37,49 +37,49 @@
 	<!-- robots init pose-->
 	<!-- robot 1 init pose-->
 	<arg if="$(eval instance == 1)"
-		name="x_init_pose" value="0.0" />
+		name="x_init_pose" value="$(optenv X_INIT_POSE 0.0)" />
 	<arg if="$(eval instance == 1)"
-		name="y_init_pose" value="0.0" />
+		name="y_init_pose" value="$(optenv Y_INIT_POSE 0.0)" />
 	<arg if="$(eval instance == 1)"
-		name="z_init_pose" value="0.15" />
+		name="z_init_pose" value="$(optenv Z_INIT_POSE 0.0)" />
 	<arg if="$(eval instance == 1)"
-		name="init_yaw" value="0.0" />
+		name="init_yaw" value="$(optenv INIT_YAW 0.0)" />
 	<!-- robot 2 init pose-->
 	<arg if="$(eval instance == 2)"
-		name="x_init_pose" value="2.0" />
+		name="x_init_pose" value="$(optenv R2_X_INIT_POSE 2.0)" />
 	<arg if="$(eval instance == 2)"
-		name="y_init_pose" value="1.0" />
+		name="y_init_pose" value="$(optenv R2_Y_INIT_POSE 1.0)" />
 	<arg if="$(eval instance == 2)"
-		name="z_init_pose" value="0.15" />
+		name="z_init_pose" value="$(optenv R2_Z_INIT_POSE 0.00)" />
 	<arg if="$(eval instance == 2)"
-		name="init_yaw" value="0.0" />
+		name="init_yaw" value="$(optenv R2_INIT_YAW 0.0)" />
 	<!-- robot 3 init pose-->
 	<arg if="$(eval instance == 3)"
-		name="x_init_pose" value="-2.0" />
+		name="x_init_pose" value="$(optenv R3_X_INIT_POSE -2.0)" />
 	<arg if="$(eval instance == 3)"
-		name="y_init_pose" value="-1.0" />
+		name="y_init_pose" value="$(optenv R3_Y_INIT_POSE -1.0)" />
 	<arg if="$(eval instance == 3)"
-		name="z_init_pose" value="0.15" />
+		name="z_init_pose" value="$(optenv R3_Z_INIT_POSE 0.00)" />
 	<arg if="$(eval instance == 3)"
-		name="init_yaw" value="0.0" />
+		name="init_yaw" value="$(optenv R3_INIT_YAW 0.0)" />
 	<!-- robot 4 init pose-->
 	<arg if="$(eval instance == 4)"
-		name="x_init_pose" value="-2.0" />
+		name="x_init_pose" value="$(optenv R4_X_INIT_POSE -2.0)" />
 	<arg if="$(eval instance == 4)"
-		name="y_init_pose" value="1.0" />
+		name="y_init_pose" value="$(optenv R4_Y_INIT_POSE 1.0)" />
 	<arg if="$(eval instance == 4)"
-		name="z_init_pose" value="0.15" />
+		name="z_init_pose" value="$(optenv R4_Z_INIT_POSE 0.00)" />
 	<arg if="$(eval instance == 4)"
-		name="init_yaw" value="0.0" />
+		name="init_yaw" value="$(optenv R4_INIT_YAW 0.0)" />
 <!-- robot 5 init pose-->
 	<arg if="$(eval instance == 5)"
-		name="x_init_pose" value="2.0" />
+		name="x_init_pose" value="$(optenv R5_X_INIT_POSE 2.0)" />
 	<arg if="$(eval instance == 5)"
-		name="y_init_pose" value="-1.0" />
+		name="y_init_pose" value="$(optenv R5_Y_INIT_POSE -1.0)" />
 	<arg if="$(eval instance == 5)"
-		name="z_init_pose" value="0.15" />
+		name="z_init_pose" value="$(optenv R5_Z_INIT_POSE 0.00)" />
 	<arg if="$(eval instance == 5)"
-		name="init_yaw" value="0.0" />
+		name="init_yaw" value="$(optenv R5_INIT_YAW 0.0)" />
 
 	<!-- launch components flag argurments-->
 	<arg name="gmapping" default="$(optenv LAUNCH_GMAPPING false)"/>
