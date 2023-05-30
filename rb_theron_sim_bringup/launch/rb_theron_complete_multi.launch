@@ -164,11 +164,11 @@
 		<arg name="map_file" value="$(arg map_file)"/>
 		<arg name="launch_move_base" value="$(arg move_base)"/>
 		<arg
-			if="$(multirobot)"
+			if="$(arg multirobot)"
 			name="launch_pad"
 			value="false"
 		/>
-		<arg unless="$(multirobot)"
+		<arg unless="$(arg multirobot)"
 			name="launch_pad"
 			value="$(arg pad)"
 		/>
@@ -197,12 +197,12 @@
 		>
 			<arg name="id_robot" value="$(arg id_robot)"/>
 			<arg
-				if="$(multirobot)"
-				name="launch_pad"
+				if="$(arg multirobot)"
+				name="pad"
 				value="false"
 			/>
-			<arg unless="$(multirobot)"
-				name="launch_pad"
+			<arg unless="$(arg multirobot)"
+				name="pad"
 				value="$(arg pad)"
 			/>
 			<arg name="throttle" value="$(arg throttle)"/>
