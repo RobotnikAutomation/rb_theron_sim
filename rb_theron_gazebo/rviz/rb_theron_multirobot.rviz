@@ -3,9 +3,12 @@ Panels:
     Help Height: 78
     Name: Displays
     Property Tree Widget:
-      Expanded: ~
+      Expanded:
+        - /Robot 11/TEB Marker1/Status1
+        - /Robot 21/PoseArray1
+        - /Robot 41/PoseArray1
       Splitter Ratio: 0.5735294222831726
-    Tree Height: 727
+    Tree Height: 759
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -206,12 +209,12 @@ Visualization Manager:
           Update Interval: 0
           Value: true
           Visual Enabled: true
-        - Alpha: 1
-          Arrow Length: 0.30000001192092896
+        - Alpha: 0.5
+          Arrow Length: 0.15000000596046448
           Axes Length: 0.30000001192092896
           Axes Radius: 0.009999999776482582
           Class: rviz/PoseArray
-          Color: 255; 25; 0
+          Color: 255; 140; 130
           Enabled: true
           Head Length: 0.07000000029802322
           Head Radius: 0.029999999329447746
@@ -368,6 +371,30 @@ Visualization Manager:
           Topic: /robot_1/move_base/TebLocalPlannerROS/local_plan
           Unreliable: false
           Value: true
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /robot_1/move_base/TebLocalPlannerROS/teb_markers
+          Name: TEB Marker
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Alpha: 1
+          Arrow Length: 0.30000001192092896
+          Axes Length: 0.30000001192092896
+          Axes Radius: 0.009999999776482582
+          Class: rviz/PoseArray
+          Color: 108; 108; 108
+          Enabled: true
+          Head Length: 0.07000000029802322
+          Head Radius: 0.10000000149011612
+          Name: Teb Pose
+          Shaft Length: 0.23000000417232513
+          Shaft Radius: 0.029999999329447746
+          Shape: Arrow (3D)
+          Topic: /robot_1/move_base/TebLocalPlannerROS/teb_poses
+          Unreliable: false
+          Value: true
       Enabled: true
       Name: Robot 1
     - Class: rviz/Group
@@ -388,12 +415,12 @@ Visualization Manager:
           Update Interval: 0
           Value: true
           Visual Enabled: true
-        - Alpha: 1
-          Arrow Length: 0.30000001192092896
+        - Alpha: 0.5
+          Arrow Length: 0.15000000596046448
           Axes Length: 0.30000001192092896
           Axes Radius: 0.009999999776482582
           Class: rviz/PoseArray
-          Color: 85; 0; 255
+          Color: 172; 130; 255
           Enabled: true
           Head Length: 0.07000000029802322
           Head Radius: 0.029999999329447746
@@ -550,6 +577,30 @@ Visualization Manager:
           Topic: /robot_2/move_base/TebLocalPlannerROS/local_plan
           Unreliable: false
           Value: true
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /robot_2/move_base/TebLocalPlannerROS/teb_markers
+          Name: TEB Marker
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Alpha: 1
+          Arrow Length: 0.30000001192092896
+          Axes Length: 0.30000001192092896
+          Axes Radius: 0.009999999776482582
+          Class: rviz/PoseArray
+          Color: 108; 108; 108
+          Enabled: true
+          Head Length: 0.07000000029802322
+          Head Radius: 0.10000000149011612
+          Name: Teb Pose
+          Shaft Length: 0.23000000417232513
+          Shaft Radius: 0.029999999329447746
+          Shape: Arrow (3D)
+          Topic: /robot_2/move_base/TebLocalPlannerROS/teb_poses
+          Unreliable: false
+          Value: true
       Enabled: false
       Name: Robot 2
     - Class: rviz/Group
@@ -570,12 +621,12 @@ Visualization Manager:
           Update Interval: 0
           Value: true
           Visual Enabled: true
-        - Alpha: 1
-          Arrow Length: 0.30000001192092896
+        - Alpha: 0.5
+          Arrow Length: 0.15000000596046448
           Axes Length: 0.30000001192092896
           Axes Radius: 0.009999999776482582
           Class: rviz/PoseArray
-          Color: 0; 255; 0
+          Color: 130; 255; 130
           Enabled: true
           Head Length: 0.07000000029802322
           Head Radius: 0.029999999329447746
@@ -732,6 +783,30 @@ Visualization Manager:
           Topic: /robot_3/move_base/TebLocalPlannerROS/local_plan
           Unreliable: false
           Value: true
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /robot_3/move_base/TebLocalPlannerROS/teb_markers
+          Name: TEB Marker
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Alpha: 1
+          Arrow Length: 0.30000001192092896
+          Axes Length: 0.30000001192092896
+          Axes Radius: 0.009999999776482582
+          Class: rviz/PoseArray
+          Color: 108; 108; 108
+          Enabled: true
+          Head Length: 0.07000000029802322
+          Head Radius: 0.10000000149011612
+          Name: Teb Pose
+          Shaft Length: 0.23000000417232513
+          Shaft Radius: 0.029999999329447746
+          Shape: Arrow (3D)
+          Topic: /robot_3/move_base/TebLocalPlannerROS/teb_poses
+          Unreliable: false
+          Value: true
       Enabled: false
       Name: Robot 3
     - Class: rviz/Group
@@ -752,12 +827,12 @@ Visualization Manager:
           Update Interval: 0
           Value: true
           Visual Enabled: true
-        - Alpha: 1
-          Arrow Length: 0.30000001192092896
+        - Alpha: 0.5
+          Arrow Length: 0.15000000596046448
           Axes Length: 0.30000001192092896
           Axes Radius: 0.009999999776482582
           Class: rviz/PoseArray
-          Color: 255; 170; 0
+          Color: 255; 214; 130
           Enabled: true
           Head Length: 0.07000000029802322
           Head Radius: 0.029999999329447746
@@ -914,6 +989,30 @@ Visualization Manager:
           Topic: /robot_4/move_base/TebLocalPlannerROS/local_plan
           Unreliable: false
           Value: true
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /robot_4/move_base/TebLocalPlannerROS/teb_markers
+          Name: TEB Marker
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Alpha: 1
+          Arrow Length: 0.30000001192092896
+          Axes Length: 0.30000001192092896
+          Axes Radius: 0.009999999776482582
+          Class: rviz/PoseArray
+          Color: 108; 108; 108
+          Enabled: true
+          Head Length: 0.07000000029802322
+          Head Radius: 0.10000000149011612
+          Name: Teb Pose
+          Shaft Length: 0.23000000417232513
+          Shaft Radius: 0.029999999329447746
+          Shape: Arrow (3D)
+          Topic: /robot_4/move_base/TebLocalPlannerROS/teb_poses
+          Unreliable: false
+          Value: true
       Enabled: false
       Name: Robot 4
     - Class: rviz/Group
@@ -934,8 +1033,8 @@ Visualization Manager:
           Update Interval: 0
           Value: true
           Visual Enabled: true
-        - Alpha: 1
-          Arrow Length: 0.30000001192092896
+        - Alpha: 0.5
+          Arrow Length: 0.15000000596046448
           Axes Length: 0.30000001192092896
           Axes Radius: 0.009999999776482582
           Class: rviz/PoseArray
@@ -1096,6 +1195,30 @@ Visualization Manager:
           Topic: /robot_5/move_base/TebLocalPlannerROS/local_plan
           Unreliable: false
           Value: true
+        - Class: rviz/Marker
+          Enabled: true
+          Marker Topic: /robot_5/move_base/TebLocalPlannerROS/teb_markers
+          Name: TEB Marker
+          Namespaces:
+            {}
+          Queue Size: 100
+          Value: true
+        - Alpha: 1
+          Arrow Length: 0.30000001192092896
+          Axes Length: 0.30000001192092896
+          Axes Radius: 0.009999999776482582
+          Class: rviz/PoseArray
+          Color: 108; 108; 108
+          Enabled: true
+          Head Length: 0.07000000029802322
+          Head Radius: 0.10000000149011612
+          Name: Teb Pose
+          Shaft Length: 0.23000000417232513
+          Shaft Radius: 0.029999999329447746
+          Shape: Arrow (3D)
+          Topic: /robot_5/move_base/TebLocalPlannerROS/teb_poses
+          Unreliable: false
+          Value: true
       Enabled: false
       Name: Robot 5
   Enabled: true
@@ -1126,7 +1249,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/ThirdPersonFollower
-      Distance: 10
+      Distance: 14.808069229125977
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -1141,10 +1264,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.7853981852531433
+      Pitch: 0.7953981757164001
       Target Frame: <Fixed Frame>
       Value: ThirdPersonFollower (rviz)
-      Yaw: 0.7853981852531433
+      Yaw: 0.785398006439209
     Saved: ~
 Window Geometry:
   Displays:
@@ -1153,10 +1276,10 @@ Window Geometry:
     collapsed: false
   Front Cam RGB:
     collapsed: false
-  Height: 1011
+  Height: 1043
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd00000004000000000000015600000360fc0200000007fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003b00000360000000c700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000013e00000360fc020000000efb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000003b00000215000000a000fffffffb0000001a00460072006f006e0074002000430061006d002000520047004200000001a9000001100000001600fffffffb0000001e00460072006f006e0074002000430061006d002000440065007000740068000000023d000000a90000001600fffffffb0000001e00460072006f006e0074002000430061006d00200044006500700074006800000001830000004c0000001600fffffffb0000001a00460072006f006e0074002000430061006d002000520047004200000001a60000010e0000001600fffffffb0000001a00460072006f006e0074002000430061006d002000520047004200000001b2000000fa0000001600fffffffb0000001e00460072006f006e0074002000430061006d0020004400650070007400680000000213000000d30000001600fffffffb0000001a00460072006f006e0074002000430061006d00200052004700420000000194000000f70000001600fffffffb0000001e00460072006f006e0074002000430061006d0020004400650070007400680000000224000000970000001600fffffffb0000001e00460072006f006e0074002000430061006d00200044006500700074006800000001af000000970000001600fffffffb0000001a00460072006f006e0074002000430061006d00200052004700420000000203000000f40000001600fffffffb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000256000001450000005c00fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000078000000037fc0100000002fb0000000800540069006d00650100000000000007800000024400fffffffb0000000800540069006d00650100000000000004500000000000000000000004e00000036000000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd00000004000000000000015600000380fc0200000007fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003b00000380000000c700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000013e00000380fc020000000efb0000001e0054006f006f006c002000500072006f0070006500720074006900650073010000003b000000f50000005c00fffffffb0000000a00560069006500770073010000013600000285000000a000fffffffb0000001a00460072006f006e0074002000430061006d002000520047004200000001a9000001100000001600fffffffb0000001e00460072006f006e0074002000430061006d002000440065007000740068000000023d000000a90000001600fffffffb0000001e00460072006f006e0074002000430061006d00200044006500700074006800000001830000004c0000001600fffffffb0000001a00460072006f006e0074002000430061006d002000520047004200000001a60000010e0000001600fffffffb0000001a00460072006f006e0074002000430061006d002000520047004200000001b2000000fa0000001600fffffffb0000001e00460072006f006e0074002000430061006d0020004400650070007400680000000213000000d30000001600fffffffb0000001a00460072006f006e0074002000430061006d00200052004700420000000194000000f70000001600fffffffb0000001e00460072006f006e0074002000430061006d0020004400650070007400680000000224000000970000001600fffffffb0000001e00460072006f006e0074002000430061006d00200044006500700074006800000001af000000970000001600fffffffb0000001a00460072006f006e0074002000430061006d00200052004700420000000203000000f40000001600fffffffb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000256000001450000000000000000fb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000078000000037fc0100000002fb0000000800540069006d00650100000000000007800000024400fffffffb0000000800540069006d00650100000000000004500000000000000000000004e00000038000000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -1166,5 +1289,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1920
-  X: 1920
-  Y: 32
+  X: 0
+  Y: 0
