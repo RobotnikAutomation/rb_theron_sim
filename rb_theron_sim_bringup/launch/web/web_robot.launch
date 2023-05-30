@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- arg to config the launch file-->
+  <arg name="id_robot" default="$(optenv ROBOT_ID robot)"/>
+  <arg name="throttle" default="$(optenv LAUNCH_WEB_THROTTLE true)" />
+  <arg name="pad" default="$(optenv LAUNCH_WEB_PAD true)" />
+
+  <include
+    if="$(arg throttle)"
+    file="$(find rb_theron_sim_bringup)/launch/web/web_throttle.launch"
+  >
+    <arg name="id_robot" value="$(arg id_robot)"/>
+  </include>
+
+  <include
+    if="$(arg pad)"
+    file="$(find rb_theron_sim_bringup)/launch/web/web_pad.launch"
+  >
+  </include>
+</launch>
