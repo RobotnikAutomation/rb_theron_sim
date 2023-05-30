@@ -25,6 +25,7 @@
 		name="z_init_pose" value="0.15" />
 	<arg if="$(eval num_instances == 1)"
 		name="init_yaw" value="0.0" />
+	<!-- robot 2 init pose-->
 	<arg if="$(eval num_instances == 2)"
 		name="x_init_pose" value="2.0" />
 	<arg if="$(eval num_instances == 2)"
@@ -33,13 +34,23 @@
 		name="z_init_pose" value="0.15" />
 	<arg if="$(eval num_instances == 2)"
 		name="init_yaw" value="0.0" />
+	<!-- robot 3 init pose-->
 	<arg if="$(eval num_instances == 3)"
-		name="x_init_pose" value="4.0" />
+		name="x_init_pose" value="-2.0" />
 	<arg if="$(eval num_instances == 3)"
-		name="y_init_pose" value="2.0" />
+		name="y_init_pose" value="-1.0" />
 	<arg if="$(eval num_instances == 3)"
 		name="z_init_pose" value="0.15" />
 	<arg if="$(eval num_instances == 3)"
+		name="init_yaw" value="0.0" />
+	<!-- robot 4 init pose-->
+	<arg if="$(eval num_instances == 4)"
+		name="x_init_pose" value="-4.0" />
+	<arg if="$(eval num_instances == 4)"
+		name="y_init_pose" value="-1.0" />
+	<arg if="$(eval num_instances == 4)"
+		name="z_init_pose" value="0.15" />
+	<arg if="$(eval num_instances == 4)"
 		name="init_yaw" value="0.0" />
 
 
