@@ -28,7 +28,8 @@
   />
 
  -->
-  <arg name="prefix" default="robot_"/>
+  <arg name="id_robot" default="$(arg id_robot)"/>
+  <arg name="prefix" default="$(arg id_robot)_"/>
   <arg name="angle_min" default="$(optenv MERGE_SCAN_ANGLE_MIN -3.1415)" />
   <arg name="angle_max" default="$(optenv MERGE_SCAN_ANGLE_MAX 3.1415)" />
   <arg name="node_name" default="merged_laser" />

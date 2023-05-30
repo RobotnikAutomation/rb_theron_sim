@@ -128,6 +128,7 @@
 			if="$(arg laser_merger)"
 			file="$(find rb_theron_sim_bringup)/launch/sensors/merge_scan.launch"
 		>
+			<arg name="id_robot" default="$(arg id_robot)"/>
 		</include>
 	</group>
 
