@@ -7,7 +7,7 @@ repositories:
   src/rb_theron_common:
     type: git
     url: https://github.com/RobotnikAutomation/rb_theron_common.git
-    version: melodic-devel
+    version: fix/gazebo-description
   src/robotnik_msgs:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_msgs.git
