@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<launch>
+
+	<arg name="num_instances" default="3" />
+
+	<!-- arg to config the launch file-->
+	<arg name="gazebo_world" default="$(find rb_theron_gazebo)/worlds/rb_theron_office.world"/>
+	<!-- <arg name="launch_base_hw_sim" default="true"/> -->
+	<arg name="use_ros_planar_move_plugin" default="false"/>
+
+	<!-- arguments robot-->
+	<arg name="id_prefix" default="robot_"/>
+	<arg
+		name="id_robot"
+		value="$(eval str(arg('id_prefix')) + str(arg('num_instances')))"
+	/>
+	<arg name="xacro_robot" default="rb_theron.urdf.xacro"/>
+
+	<!-- robot init pose-->
+	<arg if="$(eval num_instances == 1)"
+		name="x_init_pose" value="0.0" />
+	<arg if="$(eval num_instances == 1)"
+		name="y_init_pose" value="0.0" />
+	<arg if="$(eval num_instances == 1)"
+		name="z_init_pose" value="0.15" />
+	<arg if="$(eval num_instances == 1)"
+		name="init_yaw" value="0.0" />
+	<arg if="$(eval num_instances == 2)"
+		name="x_init_pose" value="2.0" />
+	<arg if="$(eval num_instances == 2)"
+		name="y_init_pose" value="1.0" />
+	<arg if="$(eval num_instances == 2)"
+		name="z_init_pose" value="0.15" />
+	<arg if="$(eval num_instances == 2)"
+		name="init_yaw" value="0.0" />
+	<arg if="$(eval num_instances == 3)"
+		name="x_init_pose" value="4.0" />
+	<arg if="$(eval num_instances == 3)"
+		name="y_init_pose" value="2.0" />
+	<arg if="$(eval num_instances == 3)"
+		name="z_init_pose" value="0.15" />
+	<arg if="$(eval num_instances == 3)"
+		name="init_yaw" value="0.0" />
+
+
+	<!-- launch components flag argurments-->
+	<arg name="gmapping" default="$(optenv LAUNCH_GMAPPING false)"/>
+	<arg name="amcl" default="$(optenv LAUNCH_AMCL true)"/>
+	<arg name="mapserver" default="$(optenv LAUNCH_MAPSERVER true)"/>
+	<arg name="move_base" default="$(optenv LAUNCH_MOVE_BASE true)"/>
+	<!--
+	<arg name="pad" default="$(optenv LAUNCH_PAD true)"/>
+	-->
+	<arg name="rviz" default="$(optenv LAUNCH_RVIZ true)"/>
+	<arg name="laser_merger" default="$(optenv LAUNCH_LASER_MERGER false)" />
+	<arg name="web_backend" default="$(optenv LAUNCH_WEB_BACKEND false)" />
+	<arg name="pose_publisher" default="$(optenv LAUNCH_POSE_PUBLISHER false)"/>
+	<arg name="gazebo" default="true"/>
+
+	<!-- node pose_publisher arguments -->
+	<arg name="pose_frequency" default="$(optenv POSE_PUBLISHER_FREQUENCY 10)"/>
+	<arg name="pose_map_frame" default="$(optenv POSE_PUBLISHER_MAP_FRAME robots_map)"/>
+	<!--
+	<arg name="pose_base_frame" default="$(optenv POSE_PUBLISHER_BASE_FRAME robot_base_footprint)"/>
+	-->
+	<arg name="pose_base_frame"
+		value="$(eval str(arg('id_prefix')) + str(arg('num_instances')) + '_base_footprint')"
+	/>
+	<arg name="pose_topic_republish" default="$(optenv POSE_PUBLISHER_TOPIC_REPUB pose)"/>
+
+	<!-- gazebo argurments-->
+	<arg name="use_gpu" default="$(optenv USE_GPU true)"/>
+	<arg name="verbose" default="$(optenv VERBOSE false)"/>
+	<arg name="gui" default="$(optenv GUI false)"/>
+	<arg name="debug" default="$(optenv DEBUG false)"/>
+
+	<!-- mapping arguments-->
+	<arg name="map_frame" default="robots_map"/>
+	<arg name="map_file" default="$(find rb_theron_localization)/maps/willow_garage/willow_garage.yaml"/>
+
+	<!-- gazebo simulation -->
+	<include
+		if="$(arg gazebo)"
+		file="$(find rb_theron_gazebo)/launch/gazebo.launch"
+	>
+		<arg name="world_name" value="$(arg gazebo_world)"/>
+		<arg name="debug" value="$(arg debug)"/>
+		<arg name="gui" value="$(arg gui)"/>
+		<arg name="verbose" value="$(arg verbose)"/>
+	</include>
+
+	<!-- rviz visualization -->
+	<include if="$(arg rviz)" file="$(find rb_theron_gazebo)/launch/rviz.launch">
+		<arg name="rviz_config" value="$(arg rviz_config)"/>
+	</include>
+
+
+	<include file="$(find rb_theron_gazebo)/launch/rb_theron_robot.launch">
+		<!-- general args -->
+		<!-- <arg name="launch_base_hw_sim" value="$(arg launch_base_hw_sim)"/> -->
+		<arg name="use_ros_planar_move_plugin" value="$(arg use_ros_planar_move_plugin)"/>
+
+		<!-- robot args -->
+		<arg name="id_robot" default="$(arg id_robot)"/>
+		<arg name="xacro_robot" value="$(arg xacro_robot)"/>
+		<!-- robot init pose-->
+		<arg name="x_init_pose" value="$(arg x_init_pose)" />
+		<arg name="y_init_pose" value="$(arg y_init_pose)" />
+		<arg name="z_init_pose" value="$(arg z_init_pose)" />
+		<arg name="init_yaw" value="$(arg init_yaw)" />
+		<!-- Launch components -->
+		<arg name="launch_gmapping" value="$(arg gmapping)"/>
+		<arg name="launch_amcl" value="$(arg amcl)"/>
+		<arg name="launch_mapserver" value="$(arg mapserver)"/>
+		<arg name="global_frame" value="$(arg map_frame)"/>
+		<arg name="map_file" value="$(arg map_file)"/>
+		<arg name="launch_move_base" value="$(arg move_base)"/>
+		<arg name="launch_pad" value="false"/>
+		<arg name="launch_pose_publisher" value="$(arg pose_publisher)"/>
+		<!-- config node pose_publisher -->
+		<arg name="pose_frequency" default="$(arg pose_frequency)"/>
+		<arg name="pose_map_frame" default="$(arg pose_map_frame)"/>
+		<arg name="pose_base_frame" default="$(arg pose_base_frame)"/>
+		<arg name="pose_topic_republish" default="$(arg pose_topic_republish)"/>
+	</include>
+	<group ns="$(arg id_robot)">
+		<include
+			if="$(arg laser_merger)"
+			file="$(find rb_theron_sim_bringup)/launch/sensors/merge_scan.launch"
+		>
+		</include>
+	</group>
+
+	<!-- Recursive launch -->
+	<include
+		if="$(eval arg('num_instances') - 1 > 0)"
+		file="$(find rb_theron_sim_bringup)/launch/rb_theron_complete_multi.launch"
+	>
+		<arg
+			name="num_instances"
+			value="$(eval arg('num_instances') - 1)"
+		/>
+		<arg name="gazebo" value="false"/>
+		<arg name="rviz" value="false"/>
+	</include>
+
+
+</launch>
