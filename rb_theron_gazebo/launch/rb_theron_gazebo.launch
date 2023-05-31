@@ -32,9 +32,11 @@
 
 	<!-- config node pose_publisher -->
 	<arg name="pose_frequency" default="10"/>
+	<!--
 	<arg name="pose_map_frame" default="$(arg id_robot)_map"/>
-	<arg name="pose_base_frame" default="$(arg id_robot)_base_footprint"/>
-	<arg name="pose_topic_republish" default="pose"/>
+	-->
+	<arg name="base_frame_suffix" default="base_footprint"/>
+	<arg name="pose_topic_republish" default="robot_pose"/>
 
 	<!-- mapping arguments-->
 	<arg name="map_file" default="$(find rb_theron_localization)/maps/willow_garage/willow_garage.yaml"/>
@@ -66,8 +68,7 @@
 		<arg name="use_gpu" value="$(arg use_gpu)"/>
 		<arg name="launch_pose_publisher" value="$(arg pose_publisher)"/>
 		<arg name="pose_frequency" value="$(arg pose_frequency)"/>
-		<arg name="pose_map_frame" value="$(arg pose_map_frame)"/>
-		<arg name="pose_base_frame" value="$(arg pose_base_frame)"/>
+		<arg name="base_frame_suffix" value="$(arg base_frame_suffix)"/>
 		<arg name="pose_topic_republish" value="$(arg pose_topic_republish)"/>
 	</include>
 
