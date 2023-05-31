@@ -69,7 +69,7 @@ services:
       LAUNCH_LASER_MERGER: "true"
       LAUNCH_WEB_BACKEND: "false"
       LAUNCH_WEB_THROTTLE: "false"
-      LAUNCH_POSE_PUBLISHER: "false"
+      LAUNCH_POSE_PUBLISHER: "true"
 
       # GAZEBO PARAMETERS
       USE_GPU: "true"
