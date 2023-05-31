@@ -94,9 +94,6 @@ services:
       - type: bind
         source: /dev
         target: /dev
-      - type: bind
-        source: ../rb_theron_sim_bringup
-        target: /home/robot/catkin_ws/src/rb_theron_sim_bringup
     devices:
       - "/dev/dri"
     deploy:
