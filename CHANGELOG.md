@@ -9,12 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Added multirobot support with the environment variable `ROBOT_QTY` can simulate up 5 robots
 - Added [pose_publisher](https://github.com/RobotnikAutomation/pose_publisher) repository to `repos`file.
 - Added environment variable to `LAUNCH_POSE_PUBLISHER` to launch the node_pose_publisher. 
 - Added environment variable to `POSE_PUBLISHER_FREQUENCY` to change default value of the publishing frequency for the node_pose_publisher.
-- Added environment variable to `POSE_PUBLISHER_MAP_FRAME` to change default value of robot map frame.
-- Added environment variable to `POSE_PUBLISHER_BASE_FRAME` to change default value of robot base frame.
+- Added environment variable to `POSE_PUBLISHER_BASE_FRAME_SUFFIX` to change default value of robot base frame suffix.
 - Added environment variable to `POSE_PUBLISHER_TOPIC_REPUB` to change default value of the topic name where the node_pose_publisher publishes.
+- Added environment variable to `LAUNCH_WEB_THROTTLE` to launch the throttle publisher. 
+
 ### Changed
 - Modified the `rb_theron_complete.launch` to add the pose_publisher `.launch` and read the environment variables to configure it.
 - Modified the `rb_theron_gazebo.launch` to launch and configure the pose_publisher node.
