@@ -82,8 +82,7 @@ services:
       ROBOT_WEB_VIDEO_TRANSPORT: "compresed"
       ROBOT_HMI_2D_SENSOR_1: "merged_laser/scan"
       POSE_PUBLISHER_FREQUENCY: 10
-      POSE_PUBLISHER_MAP_FRAME: "robot_map"
-      POSE_PUBLISHER_BASE_FRAME: "robot_base_footprint"
+      POSE_PUBLISHER_BASE_FRAME_SUFFIX: "base_footprint"
       POSE_PUBLISHER_TOPIC_REPUB: "robot_pose"
 
     volumes:
