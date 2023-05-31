@@ -96,11 +96,6 @@
 	<!-- node pose_publisher arguments -->
 	<arg name="pose_frequency" default="$(optenv POSE_PUBLISHER_FREQUENCY 10)"/>
 	<arg name="pose_base_frame_suffix" default="$(optenv POSE_PUBLISHER_BASE_FRAME_SUFFIX base_footprint)"/>
-	<!--
-	<arg name="pose_base_frame"
-		value="$(eval str(arg('id_prefix')) + str(arg('instance')) + '_base_footprint')"
-	/>
-	-->
 	<arg name="pose_topic_republish" default="$(optenv POSE_PUBLISHER_TOPIC_REPUB pose)"/>
 
 	<!-- gazebo argurments-->
@@ -196,11 +191,9 @@
 		<arg name="launch_pose_publisher" value="$(arg pose_publisher)"/>
 		<!-- config node pose_publisher -->
 		<arg name="pose_frequency" default="$(arg pose_frequency)"/>
-		<!--
-		<arg name="pose_base_frame" default="$(arg pose_base_frame)"/>
-		-->
 		<arg name="base_frame_suffix" default="$(arg pose_base_frame_suffix)"/>
 		<arg name="pose_topic_republish" default="$(arg pose_topic_republish)"/>
+
 		<!-- gazebo robot parameters -->
 		<arg name="use_gpu" value="$(arg use_gpu)"/>
 	</include>

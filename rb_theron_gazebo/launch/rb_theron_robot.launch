@@ -21,10 +21,6 @@
 	<arg name="use_gpu" default="true"/>
 	<arg name="launch_pose_publisher" default="false"/>
 	<arg name="pose_frequency" default="10"/>
-	<!--
-	<arg name="pose_map_frame" default="$(arg prefix)map"/>
-	<arg name="pose_map_frame" default="$(arg global_frame)"/>
-	-->
 	<arg name="base_frame_suffix" default="base_footprint"/>
 	<arg name="pose_topic_republish" default="pose"/>
 
