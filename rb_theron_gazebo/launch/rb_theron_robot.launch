@@ -21,8 +21,11 @@
 	<arg name="use_gpu" default="true"/>
 	<arg name="launch_pose_publisher" default="false"/>
 	<arg name="pose_frequency" default="10"/>
+	<!--
 	<arg name="pose_map_frame" default="$(arg prefix)map"/>
-	<arg name="pose_base_frame" default="$(arg prefix)base_footprint"/>
+	<arg name="pose_map_frame" default="$(arg global_frame)"/>
+	-->
+	<arg name="base_frame_suffix" default="base_footprint"/>
 	<arg name="pose_topic_republish" default="pose"/>
 
 
@@ -91,13 +94,12 @@
 
 		<!-- pose publisher -->
 		<include if="$(arg launch_pose_publisher)" file="$(find pose_publisher)/launch/pose_publisher_launch.launch">
-			<arg name="robot_id" default="$(arg prefix)"/>
-			<arg name="frequency" default="$(arg pose_frequency)"/>
-			<arg name="map_frame" default="$(arg pose_map_frame)"/>
-			<arg name="base_frame" default="$(arg pose_base_frame)"/>
+			<arg name="id_robot" default="$(arg id_robot)"/>
 			<arg name="topic_republish" default="$(arg pose_topic_republish)"/>
+			<arg name="frequency" default="$(arg pose_frequency)"/>
+			<arg name="map_frame" default="$(arg global_frame)"/>
+			<arg name="base_frame_suffix" default="$(arg base_frame_suffix)"/>
 		</include>
-
 	</group>
 
 </launch>
