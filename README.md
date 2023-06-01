@@ -16,7 +16,7 @@ Packages for the simulation of the RB-Theron
         -   [Environment Variables](#environment-variables)
     -   [Docker](#docker)
         -   [Installation of required
-            files](#installation-of-required-files)
+            files](#installation)
         -   [Usage](#usage)
 
 ## Packages
@@ -217,9 +217,9 @@ roslaunch rb_theron_sim_bringup rb_theron_complete.launch
 
 ## Docker
 
-The simulation requires a graphical user interface and if you have an nvidia powered machine, you can use the nvidia-containers to use graphical acceleration.
+The simulation requires a graphical user interface. If you have an nvidia powered machine, you can use the nvidia-containers to use graphical acceleration and improve perfomance.
 
-### Installation of required files
+### Installation
 
 #### Intel GPU
 
@@ -229,11 +229,8 @@ The simulation requires a graphical user interface and if you have an nvidia pow
 #### Nvidia GPU
 
 - [docker engine](https://docs.docker.com/engine/install/ubuntu/)
-
 - [docker compose plugin](https://docs.docker.com/compose/install/linux/)
-
 - nvidia-drivers
-
 - [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
 
 ### Usage
@@ -258,11 +255,11 @@ cd docker
 docker compose build
 ```
 
-#### Notes
+### Notes
 
 This is docker requires a graphical interface
 
-- In order to exit you have to 2 options
+- In order to exit you have to 2 options:
 
 - The `ROS_MASTER_URI` is accessible outside the container, so in the host any ros command should work
 
@@ -276,22 +273,7 @@ This is docker requires a graphical interface
    ```bash
    docker container rm --force docker-rb-theron-sim-1
    ```
-
-#### Notes
-
-- This is docker requires a graphical interface
-
-- The `ROS_MASTER_URI` is accessible outside the container, so in the host any ros command should work
-
-- You could also run a `roscore` previous to launch the simulation in order to have some processes on the host running
-
-- if you want to enter on the container use the following command in another terminal
-  
-  ```bash
-  docker container exec -it docker-rb-theron-sim-1 bash
-  ```
-
-- In order to exit you have to 2 options
+- In order to exit you have to 2 options:
 1. Close `gazebo` and `rviz` and wait a bit
 
 2. execute in another terminal in the same folder than the `docker-compose.yml`:
