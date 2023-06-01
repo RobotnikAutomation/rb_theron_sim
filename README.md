@@ -15,9 +15,9 @@ Packages for the simulation of the RB-Theron
             robots):](#launch-rb-theron-simulation-1-robot-by-default-up-to-3-robots)
         -   [Environment Variables](#environment-variables)
     -   [Docker](#docker)
-        -   [Installation of required
-            files](#installation)
+        -   [Installation](#installation)
         -   [Usage](#usage)
+        -   [Notes](#notes)
 
 ## Packages
 
