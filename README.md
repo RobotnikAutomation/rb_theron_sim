@@ -75,32 +75,57 @@ roslaunch rb_theron_sim_bringup rb_theron_complete.launch
 | `POSE_PUBLISHER_BASE_FRAME`  | `robot_base_footprint` | robot base frame             |
 | `POSE_PUBLISHER_TOPIC_REPUB` | `robot_pose`           | robot pose republished topic |
 
-#### Robot quantity and position parameters
+#### Robot quantity and namespace parameters
 
-| Environment      | Default Value | Meaning                                                    |
-| ---------------- | ------------- | ---------------------------------------------------------- |
-| `ROBOT_QTY`      | `1`           | Number of robots to spawn (maximum 5)                      |
-| `ROBOT_ID`       | `robot`       | Robot namespace                                            |
-| `X_INIT_POSE`    | `0.0`         | robot or robot_1 (in case of multiple robot) x init pose   |
-| `Y_INIT_POSE`    | `0.0`         | robot or robot_1 (in case of multiple robot) y init pose   |
-| `Z_INIT_POSE`    | `0.0`         | robot or robot_1 (in case of multiple robot) z init pose   |
-| `INIT_YAW`       | `0.0`         | robot or robot_1 (in case of multiple robot) yaw init pose |
-| `R2_X_INIT_POSE` | `2.0`         | robot_2 x init pose                                        |
-| `R2_Y_INIT_POSE` | `1.0`         | robot_2 y init pose                                        |
-| `R2_Z_INIT_POSE` | `0.00`        | robot_2 z init pose                                        |
-| `R2_INIT_YAW`    | `0.0`         | robot_2 yaw init pose                                      |
-| `R3_X_INIT_POSE` | `-2.0`        | robot_3 x init pose                                        |
-| `R3_Y_INIT_POSE` | `-1.0`        | robot_3 y init pose                                        |
-| `R3_Z_INIT_POSE` | `0.00`        | robot_3 z init pose                                        |
-| `R3_INIT_YAW`    | `0.0`         | robot_3 yaw init pose                                      |
-| `R4_X_INIT_POSE` | `-2.0`        | robot_4 x init pose                                        |
-| `R4_Y_INIT_POSE` | `1.0`         | robot_4 y init pose                                        |
-| `R4_Z_INIT_POSE` | `0.00`        | robot_4 z init pose                                        |
-| `R4_INIT_YAW`    | `0.0`         | robot_4 yaw init pose                                      |
-| `R5_X_INIT_POSE` | `2.0`         | robot_5 x init pose                                        |
-| `R5_Y_INIT_POSE` | `-1.0`        | robot_5 y init pose                                        |
-| `R5_Z_INIT_POSE` | `0.00`        | robot_5 z init pose                                        |
-| `R5_INIT_YAW`    | `0.0`         | robot_5 yaw init pose                                      |
+| Environment | Default Value | Meaning                               |
+| ----------- | ------------- | ------------------------------------- |
+| `ROBOT_QTY` | `1`           | Number of robots to spawn (maximum 5) |
+| `ROBOT_ID`  | `robot`       | Robot namespace                       |
+
+#### Single robot or robot 1 init pose parameters
+
+| Environment   | Default Value | Meaning                                                    |
+| ------------- | ------------- | ---------------------------------------------------------- |
+| `X_INIT_POSE` | `0.0`         | robot or robot_1 (in case of multiple robot) x init pose   |
+| `Y_INIT_POSE` | `0.0`         | robot or robot_1 (in case of multiple robot) y init pose   |
+| `Z_INIT_POSE` | `0.0`         | robot or robot_1 (in case of multiple robot) z init pose   |
+| `INIT_YAW`    | `0.0`         | robot or robot_1 (in case of multiple robot) yaw init pose |
+
+#### Robot 2 init pose parameters
+
+| Environment      | Default Value | Meaning               |
+| ---------------- | ------------- | --------------------- |
+| `R2_X_INIT_POSE` | `2.0`         | robot_2 x init pose   |
+| `R2_Y_INIT_POSE` | `1.0`         | robot_2 y init pose   |
+| `R2_Z_INIT_POSE` | `0.00`        | robot_2 z init pose   |
+| `R2_INIT_YAW`    | `0.0`         | robot_2 yaw init pose |
+
+#### Robot 3 init pose parameters
+
+| Environment      | Default Value | Meaning               |
+| ---------------- | ------------- | --------------------- |
+| `R3_X_INIT_POSE` | `-2.0`        | robot_3 x init pose   |
+| `R3_Y_INIT_POSE` | `-1.0`        | robot_3 y init pose   |
+| `R3_Z_INIT_POSE` | `0.00`        | robot_3 z init pose   |
+| `R3_INIT_YAW`    | `0.0`         | robot_3 yaw init pose |
+
+#### Robot 4 init pose parameters
+
+| Environment      | Default Value | Meaning               |
+| ---------------- | ------------- | --------------------- |
+| `R4_X_INIT_POSE` | `-2.0`        | robot_4 x init pose   |
+| `R4_Y_INIT_POSE` | `1.0`         | robot_4 y init pose   |
+| `R4_Z_INIT_POSE` | `0.00`        | robot_4 z init pose   |
+| `R4_INIT_YAW`    | `0.0`         | robot_4 yaw init pose |
+
+#### Robot 5 init pose parameters
+
+| Environment      | Default Value | Meaning               |
+| ---------------- | ------------- | --------------------- |
+| `R5_X_INIT_POSE` | `2.0`         | robot_5 x init pose   |
+| `R5_Y_INIT_POSE` | `-1.0`        | robot_5 y init pose   |
+| `R5_Z_INIT_POSE` | `0.00`        | robot_5 z init pose   |
+| `R5_INIT_YAW`    | `0.0`         | robot_5 yaw init pose |
 
 #### Launch flags
 
@@ -162,9 +187,9 @@ roslaunch rb_theron_sim_bringup rb_theron_complete.launch
 
 | Environment               | Default Value        | Meaning                                 |
 | ------------------------- | -------------------- | --------------------------------------- |
-| `ROBOT_WEB_PAD_PLUGIN`    | `web_pad`            | web pad configuration file   |
-| `ROBOT_WEB_PAD_TOPIC`     | `web_joy`            | web pad joy toppic                     |
-| `ROBOT_WEB_PAD_TWISTMUX`  | `web_teleop/cmd_vel` | topic to publish cmd_vel               |
+| `ROBOT_WEB_PAD_PLUGIN`    | `web_pad`            | web pad configuration file              |
+| `ROBOT_WEB_PAD_TOPIC`     | `web_joy`            | web pad joy toppic                      |
+| `ROBOT_WEB_PAD_TWISTMUX`  | `web_teleop/cmd_vel` | topic to publish cmd_vel                |
 | `ROBOT_WEB_VIDEO_QUALITY` | `50`                 | quality of transmission of video server |
 
 #### Robot web video server parameters
