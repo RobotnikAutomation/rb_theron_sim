@@ -1,6 +1,24 @@
 # RB-THERON simulation package
 Packages for the simulation of the RB-Theron
 
+-   [RB-THERON simulation package](#rb-theron-simulation-package)
+    -   [Packages](#packages)
+        -   [rb\_theron\_gazebo](#rb_theron_gazebo)
+        -   [rb\_theron\_sim\_bringup](#rb_theron_sim_bringup)
+    -   [Simulating RB-Theron](#simulating-rb-theron)
+        -   [1) Install the following
+            dependencies:](#install-the-following-dependencies)
+        -   [2) Create a workspace and clone the
+            repository:](#create-a-workspace-and-clone-the-repository)
+        -   [3) Compile:](#compile)
+        -   [4) Launch RB-Theron simulation (1 robot by default, up to 3
+            robots):](#launch-rb-theron-simulation-1-robot-by-default-up-to-3-robots)
+        -   [Environment Variables](#environment-variables)
+    -   [Docker](#docker)
+        -   [Installation of required
+            files](#installation-of-required-files)
+        -   [Usage](#usage)
+
 ## Packages
 
 ### rb_theron_gazebo
