@@ -245,6 +245,11 @@ nvidia-smi &>/dev/null \
 cd docker
 docker compose up
 ```
+**NOTE:** keep in mind that all changes on the rb-theron files, won't be updated to image if you do not rebuild image
+if you want to make sure that every time you rebuild the container use the following command:
+```bash
+docker compose up --build
+```
 
 #### Manual Build
 
