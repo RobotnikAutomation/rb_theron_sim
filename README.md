@@ -162,9 +162,9 @@ roslaunch rb_theron_sim_bringup rb_theron_complete.launch
 
 | Environment               | Default Value        | Meaning                                 |
 | ------------------------- | -------------------- | --------------------------------------- |
-| `ROBOT_WEB_PAD_PLUGIN`    | `web_pad`            |                                         |
-| `ROBOT_WEB_PAD_TOPIC`     | `web_joy`            |                                         |
-| `ROBOT_WEB_PAD_TWISTMUX`  | `web_teleop/cmd_vel` |                                         |
+| `ROBOT_WEB_PAD_PLUGIN`    | `web_pad`            | web pad configuration file   |
+| `ROBOT_WEB_PAD_TOPIC`     | `web_joy`            | web pad joy toppic                     |
+| `ROBOT_WEB_PAD_TWISTMUX`  | `web_teleop/cmd_vel` | topic to publish cmd_vel               |
 | `ROBOT_WEB_VIDEO_QUALITY` | `50`                 | quality of transmission of video server |
 
 #### Robot web video server parameters
