@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added environment variable to `POSE_PUBLISHER_BASE_FRAME_SUFFIX` to change default value of robot base frame suffix.
 - Added environment variable to `POSE_PUBLISHER_TOPIC_REPUB` to change default value of the topic name where the node_pose_publisher publishes.
 - Added environment variable to `LAUNCH_WEB_THROTTLE` to launch the throttle publisher. 
+- Added github actions for automatic release creation
 
 ### Changed
 - Modified the `rb_theron_complete.launch` to add the pose_publisher `.launch` and read the environment variables to configure it.
