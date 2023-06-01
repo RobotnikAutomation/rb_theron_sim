@@ -1,17 +1,17 @@
 # RB-THERON simulation package
 Packages for the simulation of the RB-Theron
 
-<h1> Packages </h1>
+## Packages
 
-<h2>rb_theron_gazebo</h2>
+### rb_theron_gazebo
 
 Launch files and world files to start the models in gazebo
 
-<h2>rb_theron_sim_bringup</h2>
+### rb_theron_sim_bringup
 
 Launch files that launch the complete simulation of the robot
 
-<h1>Simulating RB-Theron</h1>
+## Simulating RB-Theron
 
 ### 1) Install the following dependencies:
 
