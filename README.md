@@ -1,7 +1,4 @@
-# rb_theron_sim
-
-=============
-
+# RB-THERON simulation package
 Packages for the simulation of the RB-Theron
 
 <h1> Packages </h1>
