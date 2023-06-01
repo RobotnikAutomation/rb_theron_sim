@@ -200,9 +200,9 @@ roslaunch rb_theron_sim_bringup rb_theron_complete.launch
 | `ROBOT_WEB_VIDEO_SERVER_PORT`    | `8092`        | port for web video server        |
 | `ROBOT_WEB_VIDEO_TRANSPORT`      | `compressed`  | type of video transport          |
 
-## Docker Usage
+## Docker
 
-In order to run this simulation you will need nvidia graphical accelation
+The simulation requires a graphical user interface and if you have an nvidia powered machine, you can use the nvidia-containers to use graphical acceleration.
 
 ### Installation of required files
 
