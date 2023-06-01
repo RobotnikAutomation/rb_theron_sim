@@ -6,13 +6,10 @@ Packages for the simulation of the RB-Theron
         -   [rb\_theron\_gazebo](#rb_theron_gazebo)
         -   [rb\_theron\_sim\_bringup](#rb_theron_sim_bringup)
     -   [Simulating RB-Theron](#simulating-rb-theron)
-        -   [1) Install the following
-            dependencies:](#install-the-following-dependencies)
-        -   [2) Create a workspace and clone the
-            repository:](#create-a-workspace-and-clone-the-repository)
-        -   [3) Compile:](#compile)
-        -   [4) Launch RB-Theron simulation (1 robot by default, up to 3
-            robots):](#launch-rb-theron-simulation-1-robot-by-default-up-to-3-robots)
+        -   [Install dependencies](#install-dependencies)
+        -   [Workspace and repository](#workspace-and-repository)
+        -   [Compile:](#compile)
+        -   [Launch RB-Theron simulation](#launch-rb-theron-simulation)
         -   [Environment Variables](#environment-variables)
     -   [Docker](#docker)
         -   [Installation](#installation)
@@ -31,7 +28,13 @@ Launch files that launch the complete simulation of the robot
 
 ## Simulating RB-Theron
 
-### 1) Install the following dependencies:
+This are the steps to run the simulation in ros environment. 
+It's assumed that already have installed the following on your system:
+- [ROS](http://wiki.ros.org/ROS/Installation)
+- [catkin-tools](https://pypi.org/project/catkin-tools/)
+- [rosdep](https://pypi.org/project/rosdep/)
+
+### Install dependencies
 
 This simulation has been tested using Gazebo 9 version. To facilitate the installation you can use the vcstool:
 
@@ -39,7 +42,9 @@ This simulation has been tested using Gazebo 9 version. To facilitate the instal
 sudo apt-get install -y python3-vcstool
 ```
 
-### 2) Create a workspace and clone the repository:
+### Workspace and repository
+
+Create the workspace and clone the repository using the following commands:
 
 ```bash
 mkdir catkin_ws
@@ -49,46 +54,33 @@ vcs import --input \
 rosdep install --from-paths src --ignore-src -y -r
 ```
 
-### 3) Compile:
+### Compile:
+
+You will need the compile the workspace in order to make it work
 
 ```bash
 catkin build
 source devel/setup.bash
 ```
 
-### 4) Launch RB-Theron simulation (1 robot by default, up to 3 robots):
+### Launch RB-Theron simulation
 
-- RB-Theron:
+For default configuration with 1 robot:
 
 ```bash
 roslaunch rb_theron_sim_bringup rb_theron_complete.launch
 ```
+if you want to use more than one robot specify the number using the parameter `robot_qty` or the environment varialble `ROBOT_QTY`:
 
+
+```bash
+roslaunch rb_theron_sim_bringup rb_theron_complete.launch robot_qty:=5
+```
+or:
+```bash
+ROBOT_QTY=5 roslaunch rb_theron_sim_bringup rb_theron_complete.launch
+```
 ### Environment Variables
-
-| Enviroment                   | Default Value          | Meaning                      |
-| ---------------------------- | ---------------------- | ---------------------------- |
-| `X_INIT_POSE`                | `0.0`                  | robot x init pose            |
-| `Y_INIT_POSE`                | `0.0`                  | robot y init pose            |
-| `Z_INIT_POSE`                | `0.15`                 | robot z init pose            |
-| `INIT_YAW`                   | `0.0`                  | robot yaw init pose          |
-| `LAUNCH_GMAPPING`            | `false`                | launching gmapping           |
-| `LAUNCH_AMCL`                | `true`                 | launching amcl               |
-| `LAUNCH_MAPSERVER`           | `true`                 | launching map server         |
-| `LAUNCH_MOVE_BASE`           | `true`                 | launching move base          |
-| `LAUNCH_PAD`                 | `true`                 | launching joystick           |
-| `LAUNCH_ROSBRIDGE`           | `true`                 | launching rosbridge          |
-| `LAUNCH_RVIZ`                | `true`                 | launching rviz               |
-| `USE_GPU`                    | `true`                 | gazebo use gpu               |
-| `VERBOSE`                    | `false`                | gazebo verbose               |
-| `GUI`                        | `true`                 | gazebo gui launch            |
-| `DEBUG`                      | `false`                | gazebo debug                 |
-| `ROSBRIDGE_PORT`             | `9090`                 | default                      |
-| `LAUNCH_POSE_PUBLISHER`      | `false`                | launching pose publisher     |
-| `POSE_PUBLISHER_FREQUENCY`   | `10`                   | pose publisher frequency     |
-| `POSE_PUBLISHER_MAP_FRAME`   | `robot_map`            | robot map frame              |
-| `POSE_PUBLISHER_BASE_FRAME`  | `robot_base_footprint` | robot base frame             |
-| `POSE_PUBLISHER_TOPIC_REPUB` | `robot_pose`           | robot pose republished topic |
 
 #### Robot quantity and namespace parameters
 
