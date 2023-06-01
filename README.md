@@ -1,20 +1,21 @@
 # RB-THERON simulation package
+
 Packages for the simulation of the RB-Theron
 
--   [RB-THERON simulation package](#rb-theron-simulation-package)
-    -   [Packages](#packages)
-        -   [rb\_theron\_gazebo](#rb_theron_gazebo)
-        -   [rb\_theron\_sim\_bringup](#rb_theron_sim_bringup)
-    -   [Simulating RB-Theron](#simulating-rb-theron)
-        -   [Install dependencies](#install-dependencies)
-        -   [Workspace and repository](#workspace-and-repository)
-        -   [Compile:](#compile)
-        -   [Launch RB-Theron simulation](#launch-rb-theron-simulation)
-        -   [Environment Variables](#environment-variables)
-    -   [Docker](#docker)
-        -   [Installation](#installation)
-        -   [Usage](#usage)
-        -   [Notes](#notes)
+- [RB-THERON simulation package](#rb-theron-simulation-package)
+  - [Packages](#packages)
+    - [rb\_theron\_gazebo](#rb_theron_gazebo)
+    - [rb\_theron\_sim\_bringup](#rb_theron_sim_bringup)
+  - [Simulating RB-Theron](#simulating-rb-theron)
+    - [Install dependencies](#install-dependencies)
+    - [Workspace and repository](#workspace-and-repository)
+    - [Compile:](#compile)
+    - [Launch RB-Theron simulation](#launch-rb-theron-simulation)
+    - [Environment Variables](#environment-variables)
+  - [Docker](#docker)
+    - [Installation](#installation)
+    - [Usage](#usage)
+    - [Notes](#notes)
 
 ## Packages
 
@@ -30,6 +31,7 @@ Launch files that launch the complete simulation of the robot
 
 This are the steps to run the simulation in ros environment. 
 It's assumed that already have installed the following on your system:
+
 - [ROS](http://wiki.ros.org/ROS/Installation)
 - [catkin-tools](https://pypi.org/project/catkin-tools/)
 - [rosdep](https://pypi.org/project/rosdep/)
@@ -70,16 +72,19 @@ For default configuration with 1 robot:
 ```bash
 roslaunch rb_theron_sim_bringup rb_theron_complete.launch
 ```
-if you want to use more than one robot specify the number using the parameter `robot_qty` or the environment varialble `ROBOT_QTY`:
 
+if you want to use more than one robot specify the number using the parameter `robot_qty` or the environment varialble `ROBOT_QTY`:
 
 ```bash
 roslaunch rb_theron_sim_bringup rb_theron_complete.launch robot_qty:=5
 ```
+
 or:
+
 ```bash
 ROBOT_QTY=5 roslaunch rb_theron_sim_bringup rb_theron_complete.launch
 ```
+
 ### Environment Variables
 
 #### Robot quantity and namespace parameters
@@ -237,8 +242,10 @@ nvidia-smi &>/dev/null \
 cd docker
 docker compose up
 ```
+
 **NOTE:** keep in mind that all changes on the rb-theron files, won't be updated to image if you do not rebuild image
 if you want to make sure that every time you rebuild the container use the following command:
+
 ```bash
 docker compose up --build
 ```
