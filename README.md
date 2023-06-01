@@ -75,6 +75,106 @@ roslaunch rb_theron_sim_bringup rb_theron_complete.launch
 | `POSE_PUBLISHER_BASE_FRAME`  | `robot_base_footprint` | robot base frame             |
 | `POSE_PUBLISHER_TOPIC_REPUB` | `robot_pose`           | robot pose republished topic |
 
+#### Robot quantity and position parameters
+
+| Environment      | Default Value | Meaning                                                    |
+| ---------------- | ------------- | ---------------------------------------------------------- |
+| `ROBOT_QTY`      | `1`           | Number of robots to spawn (maximum 5)                      |
+| `ROBOT_ID`       | `robot`       | Robot namespace                                            |
+| `X_INIT_POSE`    | `0.0`         | robot or robot_1 (in case of multiple robot) x init pose   |
+| `Y_INIT_POSE`    | `0.0`         | robot or robot_1 (in case of multiple robot) y init pose   |
+| `Z_INIT_POSE`    | `0.0`         | robot or robot_1 (in case of multiple robot) z init pose   |
+| `INIT_YAW`       | `0.0`         | robot or robot_1 (in case of multiple robot) yaw init pose |
+| `R2_X_INIT_POSE` | `2.0`         | robot_2 x init pose                                        |
+| `R2_Y_INIT_POSE` | `1.0`         | robot_2 y init pose                                        |
+| `R2_Z_INIT_POSE` | `0.00`        | robot_2 z init pose                                        |
+| `R2_INIT_YAW`    | `0.0`         | robot_2 yaw init pose                                      |
+| `R3_X_INIT_POSE` | `-2.0`        | robot_3 x init pose                                        |
+| `R3_Y_INIT_POSE` | `-1.0`        | robot_3 y init pose                                        |
+| `R3_Z_INIT_POSE` | `0.00`        | robot_3 z init pose                                        |
+| `R3_INIT_YAW`    | `0.0`         | robot_3 yaw init pose                                      |
+| `R4_X_INIT_POSE` | `-2.0`        | robot_4 x init pose                                        |
+| `R4_Y_INIT_POSE` | `1.0`         | robot_4 y init pose                                        |
+| `R4_Z_INIT_POSE` | `0.00`        | robot_4 z init pose                                        |
+| `R4_INIT_YAW`    | `0.0`         | robot_4 yaw init pose                                      |
+| `R5_X_INIT_POSE` | `2.0`         | robot_5 x init pose                                        |
+| `R5_Y_INIT_POSE` | `-1.0`        | robot_5 y init pose                                        |
+| `R5_Z_INIT_POSE` | `0.00`        | robot_5 z init pose                                        |
+| `R5_INIT_YAW`    | `0.0`         | robot_5 yaw init pose                                      |
+
+#### Launch flags
+
+| Environment               | Default Value | Meaning                                  |
+| ------------------------- | ------------- | ---------------------------------------- |
+| `LAUNCH_GMAPPING`         | `false`       | launching gmapping                       |
+| `LAUNCH_AMCL`             | `true`        | launching amcl                           |
+| `LAUNCH_MAPSERVER`        | `true`        | launching mapserver                      |
+| `LAUNCH_MOVE_BASE`        | `true`        | launching move base                      |
+| `LAUNCH_PAD`              | `true`        | launching pad (disabled for multirobots) |
+| `LAUNCH_RVIZ`             | `true`        | launching rviz                           |
+| `LAUNCH_LASER_MERGER`     | `false`       | launching laser_merger                   |
+| `LAUNCH_WEB_BACKEND`      | `false`       | launching web backend                    |
+| `LAUNCH_POSE_PUBLISHER`   | `false`       | launching pose publisher                 |
+| `LAUNCH_WEB_THROTTLE`     | `false`       | launching web throttle                   |
+| `LAUNCH_ROSBRIDGE`        | `true`        | launching rosbridge                      |
+| `LAUNCH_WEB_PAD`          | `true`        | launching web pad                        |
+| `LAUNCH_WEB_VIDEO_SERVER` | `true`        | launching web video server               |
+| `USE_GPU`                 | `true`        | gazebo use gpu                           |
+
+#### Gazebo parameters
+
+| Environment | Default Value | Meaning           |
+| ----------- | ------------- | ----------------- |
+| `VERBOSE`   | `false`       | gazebo verbose    |
+| `GUI`       | `false`       | gazebo gui launch |
+| `DEBUG`     | `false`       | gazebo debug      |
+
+#### Pose republisher parameters
+
+| Environment                        | Default Value    | Meaning                      |
+| ---------------------------------- | ---------------- | ---------------------------- |
+| `POSE_PUBLISHER_FREQUENCY`         | `10`             | pose publisher frequency     |
+| `POSE_PUBLISHER_BASE_FRAME_SUFFIX` | `base_footprint` | robot base frame suffix      |
+| `POSE_PUBLISHER_TOPIC_REPUB`       | `pose`           | robot pose republished topic |
+
+#### Rosbridge parameters
+
+| Environment      | Default Value | Meaning |
+| ---------------- | ------------- | ------- |
+| `ROSBRIDGE_PORT` | `9090`        | default |
+
+#### Web Throttle parameters
+
+| Environment               | Default Value    | Meaning                     |
+| ------------------------- | ---------------- | --------------------------- |
+| `THROTTLE_MAP`            | `false`          | Throttle map                |
+| `ROBOT_GPS_MODEL`         | `none`           | gps model to                |
+| `ROBOT_HMI_2D_SENSOR_1`   | `none`           | 2d laser scan 1 to throttle |
+| `ROBOT_HMI_2D_SENSOR_2`   | `none`           | 2d laser scan 2 to throttle |
+| `ROBOT_HMI_2D_SENSOR_3`   | `none`           | 2d laser scan 3 to throttle |
+| `ROBOT_HMI_3D_SENSOR_1`   | `none`           | 3d laser scan 1 to throttle |
+| `ROBOT_HMI_3D_SENSOR_2`   | `none`           | 3d laser scan 2 to throttle |
+| `ROBOT_HMI_3D_SENSOR_3`   | `none`           | 3d laser scan 3 to throttle |
+| `ROBOT_HMI_MAP_NAV_TOPIC` | `navigation_map` | navigation map throttle     |
+| `ROBOT_HMI_MAP_TOPIC`     | `map`            | map to throttle             |
+
+#### Robot web joystick parameters
+
+| Environment               | Default Value        | Meaning                                 |
+| ------------------------- | -------------------- | --------------------------------------- |
+| `ROBOT_WEB_PAD_PLUGIN`    | `web_pad`            |                                         |
+| `ROBOT_WEB_PAD_TOPIC`     | `web_joy`            |                                         |
+| `ROBOT_WEB_PAD_TWISTMUX`  | `web_teleop/cmd_vel` |                                         |
+| `ROBOT_WEB_VIDEO_QUALITY` | `50`                 | quality of transmission of video server |
+
+#### Robot web video server parameters
+
+| Environment                      | Default Value | Meaning                          |
+| -------------------------------- | ------------- | -------------------------------- |
+| `ROBOT_WEB_VIDEO_SERVER_ADDRESS` | `0.0.0.0`     | allowed ips for web video server |
+| `ROBOT_WEB_VIDEO_SERVER_PORT`    | `8092`        | port for web video server        |
+| `ROBOT_WEB_VIDEO_TRANSPORT`      | `compressed`  | type of video transport          |
+
 ## Docker Usage
 
 In order to run this simulation you will need nvidia graphical accelation
@@ -159,4 +259,3 @@ This is docker requires a graphical interface
    ```bash
    docker compose down
    ```
-
