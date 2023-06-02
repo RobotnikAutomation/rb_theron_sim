@@ -270,13 +270,9 @@ This is docker requires a graphical interface
 - You could also run a `roscore` previous to launch the simulation in order to have some processes on the host running
 
 - if you want to enter on the container use the following command in another terminal
-1. Close `gazebo` and `rviz` and wait a bit
-
-2. execute in another terminal:
-   
-   ```bash
-   docker container rm --force docker-rb-theron-sim-1
-   ```
+```bash
+ docker container rm --force docker-rb-theron-sim-1
+```
 - In order to exit you have to 2 options:
 1. Close `gazebo` and `rviz` and wait a bit
 
