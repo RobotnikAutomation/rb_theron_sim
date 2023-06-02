@@ -271,7 +271,7 @@ This is docker requires a graphical interface
 
 - if you want to enter on the container use the following command in another terminal:
    ```bash
-   docker container rm --force docker-rb-theron-sim-1
+   docker exec -it docker-rb-theron-sim-1 bash
    ```
 - In order to exit you have to 2 options:
 1. Close `gazebo` and `rviz` and wait a bit
