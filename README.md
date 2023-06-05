@@ -261,9 +261,7 @@ docker compose build
 
 ### Notes
 
-This is docker requires a graphical interface
-
-- In order to exit you have to 2 options:
+- This is docker requires a graphical interface
 
 - The `ROS_MASTER_URI` is accessible outside the container, so in the host any ros command should work
 
