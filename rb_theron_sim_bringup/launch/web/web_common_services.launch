@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<launch>
+
+	<!-- arg to config the launch file-->
+	<arg name="rosbridge" default="$(optenv LAUNCH_ROSBRIDGE true)" />
+	<arg name="web_video_server" default="$(optenv LAUNCH_WEB_VIDEO_SERVER true)" />
+
+	<!--  rosbridge arguments -->
+	<arg name="rosbridge_port" default="$(optenv ROSBRIDGE_PORT 9090)" />
+
+    <!-- inits tf2_web_republisher node -->
+    <node
+    	ns="/"
+    	name="tf2_web_republisher"
+    	pkg="tf2_web_republisher"
+    	type="tf2_web_republisher"
+    	output="screen"
+    />
+
+	<include
+		if="$(arg rosbridge)"
+		file="$(find rb_theron_sim_bringup)/launch/web/rosbridge.launch"
+	>
+		<arg name="port" value="$(arg rosbridge_port)"/>
+	</include>
+
+	<include
+		if="$(arg web_video_server)"
+		file="$(find rb_theron_sim_bringup)/launch/web/web_video_server.launch"
+	>
+	</include>
+</launch>

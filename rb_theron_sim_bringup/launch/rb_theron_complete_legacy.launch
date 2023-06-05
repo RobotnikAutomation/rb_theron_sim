@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<launch>
+
+	<!-- arg to config the launch file-->
+
+	<arg name="gazebo_world" default="$(find rb_theron_gazebo)/worlds/rb_theron_office.world"/>
+	<!-- <arg name="launch_base_hw_sim" default="true"/> -->
+	<arg name="use_ros_planar_move_plugin" default="false"/>
+
+	<!-- arguments robot-->
+	<arg name="id_robot" default="robot"/>
+	<arg name="xacro_robot" default="rb_theron.urdf.xacro"/>
+
+	<!-- robot init pose-->
+	<arg name="x_init_pose" default="$(optenv X_INIT_POSE 0.0)" />
+	<arg name="y_init_pose" default="$(optenv Y_INIT_POSE 0.0)" />
+	<arg name="z_init_pose" default="$(optenv Z_INIT_POSE 0.15)" />
+	<arg name="init_yaw" default="$(optenv INIT_YAW 0.0)" />
+
+	<!-- launch components flag argurments-->
+	<arg name="gmapping" default="$(optenv LAUNCH_GMAPPING false)"/>
+	<arg name="amcl" default="$(optenv LAUNCH_AMCL true)"/>
+	<arg name="mapserver" default="$(optenv LAUNCH_MAPSERVER true)"/>
+	<arg name="move_base" default="$(optenv LAUNCH_MOVE_BASE true)"/>
+	<arg name="pad" default="$(optenv LAUNCH_PAD true)"/>
+	<arg name="rviz" default="$(optenv LAUNCH_RVIZ true)"/>
+	<arg name="laser_merger" default="$(optenv LAUNCH_LASER_MERGER false)" />
+	<arg name="web_backend" default="$(optenv LAUNCH_WEB_BACKEND false)" />
+	<arg name="pose_publisher" default="$(optenv LAUNCH_POSE_PUBLISHER false)"/>
+
+	<!-- node pose_publisher arguments -->
+	<arg name="pose_frequency" default="$(optenv POSE_PUBLISHER_FREQUENCY 10)"/>
+	<arg name="pose_base_frame_suffix" default="$(optenv POSE_PUBLISHER_BASE_FRAME_SUFFIX base_footprint)"/>
+	<arg name="pose_topic_republish" default="$(optenv POSE_PUBLISHER_TOPIC_REPUB pose)"/>
+
+	<!-- gazebo argurments-->
+	<arg name="use_gpu" default="$(optenv USE_GPU true)"/>
+	<arg name="verbose" default="$(optenv VERBOSE false)"/>
+	<arg name="gui" default="$(optenv GUI false)"/>
+	<arg name="debug" default="$(optenv DEBUG false)"/>
+
+	<!-- mapping arguments-->
+	<arg name="map_frame" default="$(arg id_robot)_map"/>
+	<arg name="map_file" default="$(find rb_theron_localization)/maps/willow_garage/willow_garage.yaml"/>
+
+	<include file="$(find rb_theron_gazebo)/launch/rb_theron_gazebo.launch">
+		<!-- general args -->
+		<arg name="gazebo_world" value="$(arg gazebo_world)"/>
+		<!-- <arg name="launch_base_hw_sim" value="$(arg launch_base_hw_sim)"/> -->
+		<arg name="use_ros_planar_move_plugin" value="$(arg use_ros_planar_move_plugin)"/>
+
+		<!-- robot args -->
+		<arg name="id_robot" default="$(arg id_robot)"/>
+		<arg name="xacro_robot" value="$(arg xacro_robot)"/>
+		<!-- robot init pose-->
+		<arg name="x_init_pose" value="$(arg x_init_pose)" />
+		<arg name="y_init_pose" value="$(arg y_init_pose)" />
+		<arg name="z_init_pose" value="$(arg z_init_pose)" />
+		<arg name="init_yaw" value="$(arg init_yaw)" />
+		<!-- Launch components -->
+		<arg name="rviz" value="$(arg rviz)"/>
+		<arg name="gmapping" value="$(arg gmapping)"/>
+		<arg name="amcl" value="$(arg amcl)"/>
+		<arg name="mapserver" value="$(arg mapserver)"/>
+		<arg name="map_frame" value="$(arg map_frame)"/>
+		<arg name="map_file" value="$(arg map_file)"/>
+		<arg name="move_base" value="$(arg move_base)"/>
+		<arg name="pad" value="$(arg pad)"/>
+		<arg name="pose_publisher" value="$(arg pose_publisher)"/>
+		<!-- config node pose_publisher -->
+		<arg name="pose_frequency" default="$(arg pose_frequency)"/>
+		<arg name="base_frame_suffix" default="$(arg pose_base_frame_suffix)"/>
+		<arg name="pose_topic_republish" default="$(arg pose_topic_republish)"/>
+
+		<!-- gazebo parameters -->
+		<arg name="use_gpu" value="$(arg use_gpu)"/>
+		<arg name="verbose" value="$(arg verbose)"/>
+		<arg name="gui" value="$(arg gui)"/>
+		<arg name="debug" value="$(arg debug)"/>
+	</include>
+	<group ns="$(arg id_robot)">
+		<include
+			if="$(arg web_backend)"
+			file="$(find rb_theron_sim_bringup)/launch/web/web_backend.launch"
+		>
+			<arg name="id_robot" value="$(arg id_robot)"/>
+		</include>
+		<include
+			if="$(arg laser_merger)"
+			file="$(find rb_theron_sim_bringup)/launch/sensors/merge_scan.launch"
+		>
+		</include>
+	</group>
+</launch>
