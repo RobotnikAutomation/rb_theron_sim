@@ -1,69 +1,74 @@
----
 version: "3.7"
 services:
-  rb-theron-sim:
-    image: robotnik/rb-theron-sim:melodic-devel
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile
-    # command: "sleep infinity"
-    network_mode: "host"
-    # stdin_open: true
-    # tty: true
-    privileged: true
-    # group_add:
-    #   - dialout
-    #   - plugdev
-    #   - video
-    group_add:
-      - dialout
-      - plugdev
-      - video
+  rb-theron-gazebo:
+    image: robotnik/robotnik-simulations:rb-theron-gazebo-humble-0.2.0
     environment:
-      ROS_MASTER_URI: "http://localhost:11311"
-      GAZEBO_MASTER_URI: "http://localhost:11345"
-      DISPLAY: $DISPLAY
-      QT_X11_NO_MITSHM: 1
+      DISPLAY: ${DISPLAY}
       NVIDIA_VISIBLE_DEVICES: all
-      NVIDIA_DRIVER_CAPABILITIE: graphics
-      LIBGL_ALWAYS_INDIRECT: 0
-      ROS_BU_PKG: "rb_theron_sim_bringup"
-      ROS_BU_LAUNCH: "rb_theron_complete.launch"
-      X_INIT_POSE: "0.0"
-      Y_INIT_POSE: "0.0"
-      Z_INIT_POSE: "0.15"
-      INIT_YAW: "0.0"
-      LAUNCH_GMAPPING: "false"
-      LAUNCH_AMCL: "true"
-      LAUNCH_MAPSERVER: "true"
-      LAUNCH_MOVE_BASE: "true"
-      LAUNCH_PAD: "true"
-      LAUNCH_RVIZ: "true"
-      LAUNCH_LASER_MERGER: "true"
-      LAUNCH_WEB_BACKEND: "true"
-      USE_GPU: "false"
-      VERBOSE: "false"
-      GUI: "true"
-      DEBUG: "false"
-      ROSBRIDGE_PORT: "9090"
-      ROBOT_WEB_VIDEO_SERVER_PORT: "8092"
-      ROBOT_WEB_VIDEO_QUALITY: "50"
-      ROBOT_WEB_VIDEO_TRANSPORT: "compresed"
-      ROBOT_HMI_2D_SENSOR_1: "merged_laser/scan"
+      NVIDIA_DRIVER_CAPABILITIES: all
+      ROS_DOMAIN_ID: 40
+      ROBOT_ID: robot_a
+      ROBOT_DESCRIPTION_FILE: dual_laser.urdf.xacro
+      POS_X: 0.0
+      POS_Y: 0.0
+      POS_Z: 0.1
+    volumes:
+      - type: bind
+        source: /tmp/.X11-unix
+        target: /tmp/.X11-unix
+    runtime: nvidia
+    network_mode: host
 
+  rb-theron-rviz:
+    image: robotnik/robotnik-simulations:rb-theron-gazebo-humble-0.2.0
+    environment:
+      DISPLAY: ${DISPLAY}
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: all
+      ROS_DOMAIN_ID: 40
     volumes:
       - type: bind
         source: /tmp/.X11-unix
         target: /tmp/.X11-unix
       - type: bind
-        source: /dev
-        target: /dev
-    devices:
-      - "/dev/dri"
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
+        source: ./config/default.rviz
+        target: /config/default.rviz
+        read_only: true
+    command: rviz2 -d /config/default.rviz --ros-args -p use_sim_time:=true
+    runtime: nvidia
+    network_mode: host
+
+  rb-theron-map-server:
+    image: robotnik/robotnik-simulations:rb-theron-gazebo-humble-0.2.0
+    environment:
+      ROS_DOMAIN_ID: 40
+      ROS_BU_PKG: rb_theron_localization
+      ROS_BU_LAUNCH: map_server.launch.py
+    network_mode: host
+
+  rb-theron-laser-merger:
+    image: robotnik/robotnik-simulations:rb-theron-gazebo-humble-0.2.0
+    environment:
+      ROS_DOMAIN_ID: 40
+      ROBOT_ID: robot_a
+      ROS_BU_PKG: rb_theron_localization
+      ROS_BU_LAUNCH: merge_laser.launch.py
+    network_mode: host
+
+  rb-theron-localization:
+    image: robotnik/robotnik-simulations:rb-theron-gazebo-humble-0.2.0
+    environment:
+      ROS_DOMAIN_ID: 40
+      ROBOT_ID: robot_a
+      ROS_BU_PKG: rb_theron_localization
+      ROS_BU_LAUNCH: localization.launch.py
+    network_mode: host
+
+  rb-theron-navigation:
+    image: robotnik/robotnik-simulations:rb-theron-gazebo-humble-0.2.0
+    environment:
+      ROS_DOMAIN_ID: 40
+      ROBOT_ID: robot_a
+      ROS_BU_PKG: rb_theron_navigation
+      ROS_BU_LAUNCH: default.launch.py
+    network_mode: host
