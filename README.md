@@ -51,6 +51,13 @@ source devel/setup.bash
 roslaunch rb_theron_sim_bringup rb_theron_complete.launch
 ```
 
+### 5) Launch RB-Theron Omni simulation (1 robot by default, up to 3 robots):
+- RB-Theron Omni:
+
+```bash
+roslaunch rb_theron_sim_bringup rb_theron_complete.launch xacro_robot:=rb_theron_omni.urdf.xacro use_ros_planar_move_plugin:=true odom_model_type:=omni
+```
+
 
 ## Docker Usage
 
