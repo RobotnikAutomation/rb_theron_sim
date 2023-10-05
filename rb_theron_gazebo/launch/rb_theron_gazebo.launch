@@ -21,6 +21,7 @@
 	<arg name="y_init_pose" default="0.0" />
 	<arg name="z_init_pose" default="0.1" />
 	<arg name="init_yaw" default="0.0"/>
+	<arg name="odom_model_type" default="diff"/>
 
 	<arg name="gmapping" default="false"/>
 	<arg name="amcl" default="false"/>
@@ -39,6 +40,7 @@
 		<arg name="y_init_pose" value="$(arg y_init_pose)"/>
 		<arg name="z_init_pose" value="$(arg z_init_pose)"/>
 		<arg name="init_yaw" value="$(arg init_yaw)"/>
+		<arg name="odom_model_type" value="$(arg odom_model_type)"/>
 		<arg name="launch_gmapping" value="$(arg gmapping)"/>
 		<arg name="launch_amcl" value="$(arg amcl)"/>
 		<arg name="launch_mapserver" value="$(arg mapserver)"/>
