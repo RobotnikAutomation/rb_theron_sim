@@ -69,7 +69,7 @@ In order to run this simulation you will need nvidia graphical accelation
 - [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
 - nvidia-drivers
 
-### Usage
+### Usage for RB-Theron simulation (1 robot by default, up to 3 robots):
 
 ```bash
 git clone https://github.com/RobotnikAutomation/rb_theron_sim.git
@@ -77,6 +77,18 @@ cd rb_theron_sim
 git checkout noetic-devel
 export ROS_BU_PKG="rb_theron_sim_bringup"
 export ROS_BU_LAUNCH="rb_theron_complete.launch"
+cd docker
+docker compose up
+```
+
+### Usage for RB-Theron Omni simulation (1 robot by default, up to 3 robots):
+
+```bash
+git clone https://github.com/RobotnikAutomation/rb_theron_sim.git
+cd rb_theron_sim
+git checkout noetic-devel
+export ROS_BU_PKG="rb_theron_sim_bringup"
+export ROS_BU_LAUNCH="rb_theron_complete.launch xacro_robot:=rb_theron_omni.urdf.xacro use_ros_planar_move_plugin:=true odom_model_type:=omni"
 cd docker
 docker compose up
 ```
