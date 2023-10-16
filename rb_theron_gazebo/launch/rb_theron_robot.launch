@@ -20,6 +20,8 @@
 	<arg name="launch_pad" default="false"/>
 	<arg name="scan_topic" default="front_laser/scan"/>
 	<arg name="use_gpu" default="true"/>
+	<arg name="use_sim" default="true"/>
+
 
 
 	<!-- <arg name="launch_base_hw_sim" default="false"/> -->
@@ -30,7 +32,7 @@
 	<group ns="$(arg id_robot)">
 
 		<!-- Load the URDF into the ROS Parameter Server -->
-		<param name="robot_description" command="$(find xacro)/xacro '$(find rb_theron_description)/robots/$(arg xacro_robot)' prefix:=$(arg prefix) ros_planar_move_plugin:=$(arg use_ros_planar_move_plugin) gpu:=$(arg use_gpu) --inorder"/>
+		<param name="robot_description" command="$(find xacro)/xacro '$(find rb_theron_description)/robots/$(arg xacro_robot)' prefix:=$(arg prefix) ros_planar_move_plugin:=$(arg use_ros_planar_move_plugin) gpu:=$(arg use_gpu) use_sim:=$(arg use_sim) --inorder"/>
 
 		<!-- Spawner model into gazebo -->
 		<node name="urdf_spawner_rb_theron_model" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-x $(arg x_init_pose) -y $(arg y_init_pose) -z $(arg z_init_pose) -Y $(arg init_yaw) -urdf -param robot_description -model $(arg id_robot)" />

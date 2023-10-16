@@ -24,6 +24,7 @@
 	<arg name="move_base" default="true"/>
 	<arg name="pad" default="true"/>
 	<arg name="use_gpu" default="true"/>
+	<arg name="use_sim" default="true"/>
 
 	<include file="$(find rb_theron_gazebo)/launch/rb_theron_gazebo.launch">
 		<!-- general args -->
@@ -49,6 +50,7 @@
 		<arg name="move_base" value="$(arg move_base)"/>
 		<arg name="pad" value="$(arg pad)"/>
 		<arg name="use_gpu" value="$(arg use_gpu)"/>
+		<arg name="use_sim" value="$(arg use_sim)"/>
 	</include>
 
 </launch>
