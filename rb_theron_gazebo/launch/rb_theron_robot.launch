@@ -79,6 +79,7 @@
 		<include if="$(arg launch_move_base)" file="$(find rb_theron_navigation)/launch/move_base.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
 			<arg name="global_frame" value="$(arg global_frame)"/>
+			<arg name="odom_model_type" value="$(arg odom_model_type)"/>
 		</include>
 
 		<!-- gmapping -->
