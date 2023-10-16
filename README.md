@@ -75,9 +75,9 @@ In order to run this simulation you will need nvidia graphical accelation
 git clone https://github.com/RobotnikAutomation/rb_theron_sim.git
 cd rb_theron_sim
 git checkout noetic-devel
+cd docker
 export ROS_BU_PKG="rb_theron_sim_bringup"
 export ROS_BU_LAUNCH="rb_theron_complete.launch"
-cd docker
 docker compose up
 ```
 
@@ -87,8 +87,8 @@ docker compose up
 git clone https://github.com/RobotnikAutomation/rb_theron_sim.git
 cd rb_theron_sim
 git checkout noetic-devel
+cd docker
 export ROS_BU_PKG="rb_theron_sim_bringup"
 export ROS_BU_LAUNCH="rb_theron_complete.launch xacro_robot:=rb_theron_omni.urdf.xacro use_ros_planar_move_plugin:=true odom_model_type:=omni"
-cd docker
 docker compose up
 ```
