@@ -127,7 +127,7 @@ COPY --chown=$user_name \
 	/tmp/
 
 ARG repo_file_list_to_use=/tmp/$repo_file
-ARG fresh_download_of_git_repos=no
+ARG fresh_download_of_git_repos=yes
 
 RUN true \
 	&& vcs import --input $repo_file_list_to_use --retry 10 --skip-existing\
