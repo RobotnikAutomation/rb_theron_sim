@@ -10,7 +10,7 @@
 	<arg name="gazebo_world" default="rb_theron_office"/>
 	<arg name="debug" default="false"/>
 	<!-- <arg name="launch_base_hw_sim" default="false"/> -->
-	<arg name="use_ros_planar_move_plugin" default="false"/>
+	<arg name="ros_planar_move_plugin" default="false"/>
 
 	<!--params of the robot-->
 	<!--rb_theron-->
@@ -50,7 +50,7 @@
 		<arg name="launch_move_base" value="$(arg move_base)"/>
 		<arg name="launch_pad" value="$(arg pad)"/>
 		<!-- <arg name="launch_base_hw_sim" value="$(arg launch_base_hw_sim)"/> -->
-		<arg name="use_ros_planar_move_plugin" value="$(arg use_ros_planar_move_plugin)"/>
+		<arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
 		<arg name="use_gpu" value="$(arg use_gpu)"/>
 		<arg name="use_sim" value="$(arg use_sim)"/>
 	</include>

@@ -55,7 +55,7 @@ roslaunch rb_theron_sim_bringup rb_theron_complete.launch
 - RB-Theron Omni:
 
 ```bash
-roslaunch rb_theron_sim_bringup rb_theron_complete.launch xacro_robot:=rb_theron_omni.urdf.xacro use_ros_planar_move_plugin:=true odom_model_type:=omni
+roslaunch rb_theron_sim_bringup rb_theron_complete.launch xacro_robot:=rb_theron_omni.urdf.xacro ros_planar_move_plugin:=true odom_model_type:=omni
 ```
 
 
@@ -89,6 +89,6 @@ cd rb_theron_sim
 git checkout noetic-devel
 cd docker
 export ROS_BU_PKG="rb_theron_sim_bringup"
-export ROS_BU_LAUNCH="rb_theron_complete.launch xacro_robot:=rb_theron_omni.urdf.xacro use_ros_planar_move_plugin:=true odom_model_type:=omni"
+export ROS_BU_LAUNCH="rb_theron_complete.launch xacro_robot:=rb_theron_omni.urdf.xacro ros_planar_move_plugin:=true odom_model_type:=omni"
 docker compose up
 ```
